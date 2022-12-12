@@ -14,9 +14,12 @@ class HeadButton extends React.Component {
     render() {
         return(
     
-            <Button className='menu-button mr-2'>
+            <Button htmlType="button" className='menu-button mr-2'>
                <>
-                {this.props.icon} <p className={this.props.textStyle} >{this.props.text} </p>
+                {this.props.icon} 
+                <p className={this.props.textStyle} >
+                    {this.props.text} 
+                </p>
                </>
 
             </Button> 

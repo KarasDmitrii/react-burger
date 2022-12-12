@@ -1,122 +1,79 @@
-import data from "../../utils/data";
-import React from "react";
+
+import React, { useState, useEffect, useMemo } from "react";
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
-const Mains = (props) => {
-    return(
-        props.ing.map((item) => {
-            return(
-                <div className="m-4 mains" key={item._id}>
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                    text={item.name}
-                    price={item.price}
-                    thumbnail={item.image}
-                    />
-                </div>    
-            )
-        })
-    )
-} 
+import Modal from "../Modal/Modal";
+import OrderDetails from "./OrderDetails";
+import ItemCard from "./ItemCard";
+import PriceButton from "./PriceButton";
+
+
 const dataPropTypes = PropTypes.shape({
-    _id: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
     proteins: PropTypes.number.isRequired,
     fat: PropTypes.number.isRequired,
     carbohydrates: PropTypes.number.isRequired,
-    _id: PropTypes.string.isRequired
-
+    calories: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
 });
-class Burger extends React.Component {
-    
-      //price: this.props.arrr.map((item) => {price += item.price}),
-data = this.props.arr;     
-bun = data.filter(word => word.type === "bun");
-souse = data.filter(word => word.type === "sauce");
-main = data.filter(word => word.type === "main");
-price1 = 0;
-    PriceButton = () => {
-        
-        
-        this.data.map((item) => {
-            this.price1 += item.price
-            });
-        
-            return(
-                <div className="price-button mr-6">
-                    <div className="price-fin mr-10">
-                        <Text text={this.price1} class="text text_type_digits-medium"/>
-                        <CurrencyIcon type="primary" />
-                    </div>
-                    <Button htmlType="button" type="primary" size="medium">
-                        <Text text="Оформить заказ" class="text text_type_main-default"/>
-                    </Button>
+
+
+
+
+function Burger(props) {
+
+    const bun = useMemo(() => props.arr.filter(item => item.type === "bun"));
+    const sauce = useMemo(() => props.arr.filter(word => word.type === "sauce"));
+    const main = useMemo(() => props.arr.filter(word => word.type === "main"));
+
+    return (
+        <div style={{ display: 'flex', position: 'relative' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div className="ml-10 mr-4">
+                    <ConstructorElement
+                        type="top"
+                        isLocked={true}
+                        text="Краторная булка N-200i (верх)"
+                        price={200}
+                        thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
+                    />
                 </div>
-        
-        
-            )
-        }
-  
-    render() {
-      
-      return (
-          <div style={{display: 'flex', position:'relative'}}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              <div className="ml-10 mr-4">    
-                  <ConstructorElement
-                  type="top"
-                  isLocked={true}
-                  text="Краторная булка N-200i (верх)"
-                  price={200}
-                  thumbnail={this.bun.find(element => element.name === 'Краторная булка N-200i').image}
-                  />
-              </div>
-              <div className="mains-list custom-scroll" >
-                  <Mains ing={this.main}/>
-              </div>
-              <div className="ml-10 mr-4 mb-10"> 
-                  <ConstructorElement
-                  type="bottom"
-                  isLocked={true}
-                  text="Краторная булка N-200i (низ)"
-                  price={200}
-                  thumbnail={this.bun.find(element => element.name === 'Краторная булка N-200i').image}
-                  />
-              </div>
-              <this.PriceButton/>    
-              </div>
-          </div>    
-      )                          
-  }
+                <li className="mains-list custom-scroll" >
+                    <ItemCard ing={main} />
+                </li>
+                <div className="ml-10 mr-4 mb-10">
+                    <ConstructorElement
+                        type="bottom"
+                        isLocked={true}
+                        text="Краторная булка N-200i (низ)"
+                        price={200}
+                        thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
+                    />
+                </div>
+                <PriceButton data={props.arr} />
+            </div>
+        </div>
+    )
+
 }
 Burger.propTypes = {
-    arr: PropTypes.arrayOf(dataPropTypes)
-}
+    arr: PropTypes.arrayOf(dataPropTypes).isRequired
+};
 
-const Text = (props) => {
-    return(
-        <p className={props.class}>
-            {props.text}
-        </p>
+function BurgerConstructor(props) {
+
+    return (
+        <>
+            <div className="constructor-box ml-5 mt-25 mb-10">
+                <Burger arr={props.arr} />
+            </div>
+        </>
     )
 }
-
-class BurgerConstructor extends React.Component {
-    render() {
-        return(
-        <>
-            <div className="constructor-box mt-25">         
-                <Burger arr={data}/>
-                
-            </div>
-            
-        </>
-            
-        )
-    
-    }
-}
+BurgerConstructor.propTypes = {
+    arr: PropTypes.arrayOf(dataPropTypes).isRequired
+};
 export default BurgerConstructor;
