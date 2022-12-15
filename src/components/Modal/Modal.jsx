@@ -1,10 +1,11 @@
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from './Modal.module.css';
 import PropTypes from 'prop-types';
-import ModalOverlay from "./ModalOverlay";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+// import ModalOverlay from "./ModalOverlay";
 const Backdrop = (props) => {
-    return <div className='modal-backdrop' onClick={props.onClose}></div>;
+    return <div className={styles.backdrop} onClick={props.onClose}></div>;
 };
 Backdrop.propTypes = {
     onClose: PropTypes.func.isRequired
@@ -31,7 +32,14 @@ const Modal = (props) => {
     return (ReactDOM.createPortal(
         <>
             <Backdrop onClose={onClose} />
-            <ModalOverlay onClose={onClose} >{children}</ModalOverlay>
+
+            <div className={styles.overlay} onClose={onClose} >
+                <div className={`${styles.icon} mt-10 mr-10`}>
+                    <CloseIcon type="primary" onClick={onClose} />
+                </div>
+                {children}
+            </div>
+
         </>,
         modalRoot
     ));

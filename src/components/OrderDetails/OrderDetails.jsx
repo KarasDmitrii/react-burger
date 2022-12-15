@@ -1,20 +1,17 @@
-import done from "../../images/done.png"
+import done from "../../images/graphics.svg";
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import styles from '../Modal/Modal.module.css';
 
-function OrderDetails({onClose}) {
+function OrderDetails() {
     return(
-        <div className="order-box">
-            <div className='order-close-icon mt-15 mr-10'>
-                <CloseIcon type="primary" onClick={onClose} />
-            </div>
-            
-            <div className='order mt-30 mb-30 ml-25 mr-25'>
+        <div>
+            <div className={`${styles.order} mt-30 mb-30 ml-25 mr-25`}>
                 <p className="text text_type_digits-large mb-8 ">034536</p>
                 <p className="text text_type_main-medium">
                     индефикатор заказа
                 </p>
-                <img className='order-image mt-15 mb-15' src={done}/>
+                <img className='mt-15 mb-15' src={done}/>
                 <p className="text text_type_main-default">
                     Ваш заказ уже начали готовить
                 </p>
@@ -26,7 +23,5 @@ function OrderDetails({onClose}) {
     );
 
 };
-OrderDetails.propTypes = {
-    onclose: PropTypes.func.isRequired
-}
+
 export default OrderDetails;

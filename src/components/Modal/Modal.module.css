@@ -1,5 +1,5 @@
 
-.modal-backdrop {
+.backdrop {
     position: fixed;
     z-index: 20;
     top: 0;
@@ -11,7 +11,7 @@
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modal-overlay {
+.overlay {
     position: fixed;
     flex-direction: column;
     display: flex;
@@ -24,17 +24,17 @@
     z-index: 30;
     animation: slide-down 300ms ease-out forwards;
 }
-.modal-name {
+.name {
     display: flex;
     justify-content: center;
 }
-.modal-header {
+.header {
     display: flex;
     justify-content: space-between;
     /* background-color: #1C1C21;
     flex-direction: column; */
 }
-.modal-stat-box {
+.box {
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -42,14 +42,14 @@
     justify-content: center;
 }
 
-.model-stat {
+.stat {
     width: 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
     
 }
-.order-close-icon {
+.icon {
     display: flex;
     position: absolute;
     right: 0px;

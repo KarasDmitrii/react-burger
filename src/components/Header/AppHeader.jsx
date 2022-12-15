@@ -1,62 +1,47 @@
-import { render } from '@testing-library/react';
-import { Button, Tab, BurgerIcon, Typography, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
-class NavBar extends React.Component {
-    render() {
-        return (
-            <header className='header  mt-10'>
-                {this.props.children}
-            </header>    
-        )
-    }
-}
-class HeadButton extends React.Component {
-    render() {
-        return(
-    
-            <Button htmlType="button" className='menu-button mr-2'>
-               <>
-                {this.props.icon} 
-                <p className={this.props.textStyle} >
-                    {this.props.text} 
-                </p>
-               </>
 
-            </Button> 
-        )
-    }
+import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './AppHeader.module.css';
+function NavBar(props) {
+    
+    return (
+        <header className={`${styles.header}  mt-10`}>
+            {props.children}
+        </header>
+    )
 }
-class Box extends React.Component {
-    render(){    
-        return(
-            <div className='box-header'>   
-                <div className='button-box m-4'>                       
-                    {this.props.children}            
+function HeadLink(props) {
+
+    return (
+        <div link='' className={`${styles.menuButton} mr-2`}>
+            {props.icon}
+            <p className={props.textStyle} >
+                {props.text}
+            </p>
+        </div>
+    )
+}
+
+function Header() {
+
+    return (
+        <NavBar>
+            <div className={styles.boxHeader}>
+                <div className={`${styles.boxButton} m-4`}>
+                    <HeadLink icon={<BurgerIcon type="primary" />} textStyle='text text_type_main-small ml-2' text=' Конструктор' />
+                    <HeadLink icon={<ListIcon type="secondary" />} textStyle='text text_type_main-small text_color_inactive ml-2' text=' Лента заказов' />
                 </div>
             </div>
-        )
-    }    
-}
-class Header extends React.Component {
-    render() {
-        return(
-            <NavBar>
-                <Box>
-                    <HeadButton icon={<BurgerIcon type="primary" />} textStyle='text text_type_main-small ml-2' text=' Конструктор'/>
-                    <HeadButton icon={<ListIcon type="secondary" />} textStyle='text text_type_main-small text_color_inactive ml-2' text=' Лента заказов'/>  
-                </Box>
-                <div className='box-logo'>
-                    <div className='logo mb-6 mt-6'>
-                        <Logo />   
-                    </div>
+            <div className={styles.boxLogo}>
+                <div className={`${styles.logo} mb-6 mt-6`}>
+                    <Logo />
                 </div>
-                <div className='box-lc'>
-                    <div className='lc-button'>
-                        <HeadButton icon={<ProfileIcon type="secondary" />} textStyle='text text_type_main-small text_color_inactive ml-2' text='Личный кабинет'/>                                                                           
-                    </div>
-                </div>    
-           </NavBar>
-        )
-    }        
+            </div>
+            <div className={styles.boxLc}>
+                <div >
+                    <HeadLink icon={<ProfileIcon type="secondary" />} textStyle='text text_type_main-small text_color_inactive ml-2' text='Личный кабинет' />
+                </div>
+            </div>
+        </NavBar>
+    )
 }
 export default Header;
