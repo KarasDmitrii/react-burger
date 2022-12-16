@@ -51,29 +51,29 @@ function BurgerIngredients(props) {
                 </Tab>
             </div>
             <div className={`${styles.list} custom-scroll`} >
-                <div className={styles.typeName} key={uuidv4()}>
+                <div className={styles.typeName} >
                     <p className="text text_type_main-medium" >
                         Булки
                     </p>
                 </div>
-                <div className={styles.typeBox} key={uuidv4()}>
-                    {bun.map((item) => <BurgerIngredient item={item} setItem={setItem} openModal={openIngModal} key={uuidv4()} id={uuidv4()}/>)}
+                <div className={styles.typeBox} >
+                    {bun.map((item) => <BurgerIngredient item={item} setItem={setItem} openModal={openIngModal} key={uuidv4()} />)}
                 </div>
-                <div className={styles.typeName} key={uuidv4()}>
+                <div className={styles.typeName} >
                     <p className="text text_type_main-medium" >
                         Соусы
                     </p>
                 </div>
-                <div className={styles.typeBox} key={uuidv4()}>
-                    {sauce.map((item) => <BurgerIngredient item={item} setItem={setItem} openModal={openIngModal} key={uuidv4()} id={uuidv4()}/>)}
+                <div className={styles.typeBox} >
+                    {sauce.map((item) => <BurgerIngredient item={item} setItem={setItem} openModal={openIngModal} key={uuidv4()} />)}
                 </div>
-                <div className={styles.typeName} key={uuidv4()}>
+                <div className={styles.typeName} >
                     <p className="text text_type_main-medium" >
                         Начинка
                     </p>
                 </div>
-                <div className={styles.typeBox} key={uuidv4()}>
-                    {main.map((item) =>( <BurgerIngredient item={item} setItem={setItem} openModal={openIngModal} key={uuidv4()} id={uuidv4()}/>))}
+                <div className={styles.typeBox} >
+                    {main.map((item) =>( <BurgerIngredient item={item} setItem={setItem} openModal={openIngModal} key={uuidv4()} />))}
                 </div>
                 
             </div>

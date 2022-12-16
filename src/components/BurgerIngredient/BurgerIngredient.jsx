@@ -5,7 +5,7 @@ import ArrPropTypes from '../../utils/PropTypes.jsx';
 
 
 
-const BurgerIngredient = ({ item, setItem, openModal, id}) => {
+const BurgerIngredient = ({ item, setItem, openModal}) => {
     const { image, price, name} = item;
     function handleClick() {
         setItem({ item });
@@ -15,7 +15,7 @@ const BurgerIngredient = ({ item, setItem, openModal, id}) => {
     };
 
     return (
-        <div  key={id}>
+        <div  >
             <div className={`${styles.ingredient} mr-4 ml-4 mb-10 mt-6`} 
                 onClick={handleClick}>
                 <Counter count={1} size="default" extraClass="m-1" />
@@ -40,7 +40,7 @@ const BurgerIngredient = ({ item, setItem, openModal, id}) => {
 };
 BurgerIngredient.propTypes = {
     item: PropTypes.objectOf(ArrPropTypes.isRequired).isRequired,
-    id: PropTypes.string.isRequired,
+    // id: PropTypes.string.isRequired,
     setItem: PropTypes.func.isRequired,
     openModal: PropTypes.func.isRequired
 };
