@@ -1,5 +1,5 @@
 
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import styles from './BurgerConstructor.module.css';
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from 'prop-types';
@@ -9,24 +9,26 @@ import ArrPropTypes from '../../utils/PropTypes.jsx';
 
 
 function BurgerConstructor(props) {
-    const bun = useMemo(() => props.arr.filter(item => item.type === "bun"));
-    const sauce = useMemo(() => props.arr.filter(word => word.type === "sauce"));
-    const main = useMemo(() => props.arr.filter(word => word.type === "main"));
+
+    const bun = useMemo(() => props.arr.find(item => item.type === "bun"), [props.arr]);
+    // const sauce = useMemo(() => props.arr.filter(word => word.type === "sauce"), [props.arr]);
+    const otherIng = useMemo(() => props.arr.filter(word => word.type != "bun"), [props.arr]);
+
     return (
         <div className={`${styles.box} ml-5 mt-25 mb-10`}>
-            <div style={{ display: 'flex', position: 'relative' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <div className="ml-10 mr-4">
+            <div className={styles.constructorBox}>
+                <div className={styles.gapBox}>
+                    <div className="ml-8 mr-4">
                         <ConstructorElement
                             type="top"
                             isLocked={true}
-                            text="Краторная булка N-200i (верх)"
-                            price={200}
-                            thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
+                            text={`${bun.name} (верх)`}
+                            price={bun.price}
+                            thumbnail={bun.image}
                         />
                     </div>
                     <li className={`${styles.list} custom-scroll`} >
-                        {main.map((item) => {
+                        {otherIng.map((item) => {
                             return (
                                 <div className={`m-2 ${styles.mains}`} key={item._id}>
                                     <DragIcon type="primary" />
@@ -39,13 +41,13 @@ function BurgerConstructor(props) {
                             )
                         })}
                     </li>
-                    <div className="ml-10 mr-4 mb-10">
+                    <div className="ml-8 mr-4 mb-10">
                         <ConstructorElement
                             type="bottom"
                             isLocked={true}
-                            text="Краторная булка N-200i (низ)"
-                            price={200}
-                            thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
+                            text={`${bun.name} (низ)`}
+                            price={bun.price}
+                            thumbnail={bun.image}
                         />
                     </div>
                     <PriceButton data={props.arr} />

@@ -13,7 +13,9 @@ const GetIngredients = async ({setState}) => {
             }
         })
         .then((obj) => {
-            setState(obj.data);
+            setState({
+                isDone: true,
+                data : obj.data});
         })
         .catch(e => { console.log(e); });
     return (result);

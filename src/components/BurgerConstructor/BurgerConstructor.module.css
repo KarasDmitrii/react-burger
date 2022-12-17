@@ -14,6 +14,7 @@
 .mains {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 .button {
     display: flex;
@@ -24,4 +25,14 @@
 .priceFin {
     display: flex;
     align-items: center;
+}
+.constructorBox {
+    display: flex;
+    position: relative;
+    
+}
+.gapBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

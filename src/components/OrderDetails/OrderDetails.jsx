@@ -1,6 +1,4 @@
 import done from "../../images/graphics.svg";
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import styles from '../Modal/Modal.module.css';
 
 function OrderDetails() {
@@ -11,7 +9,7 @@ function OrderDetails() {
                 <p className="text text_type_main-medium">
                     индефикатор заказа
                 </p>
-                <img className='mt-15 mb-15' src={done}/>
+                <img alt="OrderDetail image" className='mt-15 mb-15' src={done}/>
                 <p className="text text_type_main-default">
                     Ваш заказ уже начали готовить
                 </p>

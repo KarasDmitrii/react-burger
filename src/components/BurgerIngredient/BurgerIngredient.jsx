@@ -1,17 +1,14 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
 import styles from './BurgerIngredients.module.css';
-import ArrPropTypes from '../../utils/PropTypes.jsx';
 
 
 
-const BurgerIngredient = ({ item, setItem, openModal}) => {
+
+const BurgerIngredient = ({item, setItem, openModal}) => {
     const { image, price, name} = item;
     function handleClick() {
-        setItem({ item });
-        openModal();
-        
-       
+        setItem(item);
+        openModal();   
     };
 
     return (
@@ -20,7 +17,7 @@ const BurgerIngredient = ({ item, setItem, openModal}) => {
                 onClick={handleClick}>
                 <Counter count={1} size="default" extraClass="m-1" />
                 <div className='ml-4'>
-                    <img src={image} />
+                    <img alt='изображение продукта' src={image} />
                 </div>
                 <div className={`${styles.price} mt-1 mb-1`}>
                     <p className="text text_type_digits-default mr-2" >
@@ -38,10 +35,5 @@ const BurgerIngredient = ({ item, setItem, openModal}) => {
         </div>
     )
 };
-BurgerIngredient.propTypes = {
-    item: PropTypes.objectOf(ArrPropTypes.isRequired).isRequired,
-    // id: PropTypes.string.isRequired,
-    setItem: PropTypes.func.isRequired,
-    openModal: PropTypes.func.isRequired
-};
+
 export default BurgerIngredient;

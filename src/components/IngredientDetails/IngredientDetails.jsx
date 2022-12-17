@@ -6,7 +6,7 @@ import ArrPropTypes from '../../utils/PropTypes.jsx';
 
 const IngredientDetails = ({ ingredientData, header }) => {
 
-    const { name, calories, proteins, fat, carbohydrates, image_large } = ingredientData.item;
+    const { name, calories, proteins, fat, carbohydrates, image_large } = ingredientData;
 
     return (
         <>
@@ -14,7 +14,6 @@ const IngredientDetails = ({ ingredientData, header }) => {
                 <p className="text text_type_main-large">
                     {header}
                 </p>
-                {/* <CloseIcon type="primary" onClick={onClose} /> */}
             </div>
             <img className={`${styles.image} ml-30 mr-30`} src={image_large} />
             <div className={styles.name}>
@@ -22,7 +21,6 @@ const IngredientDetails = ({ ingredientData, header }) => {
                     {name}
                 </p>
             </div>
-
             <div className={`${styles.box} mt-8 mb-15`}>
                 <div className={styles.stat}>
                     <p className="text text_type_main-default text_color_inactive" >
@@ -60,8 +58,5 @@ const IngredientDetails = ({ ingredientData, header }) => {
         </>
     )
 };
-IngredientDetails.propTypes = {
-    item: PropTypes.objectOf(ArrPropTypes.isRequired),
-    onClose: PropTypes.func
-};
+
 export default IngredientDetails;
