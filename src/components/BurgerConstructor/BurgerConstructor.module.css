@@ -1,0 +1,38 @@
+.box {
+    justify-content: center;
+    width: 600px;
+    display: flex;
+    
+}
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+   
+}
+.mains {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.button {
+    display: flex;
+    
+    justify-content: flex-end;
+    align-items: center;
+}
+.priceFin {
+    display: flex;
+    align-items: center;
+}
+.constructorBox {
+    display: flex;
+    position: relative;
+    
+}
+.gapBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

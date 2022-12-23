@@ -1,0 +1,50 @@
+.verticalMenu {
+    display: flex;   
+  }
+  
+  
+.text {
+  display: flex;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}  
+.box {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+}
+.ingredient {
+  position: relative;
+  flex-direction: column;
+  display: flex; 
+  width: 258px;
+  justify-content: space-between;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  overflow-x: hidden; 
+  
+}
+.price {
+  display: flex;
+  justify-content: center; 
+}
+.name {
+  margin-right: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  justify-content: center; 
+}
+.typeBox {
+  display: flex;
+  width: 600px;
+  justify-content: space-between; 
+  flex-wrap: wrap
+}
+.typeName {
+  display: flex;
+  width: 600px;
+  margin: auto;
+}

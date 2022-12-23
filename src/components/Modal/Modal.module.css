@@ -1,0 +1,62 @@
+
+.backdrop {
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.overlay {
+    position: fixed;
+    flex-direction: column;
+    display: flex;
+    border-radius: 40px;
+    top: 50%;
+    left: 50%;
+    margin-top: -250px;
+    margin-left: -360px;
+    background-color: #1C1C21;
+    z-index: 30;
+    animation: slide-down 300ms ease-out forwards;
+}
+.name {
+    display: flex;
+    justify-content: center;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    /* background-color: #1C1C21;
+    flex-direction: column; */
+}
+.box {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+.stat {
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.icon {
+    display: flex;
+    position: absolute;
+    right: 0px;
+}
+.order {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
