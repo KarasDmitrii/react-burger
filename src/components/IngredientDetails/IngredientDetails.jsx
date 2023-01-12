@@ -1,12 +1,12 @@
-import React from "react";
+
 import styles from '../Modal/Modal.module.css';
-import PropTypes from 'prop-types';
-import ArrPropTypes from '../../utils/PropTypes.jsx';
+import { useSelector } from "react-redux";
+import { getIngredientDetails } from "../../services/IngredientDetails/IngredientsDtailsSelector";
 
 
-const IngredientDetails = ({ ingredientData, header }) => {
-
-    const { name, calories, proteins, fat, carbohydrates, image_large } = ingredientData;
+const IngredientDetails = () => {;
+    const {header, item} = useSelector(getIngredientDetails)
+    const { name, calories, proteins, fat, carbohydrates, image_large } = item;
 
     return (
         <>
