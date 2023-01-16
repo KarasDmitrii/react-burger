@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Header from '../Header/AppHeader';
 import BurgerIngredients from '../BurgerIngredient/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx';
-import styles from '../Header/AppHeader.module.css';
+import styles from './App.module.css';
 
 
 import '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css';
