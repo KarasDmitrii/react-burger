@@ -11,7 +11,7 @@ const initialState = {
 
 }
 
-export const IngredientDetailsReducer = (state = initialState, action) => {
+export const ingredientDetailsReducer = (state = initialState, action) => {
     switch (action.type) {
         case CLOSE_ING_MODAL:
             return {

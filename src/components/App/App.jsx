@@ -6,15 +6,12 @@ import styles from './App.module.css';
 
 
 import '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css';
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadIngredients } from "../../services/Ingredients/IngredientsActions";
 
 
 
 function App() {
-  const store = useStore();
-  const state = store.getState();
-  const isSuccess = useSelector(state => state.data.isApiLoad);
   const dispatch = useDispatch();
   
   useEffect(() => {   
@@ -26,13 +23,11 @@ function App() {
   return (
     <div className={styles.app}>
       <Header />
-       <div className={styles.main}>
-        {isSuccess && (
+       <div className={styles.content}>
           <>
             <BurgerIngredients  />
             <BurgerConstructor />  
-          </>
-        )}
+          </> 
       </div> 
     </div>
   );

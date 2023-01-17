@@ -1,5 +1,5 @@
 
-.backdrop {
+.overlay {
     position: fixed;
     z-index: 20;
     top: 0;
@@ -11,7 +11,7 @@
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-.overlay {
+.backdrop {
     position: fixed;
     flex-direction: column;
     display: flex;

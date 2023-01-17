@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import { ConstructorCard } from "./ConstructorCard";
 import { addItem, DELETE_ITEM } from "../../services/Constructor/ConstructorActions";
-import { OPEN_ORDER_MODAL } from "../../services/Order/OrderActions";
+import { CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL } from "../../services/Order/OrderActions";
 import Modal from "../Modal/Modal";
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../OrderDetails/OrderDetails";
@@ -18,7 +18,7 @@ function BurgerConstructor() {
     const isOrdModalOpen = useSelector(getIsOrdModalOpen);
     const price = useSelector(getPrice);
     const dispatch = useDispatch();
-    
+
     const [, dropTarget] = useDrop({
         accept: 'ingItem',
         drop(itemId) {
@@ -39,6 +39,11 @@ function BurgerConstructor() {
             type: OPEN_ORDER_MODAL
         });
     }
+    const closeModal = () => {
+        dispatch({
+            type: CLOSE_ORDER_MODAL
+        })
+    }
 
     return (
         <div ref={dropTarget} className={`${styles.box} ml-5 mt-25 mb-10`}>
@@ -46,32 +51,42 @@ function BurgerConstructor() {
             <div className={styles.constructorBox}>
                 <div className={styles.gapBox}>
                     <div className="ml-8 mr-4">
-                        <ConstructorElement
-                            type="top"
-                            isLocked={true}
-                            text={`${bun.name} (верх)`}
-                            price={bun.price}
-                            thumbnail={bun.image}
-                        />
+                        {bun.image ? (
+                            <ConstructorElement
+                                type="top"
+                                isLocked={true}
+                                text={bun.name}
+                                price={bun.price}
+                                thumbnail={bun.image}
+                            />
+                        ) : (
+                            <div className={styles.topEmptyConstructorElement}>Выберите булку</div>
+                        )}
                     </div>
                     <li className={`${styles.list} custom-scroll`} >
-                        {otherIng && otherIng.map((elem, index) => {
+                        {otherIng[0] ? (otherIng.map((elem, index) => {
                             return (<ConstructorCard
                                 key={elem.key}
                                 elem={elem}
                                 index={index}
                                 handleDelete={handleDelete}
                             />)
-                        })}
+                        })) : (
+                            <div className={`${styles.midEmptyConstructorElement} ml-8 mr-4 `}>Добавьте начинку</div>
+                        )}
                     </li>
                     <div className="ml-8 mr-4 mb-10">
-                        <ConstructorElement
-                            type="bottom"
-                            isLocked={true}
-                            text={`${bun.name} (низ)`}
-                            price={bun.price}
-                            thumbnail={bun.image}
-                        />
+                        {bun.image ? (
+                            <ConstructorElement
+                                type="bottom"
+                                isLocked={true}
+                                text={bun.name}
+                                price={bun.price}
+                                thumbnail={bun.image}
+                            />
+                        ) : (
+                            <div className={styles.bottomEmptyConstructorElement}> Выберите булку</div>
+                        )}
                     </div>
                     <>
                         <div className={`${styles.button} mr-6`}>
@@ -88,7 +103,7 @@ function BurgerConstructor() {
                             </Button>
                         </div>
                         {isOrdModalOpen && (
-                            <Modal>
+                            <Modal modalClose={closeModal}>
                                 <OrderDetails />
                             </Modal>
                         )}

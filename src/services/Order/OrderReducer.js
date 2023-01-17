@@ -8,7 +8,7 @@ const initialState = {
     orderNum: '034536',
 }
 
-export const OrderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action) => {
     switch (action.type) {
         case CLOSE_ORDER_MODAL:
             return {

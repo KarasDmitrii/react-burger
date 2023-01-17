@@ -4,11 +4,13 @@ import Modal from "../Modal/Modal";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './BurgerIngredients.module.css';
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { GetIngredients, getIsIngModalOpen } from "../../services/Ingredients/IngredientsSelectors";
+import { CLOSE_ING_MODAL } from "../../services/IngredientDetails/IngredientDetailsActions";
 
 function BurgerIngredients() {
+    const dispatch = useDispatch();
     const {buns, mains, sauces} = useSelector(GetIngredients)
     const isIngModalOpen = useSelector(getIsIngModalOpen);
     const [current, setCurrent] = useState('one');
@@ -31,6 +33,12 @@ function BurgerIngredients() {
     const [ visBunsRef, inBunsView ] = useInView({
         threshold: 0.9
     }) ;
+
+    const closeIngModal = () => {
+        dispatch({
+            type: CLOSE_ING_MODAL
+        })
+    }
 
     return (
 
@@ -86,7 +94,7 @@ function BurgerIngredients() {
                 
             </div>
             {isIngModalOpen && (
-                    <Modal>
+                    <Modal modalClose={closeIngModal}>
                         <IngredientDetails />
                     </Modal>)}
         </div>

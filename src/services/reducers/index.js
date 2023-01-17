@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import { ConstructorReducer } from "../Constructor/ConstructorReducer";
-import { IngredientDetailsReducer } from "../IngredientDetails/IngredientDetailsReducer";
-import { IngredientsReducer } from "../Ingredients/IngredientsReducer";
-import { OrderReducer } from "../Order/OrderReducer";
+import { constructorReducer } from "../Constructor/ConstructorReducer";
+import { ingredientDetailsReducer } from "../IngredientDetails/IngredientDetailsReducer";
+import { ingredientsReducer } from "../Ingredients/IngredientsReducer";
+import { orderReducer } from "../Order/OrderReducer";
 
 export default combineReducers({
-    constructorData: ConstructorReducer,
-    data: IngredientsReducer,
-    ingModal: IngredientDetailsReducer,
-    ordModal: OrderReducer, 
+    constructorData: constructorReducer,
+    data: ingredientsReducer,
+    ingModal: ingredientDetailsReducer,
+    ordModal: orderReducer, 
 })

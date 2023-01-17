@@ -10,7 +10,7 @@ const initialState = {
     bun: {},
     otherIng: [],
 }
-export const ConstructorReducer = (state = initialState, action) => {
+export const constructorReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_ITEM: {
             return {

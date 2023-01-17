@@ -3,49 +3,34 @@ import { useEffect } from "react";
 import styles from './Modal.module.css';
 import PropTypes from 'prop-types';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
-import { CLOSE_ING_MODAL } from "../../services/IngredientDetails/IngredientDetailsActions";
-import { CLOSE_ORDER_MODAL } from "../../services/Order/OrderActions";
-// const ModalOverlay = () => {
-//     return <div className={styles.backdrop} onClick={modalClose}></div>;
-// };
+
+const ModalOverlay = (props) => {
+    return <div className={styles.overlay} onClick={props.onClick}></div>;
+};
+
 
 const modalRoot = document.getElementById("react-modals");
 const Modal = (props) => {
-    const dispatch = useDispatch();
     
-    const modalClose = () => {
-        dispatch({
-            type: CLOSE_ING_MODAL
-        })
-        dispatch({
-            type: CLOSE_ORDER_MODAL
-        })
-        
-    }
-
     useEffect(() => {
-
-        function HandleEsc(e) {
-            e.key === 'Escape' && modalClose();
+        function handleEsc(e) {
+            e.key === 'Escape' && props.modalClose();
         };
-        document.addEventListener('keydown', HandleEsc);
+        document.addEventListener('keydown', handleEsc);
         return () => {
-            document.removeEventListener('keydown', HandleEsc)
+            document.removeEventListener('keydown', handleEsc)
         };
-    }, []);
+    }, [props]);
 
     return (ReactDOM.createPortal(
         <>
-            <div className={styles.backdrop} onClick={modalClose}></div>
-
-            <div className={styles.overlay} onClose={modalClose} >
+            <ModalOverlay onClick={props.modalClose}/>
+            <div className={styles.backdrop}  >
                 <div className={`${styles.icon} mt-10 mr-10`}>
-                    <CloseIcon type="primary" onClick={modalClose} />
+                    <CloseIcon type="primary" onClick={props.modalClose} />
                 </div>                
                 {props.children} 
             </div>
-
         </>,
         modalRoot
     ));
@@ -54,6 +39,10 @@ const Modal = (props) => {
 
 Modal.propTypes = {
     children: PropTypes.element.isRequired,
+    modalClose: PropTypes.func.isRequired
+}
+ModalOverlay.propTypes = {
+    onClick: PropTypes.func.isRequired
 }
 
 export default Modal;

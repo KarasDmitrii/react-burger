@@ -4,7 +4,7 @@
     height: 100vh;
     background-color: #131316;     
 }
-.main {
+.content {
     display: flex;
     position: relative;
     overflow:hidden;
