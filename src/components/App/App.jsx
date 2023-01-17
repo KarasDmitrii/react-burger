@@ -13,22 +13,20 @@ import { loadIngredients } from "../../services/Ingredients/IngredientsActions";
 
 function App() {
   const dispatch = useDispatch();
-  
-  useEffect(() => {   
+
+  useEffect(() => {
     dispatch(loadIngredients())
-    
+
   }, []);
-  
-  
+
+
   return (
     <div className={styles.app}>
       <Header />
-       <div className={styles.content}>
-          <>
-            <BurgerIngredients  />
-            <BurgerConstructor />  
-          </> 
-      </div> 
+      <main className={styles.content}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </main>
     </div>
   );
 }
