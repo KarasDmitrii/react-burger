@@ -53,7 +53,7 @@ function BurgerConstructor() {
                             <ConstructorElement
                                 type="top"
                                 isLocked={true}
-                                text={bun.name}
+                                text={`${bun.name} (вверх)`}
                                 price={bun.price}
                                 thumbnail={bun.image}
                             />
@@ -78,7 +78,7 @@ function BurgerConstructor() {
                             <ConstructorElement
                                 type="bottom"
                                 isLocked={true}
-                                text={bun.name}
+                                text={`${bun.name} (низ)`}
                                 price={bun.price}
                                 thumbnail={bun.image}
                             />
@@ -94,11 +94,11 @@ function BurgerConstructor() {
                                 </p>
                                 <CurrencyIcon type="primary" />
                             </div>
-                            <Button onClick={onClick} htmlType="button" type="primary" size="medium">
+                            {otherIng[0] && bun.image && <Button onClick={onClick} htmlType="button" type="primary" size="medium">
                                 <p className="text text_type_main-default" >
                                     Оформить заказ
                                 </p>
-                            </Button>
+                            </Button>}
                         </div>
                         {isOrdModalOpen && (
                             <Modal modalClose={closeModal}>

@@ -37,12 +37,11 @@
     gap: 10px;
 }
 .topEmptyConstructorElement {
-    padding: 16px 24px;
+    padding: 16px 100px;
     display: flex;
     border-radius: var(--top-constructor-item-border-radius);
     background: var(--background-element);
     max-width: 536px;
-    width: 100%;
     min-height: 80px;
     font-family: 'Jet Brains Mono';
     font-size: 16px;
@@ -55,12 +54,11 @@
 }
 
 .bottomEmptyConstructorElement {
-    padding: 16px 24px;
+    padding: 16px 100px;
     display: flex;
     border-radius: var(--bottom-constructor-item-border-radius);
     background: var(--background-element);
     max-width: 536px;
-    width: 100%;
     min-height: 80px;
     font-family: 'Jet Brains Mono';
     font-size: 16px;
@@ -72,7 +70,7 @@
     align-items: center;
 }
 .midEmptyConstructorElement {
-    padding: 16px 24px;
+    padding: 16px 100px;
     display: flex;
     border-radius: var(--common-border-radius-s);
     background: var(--background-element);
