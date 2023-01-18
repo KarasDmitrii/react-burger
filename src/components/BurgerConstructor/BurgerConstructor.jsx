@@ -4,12 +4,12 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import { ConstructorCard } from "./ConstructorCard";
-import { addItem, DELETE_ITEM } from "../../services/Constructor/ConstructorActions";
-import { CLOSE_ORDER_MODAL, OPEN_ORDER_MODAL } from "../../services/Order/OrderActions";
+import { addItem,  DELETE_ITEM } from "../../services/Constructor/ConstructorActions";
+import { CLOSE_ORDER_MODAL, sendOrder } from "../../services/Order/OrderActions";
 import Modal from "../Modal/Modal";
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import { getAllData, getBun, getIsOrdModalOpen, getOtherIng, getPrice } from "../../services/Constructor/ConstructorSelectors";
+import { composeOrder, getAllData, getBun, getIsOrdModalOpen, getOtherIng, getPrice } from "../../services/Constructor/ConstructorSelectors";
 
 function BurgerConstructor() {
     const bun = useSelector(getBun);
@@ -18,7 +18,6 @@ function BurgerConstructor() {
     const isOrdModalOpen = useSelector(getIsOrdModalOpen);
     const price = useSelector(getPrice);
     const dispatch = useDispatch();
-
     const [, dropTarget] = useDrop({
         accept: 'ingItem',
         drop(itemId) {
@@ -34,10 +33,9 @@ function BurgerConstructor() {
             payload: key
         })
     }
-    const openOrderModal = () => {
-        dispatch({
-            type: OPEN_ORDER_MODAL
-        });
+    const onClick = () => {
+        const order = composeOrder(otherIng, bun)
+        dispatch(sendOrder(order));
     }
     const closeModal = () => {
         dispatch({
@@ -96,7 +94,7 @@ function BurgerConstructor() {
                                 </p>
                                 <CurrencyIcon type="primary" />
                             </div>
-                            <Button onClick={openOrderModal} htmlType="button" type="primary" size="medium">
+                            <Button onClick={onClick} htmlType="button" type="primary" size="medium">
                                 <p className="text text_type_main-default" >
                                     Оформить заказ
                                 </p>
