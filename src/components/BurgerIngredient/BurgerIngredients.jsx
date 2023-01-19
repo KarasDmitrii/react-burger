@@ -25,10 +25,10 @@ function BurgerIngredients() {
      
     }, [current]);
     const [ visMainsRef, inMainsView ] = useInView({
-        threshold: 0.2
+        threshold: 0.15
     }) ;
     const [ visSauceRef, inSauceView ] = useInView({
-        threshold: 0.7
+        threshold: 1
     }) ;
     const [ visBunsRef, inBunsView ] = useInView({
         threshold: 0.9
