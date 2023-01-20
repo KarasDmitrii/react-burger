@@ -1,31 +1,22 @@
-import { useMemo, useEffect, useState, useRef } from "react";
-import PropTypes from 'prop-types';
+import { useEffect, useState, useRef } from "react";
 import BurgerIngredient from "./BurgerIngredient";
 import Modal from "../Modal/Modal";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './BurgerIngredients.module.css';
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import ArrPropTypes from '../../utils/PropTypes.jsx';
+import { useDispatch, useSelector } from "react-redux";
+import { useInView } from "react-intersection-observer";
+import { GetIngredients, getIsIngModalOpen } from "../../services/Ingredients/IngredientsSelectors";
+import { CLOSE_ING_MODAL } from "../../services/IngredientDetails/IngredientDetailsActions";
 
-
-function BurgerIngredients(props) {
-    const bun = useMemo(() => props.arr.filter(item => item.type === "bun"), [props.arr]);
-    const sauce = useMemo(() => props.arr.filter(word => word.type === "sauce"), [props.arr]);
-    const main = useMemo(() => props.arr.filter(word => word.type === "main"), [props.arr]);
-
-    const [isIngModalOpen, setIsIngModalOpen] = useState(false);
-    const [item, setItem] = useState(null);
+function BurgerIngredients() {
+    const dispatch = useDispatch();
+    const {buns, mains, sauces} = useSelector(GetIngredients)
+    const isIngModalOpen = useSelector(getIsIngModalOpen);
     const [current, setCurrent] = useState('one');
     const bunRef = useRef();
     const mainRef = useRef();
     const sauceRef = useRef();
-
-    function openIngModal() {
-        setIsIngModalOpen(true);
-    }
-    function closeIngModal() {
-        setIsIngModalOpen(false);
-    }
 
     useEffect(() => {
         current === 'one' && bunRef.current.scrollIntoView({behavior: "auto", block: "start"});
@@ -33,7 +24,22 @@ function BurgerIngredients(props) {
         current === 'three' && sauceRef.current.scrollIntoView({behavior: "auto", block: "start"});
      
     }, [current]);
- 
+    const [ visMainsRef, inMainsView ] = useInView({
+        threshold: 0.15
+    }) ;
+    const [ visSauceRef, inSauceView ] = useInView({
+        threshold: 1
+    }) ;
+    const [ visBunsRef, inBunsView ] = useInView({
+        threshold: 0.9
+    }) ;
+
+    const closeIngModal = () => {
+        dispatch({
+            type: CLOSE_ING_MODAL
+        })
+    }
+
     return (
 
         <div className={`${styles.box} mb-10 mr-5 `}>
@@ -43,21 +49,22 @@ function BurgerIngredients(props) {
                 </p>
             </div>
             <div className={`${styles.verticalMenu} mb-2`}>
-                <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+                <Tab  value="one" active={inBunsView} onClick={setCurrent}>
                     <p className="text text_type_main-default" >
                         Булки
                     </p>
                 </Tab>
-                <Tab value="two" active={current === 'two'} onClick={setCurrent}>
-                    <p className="text text_type_main-default" >
-                        Начинка
-                    </p>
-                </Tab>
-                <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+                <Tab value="three" active={inSauceView} onClick={setCurrent}>
                     <p className="text text_type_main-default" >
                         Соусы
                     </p>
                 </Tab>
+                <Tab value="two" active={inMainsView} onClick={setCurrent}>
+                    <p className="text text_type_main-default" >
+                        Начинка
+                    </p>
+                </Tab>
+                
             </div>
             <div className={`${styles.list} custom-scroll`} >
                 <div className={styles.typeName} ref={bunRef} >
@@ -65,37 +72,33 @@ function BurgerIngredients(props) {
                         Булки
                     </p>
                 </div>
-                <div className={styles.typeBox}  >
-                    {bun.map((item) => <BurgerIngredient item={item} setItem={setItem} openModal={openIngModal} key={item._id} />)}
+                <div ref={visBunsRef} className={styles.typeBox}  >
+                    {buns.map((item) => <BurgerIngredient item={item} key={item._id} />)}
                 </div>
-                <div className={styles.typeName} ref={sauceRef} >
+                <div  className={styles.typeName} ref={sauceRef} >
                     <p className="text text_type_main-medium" >
                         Соусы
                     </p>
                 </div>
-                <div className={styles.typeBox} >
-                    {sauce.map((item) => <BurgerIngredient item={item} setItem={setItem} openModal={openIngModal} key={item._id} />)}
+                <div ref={visSauceRef} className={styles.typeBox} >
+                    {sauces.map((item) => <BurgerIngredient item={item} key={item._id} />)}
                 </div>
                 <div className={styles.typeName} ref={mainRef}>
-                    <p className="text text_type_main-medium" >
+                    <p  className="text text_type_main-medium" >
                         Начинка
                     </p>
                 </div>
-                <div className={styles.typeBox} >
-                    {main.map((item) =>( <BurgerIngredient item={item} setItem={setItem} openModal={openIngModal} key={item._id} />))}
+                <div ref={visMainsRef} className={styles.typeBox} >
+                    {mains.map((item) => <BurgerIngredient item={item} key={item._id} />)}
                 </div>
                 
             </div>
             {isIngModalOpen && (
-                    <Modal onClose={closeIngModal} >
-                        <IngredientDetails ingredientData={item} onClose={closeIngModal} header="Детали ингредиента" />
+                    <Modal modalClose={closeIngModal}>
+                        <IngredientDetails />
                     </Modal>)}
         </div>
     )
 };
-BurgerIngredients.propTypes = {
-    arr: PropTypes.arrayOf(ArrPropTypes.isRequired).isRequired,
-
-}
 
 export default BurgerIngredients;

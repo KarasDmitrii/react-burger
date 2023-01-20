@@ -1,0 +1,12 @@
+.app {   
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #131316;     
+}
+.content {
+    display: flex;
+    position: relative;
+    overflow:hidden;
+    justify-content: center;
+  }

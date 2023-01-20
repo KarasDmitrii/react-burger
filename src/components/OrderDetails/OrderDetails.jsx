@@ -1,11 +1,14 @@
+import { useSelector } from "react-redux";
 import done from "../../images/graphics.svg";
+import { getOrderNum } from "../../services/Order/OrderSelectors";
 import styles from '../Modal/Modal.module.css';
 
-function OrderDetails() {
+export function OrderDetails() {
+    const orderNum = useSelector(getOrderNum);
     return(
         <div>
             <div className={`${styles.order} mt-30 mb-30 ml-25 mr-25`}>
-                <p className="text text_type_digits-large mb-8 ">034536</p>
+                <p className="text text_type_digits-large mb-8 ">{orderNum}</p>
                 <p className="text text_type_main-medium">
                     индефикатор заказа
                 </p>
