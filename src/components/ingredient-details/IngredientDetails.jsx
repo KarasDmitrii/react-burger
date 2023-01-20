@@ -1,18 +1,24 @@
 
-import styles from '../Modal/Modal.module.css';
+import styles from '../modal/modal.module.css';
 import { useSelector } from "react-redux";
-import { getIngredientDetails } from "../../services/IngredientDetails/IngredientsDtailsSelector";
+import { getAllData } from "../../services/IngredientDetails/IngredientsDtailsSelector";
+import { useParams } from 'react-router-dom';
 
 
-const IngredientDetails = () => {;
-    const {header, item} = useSelector(getIngredientDetails)
+const IngredientDetails = () => {
+    const  allData  = useSelector(getAllData)
+    const { id } = useParams();
+    
+    const item = allData.find(element => element._id === id);
     const { name, calories, proteins, fat, carbohydrates, image_large } = item;
 
     return (
+      
+        
         <>
             <div className={`${styles.header} mr-10 ml-10 mt-10 mb-4`}>
                 <p className="text text_type_main-large">
-                    {header}
+                    Детали ингредиента
                 </p>
             </div>
             <img className={`${styles.image} ml-30 mr-30`} src={image_large} />
@@ -56,7 +62,7 @@ const IngredientDetails = () => {;
                 </div>
             </div>
         </>
-    )
+     )
 };
 
 export default IngredientDetails;

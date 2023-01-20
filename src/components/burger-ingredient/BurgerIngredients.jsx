@@ -1,16 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import BurgerIngredient from "./BurgerIngredient";
-import Modal from "../Modal/Modal";
+import Modal from "../modal/Modal";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from './BurgerIngredients.module.css';
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import styles from './burger-ingredients.module.css';
 import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { GetIngredients, getIsIngModalOpen } from "../../services/Ingredients/IngredientsSelectors";
 
 function BurgerIngredients() {
     const {buns, mains, sauces} = useSelector(GetIngredients)
-    const isIngModalOpen = useSelector(getIsIngModalOpen);
     const [current, setCurrent] = useState('one');
     const bunRef = useRef();
     const mainRef = useRef();
@@ -23,10 +21,10 @@ function BurgerIngredients() {
      
     }, [current]);
     const [ visMainsRef, inMainsView ] = useInView({
-        threshold: 0.2
+        threshold: 0.1
     }) ;
     const [ visSauceRef, inSauceView ] = useInView({
-        threshold: 0.7
+        threshold: 1
     }) ;
     const [ visBunsRef, inBunsView ] = useInView({
         threshold: 0.9
@@ -85,10 +83,6 @@ function BurgerIngredients() {
                 </div>
                 
             </div>
-            {isIngModalOpen && (
-                    <Modal>
-                        <IngredientDetails />
-                    </Modal>)}
         </div>
     )
 };

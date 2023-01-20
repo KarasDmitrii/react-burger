@@ -16,7 +16,7 @@ const initialState = {
 
 }
 
-export const IngredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ING_SUCCESS:
             return {

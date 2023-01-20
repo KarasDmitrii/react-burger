@@ -1,40 +1,49 @@
 
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import styles from './AppHeader.module.css';
+import { Link } from 'react-router-dom';
+import styles from './app-header.module.css';
 
-function HeadLink(props) {
-
-    return (
-        <a href='' className={`${styles.headLinks} mr-2`}>
-            {props.icon}
-            <p className={props.textStyle} >
-                {props.text}
-            </p>
-        </a>
-    )
-}
-
-function Header() {
+export function Header() {
 
     return (
         <header className={styles.header}>
             <div className={styles.boxHeader}>
                 <div className={`${styles.boxButton} m-4`}>
-                    <HeadLink icon={<BurgerIcon type="primary" />} textStyle='text text_type_main-small ml-2' text=' Конструктор' />
-                    <HeadLink icon={<ListIcon type="secondary" />} textStyle='text text_type_main-small text_color_inactive ml-2' text=' Лента заказов' />
+                    <Link to='/'>
+                        <div className={`${styles.headLinks} mr-2`}>
+                            <BurgerIcon type="primary" />
+                            <p className='text text_type_main-small ml-2' >
+                                Конструктор
+                            </p>
+                        </div>
+                    </Link>
+                    <Link to='/'>
+                        <div className={`${styles.headLinks} mr-2`}>
+                            <ListIcon type="secondary" />
+                            <p className='text text_type_main-default text_color_inactive ml-2' >
+                                Лента заказов
+                            </p>
+                        </div>
+                    </Link>
                 </div>
             </div>
             <div className={styles.boxLogo}>
-                <div className={`${styles.logo} mb-6 mt-6`}>
+                
                     <Logo />
-                </div>
+                
             </div>
             <div className={styles.boxLc}>
-                <div >
-                    <HeadLink icon={<ProfileIcon type="secondary" />} textStyle='text text_type_main-small text_color_inactive ml-2' text='Личный кабинет' />
-                </div>
+                
+                    <div className={`${styles.headLinks} mr-2`}>
+                        <ProfileIcon type="secondary" />
+                        <Link to='/profile'>
+                            <p className='text text_type_main-default text_color_inactive ml-2' >
+                                Личный кабинет
+                            </p>
+                        </Link>
+                    </div>
+                
             </div>
         </header>
     )
 }
-export default Header;

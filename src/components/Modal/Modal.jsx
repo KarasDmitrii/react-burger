@@ -1,31 +1,23 @@
 import ReactDOM from "react-dom";
 import { useEffect } from "react";
-import styles from './Modal.module.css';
+import styles from './modal.module.css';
 import PropTypes from 'prop-types';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
-import { CLOSE_ING_MODAL } from "../../services/IngredientDetails/IngredientDetailsActions";
-import { CLOSE_ORDER_MODAL } from "../../services/Order/OrderActions";
-// const ModalOverlay = () => {
-//     return <div className={styles.backdrop} onClick={modalClose}></div>;
-// };
 
-const modalRoot = document.getElementById("react-modals");
+
+
+const ModalOverlay = (props) => {
+        return <div className={styles.overlay} onClick={props.onClick}></div>;
+    };
+
+
 const Modal = (props) => {
-    const dispatch = useDispatch();
+
+    const modalClose = props.modalClose
     
-    const modalClose = () => {
-        dispatch({
-            type: CLOSE_ING_MODAL
-        })
-        dispatch({
-            type: CLOSE_ORDER_MODAL
-        })
-        
-    }
+
 
     useEffect(() => {
-
         function HandleEsc(e) {
             e.key === 'Escape' && modalClose();
         };
@@ -35,25 +27,26 @@ const Modal = (props) => {
         };
     }, []);
 
-    return (ReactDOM.createPortal(
+    return (
         <>
-            <div className={styles.backdrop} onClick={modalClose}></div>
-
-            <div className={styles.overlay} onClose={modalClose} >
+            <ModalOverlay onClick={modalClose}/>
+            <div className={styles.backdrop} >
                 <div className={`${styles.icon} mt-10 mr-10`}>
                     <CloseIcon type="primary" onClick={modalClose} />
-                </div>                
-                {props.children} 
+                </div>
+                {props.children}
             </div>
 
-        </>,
-        modalRoot
-    ));
+        </>
+    );
 
 }
 
 Modal.propTypes = {
     children: PropTypes.element.isRequired,
+}
+ModalOverlay.propTypes = {
+    onClick: PropTypes.func.isRequired,
 }
 
 export default Modal;

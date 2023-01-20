@@ -3,14 +3,18 @@ import {
     ADD_ITEM,
     ADD_BUN,
     DELETE_ITEM,
-    MOVE_CARD
+    MOVE_CARD,
+    COMPOSE_ORDER
 } from './ConstructorActions';
+
 const initialState = {
 
     bun: {},
     otherIng: [],
+    order: {"ingredients": []}
 }
-export const ConstructorReducer = (state = initialState, action) => {
+
+export const сonstructorReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_ITEM: {
             return {
@@ -45,6 +49,15 @@ export const ConstructorReducer = (state = initialState, action) => {
                 otherIng: newOtherIng
             }
         };
+        case COMPOSE_ORDER:
+            const order = state.otherIng.map(elem => elem.item._id)
+            order.push(state.bun._id)
+            return {
+                ...state,
+                order:{
+                    "ingredients": order
+                }
+            }
         default:
             return state;
     }
