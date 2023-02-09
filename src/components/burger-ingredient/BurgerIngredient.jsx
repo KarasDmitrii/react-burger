@@ -10,6 +10,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 
 const BurgerIngredient = (item) => {
+    let location = useLocation();
     const bun = useSelector(getBun);
     const { image, price, name, _id, type } = item.item;
 
@@ -25,17 +26,16 @@ const BurgerIngredient = (item) => {
         type: "ingItem",
         item: { _id }
     });
-    const location = useLocation();
+    
     return (
 
 
         <div className={`${styles.ingredient} mr-4 ml-4 mb-10 mt-6`}>
             {count && <Counter count={count} size="default" extraClass="m-1" />}
             <Link
-                to={{
-                    pathname: `/ingredients/${_id}`,
-                    state: { background: location }
-                }}>
+                to={`/ingredients/${_id}`}
+                state= {{ background: location }}
+                >
                 <div className='ml-4'>
                     <img ref={dragRef} alt='изображение продукта' src={image} />
                 </div>

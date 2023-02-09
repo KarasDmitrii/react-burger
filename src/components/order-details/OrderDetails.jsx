@@ -1,8 +1,6 @@
-import { RevolvingDot } from "react-loader-spinner";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import done from "../../images/graphics.svg";
 
+import { useSelector } from "react-redux";
+import done from "../../images/graphics.svg";
 import styles from '../modal/modal.module.css';
 
 export function OrderDetails() {
@@ -14,17 +12,7 @@ export function OrderDetails() {
                 <p className="text text_type_main-medium">
                     индефикатор заказа
                 </p>
-                <img alt="OrderDetail image" className='mt-15 mb-15' src={number ? done : <RevolvingDot
-                    height="100"
-                    width="100"
-                    radius="6"
-                    color="#801ab3"
-                    secondaryColor=''
-                    ariaLabel="revolving-dot-loading"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                />} />
+                <img alt="OrderDetail image" className='mt-15 mb-15' src={done}/> 
                 <p className="text text_type_main-default">
                     Ваш заказ уже начали готовить
                 </p>

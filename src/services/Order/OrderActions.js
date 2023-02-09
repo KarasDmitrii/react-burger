@@ -1,4 +1,5 @@
-import { Redirect, useLocation } from "react-router-dom";
+
+
 import { sendOrderApi } from "../../utils/TrueBurgerApi";
 
 export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL';
@@ -19,10 +20,6 @@ export function sendOrder(order) {
             dispatch({
                 type: SEND_ORDER_ERROR
             }))
-        return (
-            <Redirect to={{
-                pathname: '/order/1010'
-            }} />
-        )
+       
     }
 }

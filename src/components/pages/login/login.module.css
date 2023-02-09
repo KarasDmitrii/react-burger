@@ -4,7 +4,8 @@
     height: 100vh;
     background-color: #131316;     
 }
-.main {
+.content {
+    
     display: flex;
     position: relative;
     overflow:hidden;
@@ -16,8 +17,9 @@
     justify-content: center;
 }  
 .contentBox {
+    margin-top: 7%;
     display:flex;
-    margin:auto;
+    width: 100%;
     flex-direction: column;
     
 }
@@ -28,5 +30,10 @@
 }
 .textBox {
     display: flex;
+    align-items: center;
+}
+.form {
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }

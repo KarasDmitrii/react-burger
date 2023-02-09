@@ -6,8 +6,8 @@ import { useDrop } from "react-dnd";
 import { ConstructorCard } from "./ConstructorCard";
 import { addItem, DELETE_ITEM } from "../../services/Constructor/ConstructorActions";
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { composeOrder, getAllData, getBun, getOtherIng, getPrice } from "../../services/Constructor/ConstructorSelectors";
-import { Link } from 'react-router-dom';
+import { composeOrder, getAllData, getBun, getOtherIng, getPrice, activeUser } from "../../services/Constructor/ConstructorSelectors";
+import { Link, Navigate } from 'react-router-dom';
 import { CLOSE_ORDER_MODAL, sendOrder } from '../../services/Order/OrderActions';
 import Modal from '../modal/Modal';
 import OrderDetails from '../order-details/OrderDetails';
@@ -19,7 +19,7 @@ function BurgerConstructor() {
     const price = useSelector(getPrice);
     const isOrdModalOpen = useSelector(state => state.ordModal.isOrdModalOpen)
     const dispatch = useDispatch();
-
+    const isActiveUser = useSelector(activeUser);
     const [, dropTarget] = useDrop({
         accept: 'ingItem',
         drop(itemId) {
@@ -44,7 +44,7 @@ function BurgerConstructor() {
 
     const onClick = () => {
         const order = composeOrder(otherIng, bun)
-        dispatch(sendOrder(order));
+        dispatch(sendOrder(order))
     }
 
     return (
@@ -97,7 +97,7 @@ function BurgerConstructor() {
                             <CurrencyIcon type="primary" />
                         </div>
 
-                        {otherIng[0] && bun.image && <Button onClick={onClick} htmlType="button" type="primary" size="medium">
+                        {otherIng[0] && bun.image && isActiveUser && <Button onClick={onClick} htmlType="button" type="primary" size="medium">
                             <p className="text text_type_main-default" >
                                 Оформить заказ
                             </p>

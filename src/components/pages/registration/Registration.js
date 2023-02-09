@@ -1,11 +1,12 @@
 
 import styles from './registration.module.css';
-import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button, EmailInput, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../../services/user/UserAction";
+import { loginUser, registerUser } from "../../../services/user/UserAction";
 import { useState } from "react";
+
 export const Registration = () => {
     const dispatch = useDispatch();
 
@@ -24,12 +25,18 @@ export const Registration = () => {
     }
 
     const registerHandler = () => {
-        dispatch(loginUser);
+        dispatch(registerUser(
+            {
+                'email': emailValue,
+                'password': passwordValue,
+                'name': nameValue
+            }
+            ));
     }
 
     return (
 
-        <>
+        <div className={styles.content}>
             <div className={styles.contentBox}>
                 <div className={styles.header}>
                     <p className="text text_type_main-medium">
@@ -38,10 +45,10 @@ export const Registration = () => {
                 </div>
                 <div className={styles.inputsBox}>
                     <div className='mt-6'>
-                        <EmailInput
+                        <Input
                             onChange={onNameChange}
                             value={nameValue}
-                            name={'email'}
+                            name={'name'}
                             placeholder="Имя"
                         />
                     </div>
@@ -80,7 +87,7 @@ export const Registration = () => {
 
                 </div>
             </div>
-        </>
+        </div>
 
     )
 }

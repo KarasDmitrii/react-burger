@@ -1,32 +1,45 @@
-.app {   
+.app {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: #131316;     
+    background-color: #131316;
 }
+
 .main {
+
     display: flex;
     position: relative;
-    overflow:hidden;
+    overflow: hidden;
     justify-content: center;
     height: 100%;
-  }
+}
+
 .header {
     display: flex;
     justify-content: center;
-}  
-.contentBox {
-    display:flex;
-    margin:auto;
-    flex-direction: column;
-    
 }
+
+.contentBox {
+    display: flex;
+    margin-top: 7%;
+    flex-direction: column;
+
+}
+
 .inputsBox {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .textBox {
     display: flex;
     align-items: center;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
 }

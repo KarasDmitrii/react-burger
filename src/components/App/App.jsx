@@ -9,22 +9,35 @@ import { Registration } from "../pages/registration/Registration";
 import { ResetPassword } from "../pages/reset-password/ResetPassword";
 import { ForgotPassword } from "../pages/forgot-password/forgot-password";
 import { MainPage } from "../pages/main-page/MainPage";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 import OrderDetails from "../order-details/OrderDetails";
 import { loadIngredients } from "../../services/Ingredients/IngredientsActions";
 
+import { getUserApi, refreshAccessToken } from "../../services/user/UserAction";
+import { readCookie } from "../../services/user/UserServices";
+import { ProtectFromAuth, ProtectFromUnauth } from "./ProtectedRoutes";
+import { NotFoundPage } from "../pages/not-found-page/NotFoungPage";
+
 export function App() {
+
+  const location = useLocation();
+  const token = readCookie('refreshToken');
+  const background = location.state && location.state.background;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadIngredients())
+    if (token !== 'undefined') {
+      refreshAccessToken();
+      dispatch(getUserApi());
+    }
 
   }, []);
-  const history = useHistory();
+  const navigate = useNavigate();
   const closeModal = e => {
     e.stopPropagation();
-    history.goBack();
+    navigate(-1);
   }
 
   return (
@@ -33,27 +46,29 @@ export function App() {
       <Header />
       <main className={styles.main}>
 
-        <Switch>
-          <Route path='/profile' component={Profile} />
-          <Route path='/login' component={LoginPage} />
-          <Route path='/register' component={Registration} />
-          <Route path='/forgot-password' component={ForgotPassword} />
-          <Route path='/reset-password' component={ResetPassword} />
-          <Route path='/ingredients/:id' >
-            <Modal modalClose={closeModal}>
-              <IngredientDetails />
-            </Modal>
-          </Route>
-          <Route path='/' component={MainPage} />
+        <Routes location={background || location}>
+          <Route path='/profile' element={<ProtectFromUnauth element={<Profile />} />} />
+          
+          <Route path='/login' element={<ProtectFromAuth element={<LoginPage />}/>} />
 
-
-        </Switch>
+          <Route path='/register' element={<ProtectFromAuth element={<Registration />} />} />
+          <Route path='/forgot-password' element={<ProtectFromAuth element={<ForgotPassword />}/>} />
+          <Route path='/reset-password' element={<ProtectFromAuth element={<ResetPassword />}/>} />
+          <Route path='/' element={<MainPage />} />
+          <Route path='/ingredients/:id' element={<IngredientDetails />} />
+          <Route path='*' element={<NotFoundPage/>}/>
+        </Routes>
+        {background && (
+          <Routes>
+            <Route path='/ingredients/:id' element={
+              <Modal modalClose={closeModal}>
+                <IngredientDetails />
+              </Modal>} />
+          </Routes>
+        )}
 
       </main>
     </div>
 
   );
 }
-
-
-//  

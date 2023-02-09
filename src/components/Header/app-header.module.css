@@ -14,8 +14,19 @@
     height: 56px;
     border-radius: 40px;
     align-items: center;
+    color: #8585AD,
+
+}
+.selectedLinks {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    width: 178px;
+    height: 56px;
+    border-radius: 40px;
+    align-items: center;
     color: white;
-    background-color: #1C1C21;
+
 }
 
 .boxButton {
@@ -46,8 +57,3 @@
     justify-content: center;
 }
 
-a {
-    text-decoration: none;
-    
-
-}

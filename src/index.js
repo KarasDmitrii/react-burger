@@ -7,8 +7,10 @@ import { initStore } from './services/Store';
 import { Provider } from 'react-redux';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { BrowserRouter } from 'react-router-dom';
-import { App } from './components/app/App';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { App } from './components/App/App';
+import { loadIngredients } from './services/Ingredients/IngredientsActions';
+
 
 
 
@@ -27,20 +29,22 @@ const defaultState = {
     bun: {},
     activeUser: false,
     otherIng: [],
-    order: {"ingredients": []},
+    order: { "ingredients": [] },
   },
   ordModal: {
     isOrdModalOpen: false,
     orderNum: 0,
-    sendOrderError: false  
+    sendOrderError: false
   }
 
 };
 
+
 const store = initStore(defaultState);
 root.render(
-  <BrowserRouter >
+  <Router >
     <React.StrictMode>
+
       <DndProvider backend={HTML5Backend}>
         <Provider store={store}>
 
@@ -48,8 +52,9 @@ root.render(
 
         </Provider>
       </DndProvider>
+
     </React.StrictMode>
-  </BrowserRouter>
+  </Router>
 );
 
 reportWebVitals();

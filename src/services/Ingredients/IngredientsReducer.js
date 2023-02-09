@@ -41,8 +41,6 @@ export const ingredientsReducer = (state = initialState, action) => {
         case GET_ING_LOADING:
             return {
                 ...state,
-
-               
                 isLoading: true
 
             };

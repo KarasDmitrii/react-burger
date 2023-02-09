@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import styles from './modal.module.css';
 import PropTypes from 'prop-types';
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useLocation } from "react-router-dom";
 
 
 
@@ -12,6 +13,7 @@ const ModalOverlay = (props) => {
 
 
 const Modal = (props) => {
+    
 
     const modalClose = props.modalClose
     

@@ -1,48 +1,44 @@
 
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { getUser } from '../../services/user/UserSelectors';
 import styles from './app-header.module.css';
+import { CustomLink } from '../../utils/CustomLink';
 
 export function Header() {
-
+    const classLink = ({ isActive }) => isActive ? styles.selectedLinks : styles.unselectedLinks;
+    const user = useSelector(getUser);
     return (
         <header className={styles.header}>
             <div className={styles.boxHeader}>
                 <div className={`${styles.boxButton} m-4`}>
-                    <Link to='/'>
-                        <div className={`${styles.headLinks} mr-2`}>
-                            <BurgerIcon type="primary" />
-                            <p className='text text_type_main-small ml-2' >
-                                Конструктор
-                            </p>
-                        </div>
-                    </Link>
-                    <Link to='/'>
-                        <div className={`${styles.headLinks} mr-2`}>
-                            <ListIcon type="secondary" />
-                            <p className='text text_type_main-default text_color_inactive ml-2' >
-                                Лента заказов
-                            </p>
-                        </div>
-                    </Link>
+                    <CustomLink to='/' className={`${styles.headLinks} mr-2`}>
+                        <BurgerIcon fill type="secondary" />
+                        <p className='text text_type_main-default ml-2' >
+                            Конструктор
+                        </p>
+                    </CustomLink>
+
+                    <CustomLink to='/profile/orders' className={`${styles.headLinks} mr-2`}>
+                        <ListIcon fill type="secondary" />
+                        <p className='text text_type_main-default ml-2' >
+                            Лента заказов
+                        </p>
+                    </CustomLink>
                 </div>
             </div>
             <div className={styles.boxLogo}>
-                
-                    <Logo />
-                
+                <Logo />
             </div>
             <div className={styles.boxLc}>
-                
-                    <div className={`${styles.headLinks} mr-2`}>
-                        <ProfileIcon type="secondary" />
-                        <Link to='/profile'>
-                            <p className='text text_type_main-default text_color_inactive ml-2' >
-                                Личный кабинет
-                            </p>
-                        </Link>
-                    </div>
-                
+                <CustomLink to='/profile' className={`${styles.headLinks} mr-2`}>
+                    <ProfileIcon type="secondary" />
+                    <p className='text text_type_main-default ml-2' >
+                        {user.name || 'Личный кабинет'}
+                    </p>
+                </CustomLink>
             </div>
         </header>
     )

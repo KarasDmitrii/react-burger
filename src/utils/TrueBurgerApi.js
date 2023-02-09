@@ -14,16 +14,3 @@ export const sendOrderApi = (order) => {
 })
 }
 
-    // return await fetch('https://norma.nomoreparties.space/api/orders',
-    // {
-    //     method: 'POST',
-    //     body: JSON.stringify(order), 
-    //     headers: { 'Content-Type': 'application/json' }
-    // })
-    // .then(res => {
-    //     if (res.ok) {
-    //         return console.log(res.json());
-    //     } else {
-    //         return Promise.reject(`Ошибка ${res.status}`);
-    //     };
-    // })
