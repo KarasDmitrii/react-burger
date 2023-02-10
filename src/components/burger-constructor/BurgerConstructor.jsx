@@ -8,7 +8,7 @@ import { addItem, DELETE_ITEM } from "../../services/Constructor/ConstructorActi
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { composeOrder, getAllData, getBun, getOtherIng, getPrice, activeUser } from "../../services/Constructor/ConstructorSelectors";
 import { CLOSE_ORDER_MODAL, sendOrder } from '../../services/Order/OrderActions';
-import {Modal} from '../modal/Modal';
+import { Modal } from '../modal/Modal';
 import OrderDetails from '../order-details/OrderDetails';
 
 function BurgerConstructor() {

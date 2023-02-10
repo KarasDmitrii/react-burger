@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import { request } from "../../utils/Request";
 import { readCookie, setCookie } from "./UserServices";
 
-const API_URL = 'https://norma.nomoreparties.space/api/auth';
-const API_URL_RES = 'https://norma.nomoreparties.space/api';
+const API_URL = 'https://norma.nomoreparties.space/api';
+
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 export const ADD_USER = 'ADD_USER';
@@ -15,7 +15,7 @@ export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
 
 export const loginUser = (data) => {
     return function (dispatch) {
-        request((`${API_URL}/login`), {
+        request((`${API_URL}/auth/login`), {
             method: 'POST',
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }
@@ -49,7 +49,7 @@ export const loginUser = (data) => {
 export const logoutUser = () => {
 
     return function (dispatch) {
-        request((`${API_URL}/logout`), {
+        request((`${API_URL}/auth/logout`), {
             method: 'POST',
             body: JSON.stringify({
                 'token': readCookie('refreshToken')
@@ -74,7 +74,7 @@ export const logoutUser = () => {
 
 export const registerUser = (data) => {
     return function (dispatch) {
-        request((`${API_URL}/register`), {
+        request((`${API_URL}/auth/register`), {
             method: 'POST',
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }
@@ -102,7 +102,7 @@ export const registerUser = (data) => {
 export const refreshAccessToken = () => {
     
     const refreshToken = readCookie('refreshToken');
-    request((`${API_URL}/token`), {
+    request((`${API_URL}/auth/token`), {
         method: 'POST',
         body: JSON.stringify({
             'token': refreshToken
@@ -120,7 +120,7 @@ export const refreshAccessToken = () => {
 export const changeUserData = (newData) => {
     return function (dispatch) {
         const accessToken = 'Bearer ' + readCookie('accessToken').toString();
-        request((`${API_URL}/user`), {
+        request((`${API_URL}/auth/user`), {
             method: 'PATCH',
             body: JSON.stringify(newData),
             headers: { 'Content-Type': 'application/json', 'authorization': accessToken }
@@ -136,7 +136,7 @@ export const changeUserData = (newData) => {
 export const getUserApi = () => {
     return function (dispatch) {
         const accessToken = 'Bearer ' + readCookie('accessToken').toString();
-        request((`${API_URL}/user`), {
+        request((`${API_URL}/auth/user`), {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', 'authorization': accessToken }
         }).then(res => {
@@ -156,7 +156,7 @@ export const getUserApi = () => {
 
 export const forgotPassword = (data) => {
     return function (dispatch) {
-        request((`${API_URL_RES}/password-reset`), {
+        request((`${API_URL}/password-reset`), {
             method: 'POST',
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }
@@ -178,7 +178,7 @@ export const forgotPassword = (data) => {
 
 export const resetPassword = (data) => {
     return function (dispatch) {
-        request((`${API_URL_RES}/password-reset/reset`), {
+        request((`${API_URL}/password-reset/reset`), {
             method: 'POST',
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }

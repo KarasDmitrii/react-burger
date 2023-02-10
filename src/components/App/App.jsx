@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Header } from '../header/AppHeader';
+import { Header } from "../Header/AppHeader";
 import styles from './app.module.css';
 import '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css';
 import { useDispatch } from "react-redux";
@@ -10,12 +10,12 @@ import { ResetPassword } from "../pages/reset-password/ResetPassword";
 import { ForgotPassword } from "../pages/forgot-password/forgot-password";
 import { MainPage } from "../pages/main-page/MainPage";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import {Modal} from "../modal/Modal";
+import { Modal } from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 import { loadIngredients } from "../../services/Ingredients/IngredientsActions";
 import { getUserApi, refreshAccessToken } from "../../services/user/UserAction";
 import { readCookie } from "../../services/user/UserServices";
-import { ProtectFromAuth, ProtectFromUnauth } from "./ProtectedRoutes";
+import ProtectedRoute from "../../protectedRoutes/ProtectedRoutes";
 import { NotFoundPage } from "../pages/not-found-page/NotFoungPage";
 
 export function App() {
@@ -44,11 +44,26 @@ export function App() {
       <Header />
       <main className={styles.main}>
         <Routes location={background || location}>
-          <Route path='/profile' element={<ProtectFromUnauth element={<Profile />} />} />
-          <Route path='/login' element={<ProtectFromAuth element={<LoginPage />} />} />
-          <Route path='/register' element={<ProtectFromAuth element={<Registration />} />} />
-          <Route path='/forgot-password' element={<ProtectFromAuth element={<ForgotPassword />} />} />
-          <Route path='/reset-password' element={<ProtectFromAuth element={<ResetPassword />} />} />
+          <Route path='/profile' element={
+            <ProtectedRoute anonymous={false}>
+              <Profile />
+            </ProtectedRoute>} />
+          <Route path='/login' element={
+            <ProtectedRoute anonymous={true}>
+              <LoginPage />
+            </ProtectedRoute>} />
+          <Route path='/register' element={
+            <ProtectedRoute anonymous={true}>
+              <Registration />
+            </ProtectedRoute>} />
+          <Route path='/forgot-password' element={
+            <ProtectedRoute anonymous={true}>
+              <ForgotPassword />
+            </ProtectedRoute>} />
+          <Route path='/reset-password' element={
+            <ProtectedRoute anonymous={true}>
+              <Profile />
+            </ProtectedRoute>}/>
           <Route path='/' element={<MainPage />} />
           <Route path='/ingredients/:id' element={<IngredientDetails />} />
           <Route path='*' element={<NotFoundPage />} />

@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from 'reselect'
 export const getBun = (store) => store.constructorData.bun;
 export const getOtherIng = (store) => store.constructorData.otherIng;
 export const getAllData = (store) => store.data.allData;
