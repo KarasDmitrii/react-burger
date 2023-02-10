@@ -10,7 +10,7 @@ import { ResetPassword } from "../pages/reset-password/ResetPassword";
 import { ForgotPassword } from "../pages/forgot-password/forgot-password";
 import { MainPage } from "../pages/main-page/MainPage";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import Modal from "../modal/Modal";
+import {Modal} from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 import { loadIngredients } from "../../services/Ingredients/IngredientsActions";
 import { getUserApi, refreshAccessToken } from "../../services/user/UserAction";

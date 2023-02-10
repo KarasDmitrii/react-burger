@@ -29,7 +29,7 @@ const IngredientDetails = () => {
                         Детали ингредиента
                     </p>
                 </div>
-                <img className={`${styles.image} ml-30 mr-30`} src={image_large} />
+                <img className={`${styles.image} ml-30 mr-30`} src={image_large} alt='ingImg' />
                 <div className={styles.name}>
                     <p className="text text_type_main-medium" >
                         {name}
