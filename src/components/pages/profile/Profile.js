@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import styles from './Profile.module.css';
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../../services/user/UserSelectors";
@@ -14,9 +14,11 @@ export const Profile = () => {
     const user = useSelector(getUser);
     const navigate = useNavigate();
     const location = useLocation();
+
     useEffect(() => {
         dispatch(getUser);
     }, [])
+
     const [isChange, setIsChange] = useState(false)
     const [nameValue, setNameValue] = useState(user.name)
     const onNameChange = e => {
@@ -78,7 +80,6 @@ export const Profile = () => {
                         изменить свои персональные данные
                     </p>
                 </div>
-
             </div>
             <div className={styles.contentBox}>
                 <form onSubmit={sabmitChangeHandler} className={styles.inputsBox}>
@@ -118,7 +119,6 @@ export const Profile = () => {
                             <Button htmlType='submit' type="primary" size="small" extraClass="ml-2">
                                 Сохранить
                             </Button>
-
                         </div>
                     }
                 </form>

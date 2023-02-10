@@ -12,9 +12,7 @@ import { MainPage } from "../pages/main-page/MainPage";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
-import OrderDetails from "../order-details/OrderDetails";
 import { loadIngredients } from "../../services/Ingredients/IngredientsActions";
-
 import { getUserApi, refreshAccessToken } from "../../services/user/UserAction";
 import { readCookie } from "../../services/user/UserServices";
 import { ProtectFromAuth, ProtectFromUnauth } from "./ProtectedRoutes";
@@ -33,10 +31,10 @@ export function App() {
       dispatch(getUserApi());
     }
 
-  }, []);
+  }, [dispatch]);
   const navigate = useNavigate();
   const closeModal = e => {
-    e.stopPropagation();
+    e.preventDefault();
     navigate(-1);
   }
 
@@ -45,18 +43,15 @@ export function App() {
     <div className={styles.app}>
       <Header />
       <main className={styles.main}>
-
         <Routes location={background || location}>
           <Route path='/profile' element={<ProtectFromUnauth element={<Profile />} />} />
-          
-          <Route path='/login' element={<ProtectFromAuth element={<LoginPage />}/>} />
-
+          <Route path='/login' element={<ProtectFromAuth element={<LoginPage />} />} />
           <Route path='/register' element={<ProtectFromAuth element={<Registration />} />} />
-          <Route path='/forgot-password' element={<ProtectFromAuth element={<ForgotPassword />}/>} />
-          <Route path='/reset-password' element={<ProtectFromAuth element={<ResetPassword />}/>} />
+          <Route path='/forgot-password' element={<ProtectFromAuth element={<ForgotPassword />} />} />
+          <Route path='/reset-password' element={<ProtectFromAuth element={<ResetPassword />} />} />
           <Route path='/' element={<MainPage />} />
           <Route path='/ingredients/:id' element={<IngredientDetails />} />
-          <Route path='*' element={<NotFoundPage/>}/>
+          <Route path='*' element={<NotFoundPage />} />
         </Routes>
         {background && (
           <Routes>
@@ -66,9 +61,7 @@ export function App() {
               </Modal>} />
           </Routes>
         )}
-
       </main>
     </div>
-
   );
 }

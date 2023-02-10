@@ -8,10 +8,9 @@ import {
 } from './ConstructorActions';
 
 const initialState = {
-
     bun: {},
     otherIng: [],
-    order: {"ingredients": []}
+    order: { "ingredients": [] }
 }
 
 export const сonstructorReducer = (state = initialState, action) => {
@@ -54,7 +53,7 @@ export const сonstructorReducer = (state = initialState, action) => {
             order.push(state.bun._id)
             return {
                 ...state,
-                order:{
+                order: {
                     "ingredients": order
                 }
             }

@@ -1,5 +1,5 @@
 import { refreshAccessToken } from "../services/user/UserAction";
-
+import PropTypes from 'prop-types';
 export async function request(url, options) {
     return await fetch(url, options).then(res => {
         if (res.ok) {
@@ -22,3 +22,7 @@ export async function request(url, options) {
         
         Promise.reject(`Ошибка ${err.status}`)})
 }
+request.propTypes = {
+    url: PropTypes.string.isRequired,
+    options: PropTypes.object.isRequired
+};

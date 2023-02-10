@@ -19,7 +19,6 @@ export const ForgotPassword = () => {
         }))
     }
     return (
-
         <div className={styles.content}>
             <div className={styles.contentBox}>
                 <div className={styles.header}>
@@ -57,6 +56,5 @@ export const ForgotPassword = () => {
             </div>
             {isPasswordForgot && <Navigate to='/reset-password'/>}
         </div>
-
     )
 }

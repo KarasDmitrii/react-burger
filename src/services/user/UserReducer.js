@@ -1,5 +1,5 @@
 
-import { ADD_USER, LOG_IN, LOG_OUT, PATH_USER, AUTH_ERROR, RESET_PASSWORD, FORGOT_PASSWORD } from "./UserAction"
+import { ADD_USER, LOG_OUT, PATH_USER, AUTH_ERROR, RESET_PASSWORD, FORGOT_PASSWORD } from "./UserAction"
 
 const initialState = {
     activeUser: false,

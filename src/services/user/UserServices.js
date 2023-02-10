@@ -1,5 +1,5 @@
 
-const API_URL = 'https://norma.nomoreparties.space/api';
+import PropTypes from 'prop-types';
 export function setCookie(name, value, props) {
     props = props || {};
     let exp = props.expires;
@@ -30,5 +30,13 @@ export function readCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
+setCookie.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  props: PropTypes.object
+}
+readCookie.propTypes = {
+  name: PropTypes.string.isRequired,
+}
 
 

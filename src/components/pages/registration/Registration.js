@@ -1,11 +1,10 @@
 
 import styles from './registration.module.css';
 import { Button, EmailInput, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginUser, registerUser } from "../../../services/user/UserAction";
+import { registerUser } from "../../../services/user/UserAction";
 import { useState } from "react";
+import { CustomLink } from '../../../utils/CustomLink';
 
 export const Registration = () => {
     const dispatch = useDispatch();
@@ -76,18 +75,15 @@ export const Registration = () => {
                             Уже зарегистрированы?
                         </p>
                         <div className="ml-2">
-                            <Link to='/login'>
+                            <CustomLink to='/login'>
                                 <p className="text text_type_main-default">
                                     Войти
                                 </p>
-                            </Link>
+                            </CustomLink>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
-
     )
 }

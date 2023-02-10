@@ -1,4 +1,4 @@
-import { useState } from "react";
+import PropTypes from 'prop-types';
 import { request } from "../../utils/Request";
 import { readCookie, setCookie } from "./UserServices";
 
@@ -12,10 +12,9 @@ export const GET_USER = 'GET_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const RESET_PASSWORD = 'RESET_PASSWORD';
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
+
 export const loginUser = (data) => {
-    // const accessToken = 'Bearer ' + readCookie('accessToken').toString();
     return function (dispatch) {
-        
         request((`${API_URL}/login`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -44,10 +43,7 @@ export const loginUser = (data) => {
                 })
             }
         })
-
-
     }
-
 };
 
 export const logoutUser = () => {
@@ -59,18 +55,21 @@ export const logoutUser = () => {
                 'token': readCookie('refreshToken')
             }),
             headers: { 'Content-Type': 'application/json' }
-        }).then(res => {
+        }).then(() => {
             dispatch({
                 type: LOG_OUT,
-         
             })
             setCookie('accessToken');
             setCookie('refreshToken');
+        }).catch(err => {
+            console.log(err)
+            if (err.status === 401) {
+                dispatch({
+                    type: AUTH_ERROR
+                })
+            }
         })
-
-
     }
-
 };
 
 export const registerUser = (data) => {
@@ -89,11 +88,19 @@ export const registerUser = (data) => {
             })
             setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
             setCookie('refreshToken', res.refreshToken);
+        }).catch(err => {
+            Promise.reject(`Ошибка регистрации${err}`);
+            if (err.status === 401) {
+                dispatch({
+                    type: AUTH_ERROR
+                })
+            }
         })
     }
 }
 
 export const refreshAccessToken = () => {
+    
     const refreshToken = readCookie('refreshToken');
     request((`${API_URL}/token`), {
         method: 'POST',
@@ -102,18 +109,17 @@ export const refreshAccessToken = () => {
         }),
         headers: { 'Content-Type': 'application/json' }
     }).then(res => {
-
         setCookie('refreshToken', res.refreshToken);
         setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-
     }).catch(err => {
-        Promise.reject(`Ошибка обновления токена${err.status}`);
+        Promise.reject(`Ошибка обновления токена${err}`);
+        
     })
 }
 
 export const changeUserData = (newData) => {
-    const accessToken = 'Bearer ' + readCookie('accessToken').toString();
     return function (dispatch) {
+        const accessToken = 'Bearer ' + readCookie('accessToken').toString();
         request((`${API_URL}/user`), {
             method: 'PATCH',
             body: JSON.stringify(newData),
@@ -123,42 +129,33 @@ export const changeUserData = (newData) => {
                 type: PATH_USER,
                 payload: newData
             })
-
         })
-
     }
 }
 
 export const getUserApi = () => {
-
-
     return function (dispatch) {
         const accessToken = 'Bearer ' + readCookie('accessToken').toString();
         request((`${API_URL}/user`), {
             method: 'GET',
-
             headers: { 'Content-Type': 'application/json', 'authorization': accessToken }
         }).then(res => {
             dispatch({
                 type: ADD_USER,
                 payload: {
                     user: res.user,
-
                 }
             })
-
-
         }).catch(err => {
             if (err.status === 401) {
                 refreshAccessToken()
             }
         })
-
     }
 };
 
 export const forgotPassword = (data) => {
-    return function (dispatch) { 
+    return function (dispatch) {
         request((`${API_URL_RES}/password-reset`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -174,18 +171,13 @@ export const forgotPassword = (data) => {
                 dispatch({
                     type: FORGOT_PASSWORD
                 })
-                
             }
         })
-
-
     }
-
 };
 
 export const resetPassword = (data) => {
-    const refreshToken = readCookie('refreshToken');
-    return function (dispatch) { 
+    return function (dispatch) {
         request((`${API_URL_RES}/password-reset/reset`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -201,11 +193,23 @@ export const resetPassword = (data) => {
                 dispatch({
                     type: RESET_PASSWORD
                 })
-                
             }
         })
-
-
     }
-
 };
+
+resetPassword.propTypes = {
+    data: PropTypes.object.isRequired
+}
+forgotPassword.propTypes = {
+    data: PropTypes.object.isRequired
+}
+changeUserData.propTypes = {
+    newData: PropTypes.object.isRequired
+}
+registerUser.propTypes = {
+    data: PropTypes.object.isRequired
+}
+loginUser.propTypes = {
+    data: PropTypes.object.isRequired
+}

@@ -1,14 +1,11 @@
 
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { getUser } from '../../services/user/UserSelectors';
 import styles from './app-header.module.css';
 import { CustomLink } from '../../utils/CustomLink';
 
 export function Header() {
-    const classLink = ({ isActive }) => isActive ? styles.selectedLinks : styles.unselectedLinks;
     const user = useSelector(getUser);
     return (
         <header className={styles.header}>
@@ -20,7 +17,6 @@ export function Header() {
                             Конструктор
                         </p>
                     </CustomLink>
-
                     <CustomLink to='/profile/orders' className={`${styles.headLinks} mr-2`}>
                         <ListIcon fill type="secondary" />
                         <p className='text text_type_main-default ml-2' >

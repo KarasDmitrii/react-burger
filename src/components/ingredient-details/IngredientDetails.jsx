@@ -7,47 +7,22 @@ import { useEffect } from 'react';
 import { loadIngredients } from '../../services/Ingredients/IngredientsActions';
 
 
-
-
 const IngredientDetails = () => {
 
     const dispatch = useDispatch();
     const allData = useSelector(getAllData)
     const { id } = useParams();
-    // const init = async () => {
-    //     await 
-    // }
 
     useEffect(() => {
-
-        if (allData) {
-            console.log("alldata")
-
-
-        } else {
+        if (!allData) {
             dispatch(loadIngredients())
-
-
-
-
-            console.log('no')
-
         }
-    }, [])
-
-
-
-
-
+    }, [dispatch])
 
     if (allData[0]) {
         const item = allData.find(element => element._id === id);
         const { name, calories, proteins, fat, carbohydrates, image_large } = item;
         return (
-
-
-
-
             <div className={styles.content}>
                 <div className={`${styles.header} mr-10 ml-10 mt-10 mb-4`}>
                     <p className="text text_type_main-large">
@@ -95,9 +70,6 @@ const IngredientDetails = () => {
                     </div>
                 </div>
             </div>
-
-
-
         )
     }
 };
