@@ -30,7 +30,7 @@ export const Profile = () => {
         setEmailValue(e.target.value)
         setIsChange(true)
     }
-    const [passwordValue, setPasswordValue] = useState(user.password)
+    const [passwordValue, setPasswordValue] = useState('')
     const onPasswordChange = e => {
         setPasswordValue(e.target.value)
         setIsChange(true)
@@ -40,7 +40,8 @@ export const Profile = () => {
         e.preventDefault();
         dispatch(changeUserData({
             name: nameValue,
-            email: emailValue
+            email: emailValue,
+            password: passwordValue,
         }));
         setIsChange(false)
     }
@@ -114,10 +115,16 @@ export const Profile = () => {
                     {isChange &&
                         <div className={`${styles.buttonBox} mt-5`}>
                             <Button onClick={cancelChange} htmlType="button" type="secondary" size="small">
-                                Отмена
+                                <p className="text text_type_main-small">
+                                    Отмена
+                                </p>
+
                             </Button>
                             <Button htmlType='submit' type="primary" size="small" extraClass="ml-2">
-                                Сохранить
+                                <p className="text text_type_main-small">
+                                    Сохранить
+                                </p>
+                                
                             </Button>
                         </div>
                     }
