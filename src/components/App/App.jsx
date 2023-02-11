@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { LoginPage } from "../pages/login/Login";
 import { Profile } from "../pages/profile/Profile";
 import { Registration } from "../pages/registration/Registration";
-import { ResetPassword } from "../pages/reset-password/ResetPassword";
 import { ForgotPassword } from "../pages/forgot-password/forgot-password";
 import { MainPage } from "../pages/main-page/MainPage";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
@@ -26,8 +25,8 @@ export function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadIngredients())
-    if (token !== 'undefined') {
-      refreshAccessToken();
+    if (token) {
+      dispatch(refreshAccessToken());
       dispatch(getUserApi());
     }
 

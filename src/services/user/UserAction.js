@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import { request } from "../../utils/Request";
+import { API_URL } from '../../utils/TrueBurgerApi';
 import { readCookie, setCookie } from "./UserServices";
-
-const API_URL = 'https://norma.nomoreparties.space/api';
 
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
@@ -12,7 +11,7 @@ export const GET_USER = 'GET_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const RESET_PASSWORD = 'RESET_PASSWORD';
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
-
+export const REFRESH_TOKEN = 'REFRESH_TOKEN'; 
 export const loginUser = (data) => {
     return function (dispatch) {
         request((`${API_URL}/auth/login`), {
@@ -59,8 +58,8 @@ export const logoutUser = () => {
             dispatch({
                 type: LOG_OUT,
             })
-            setCookie('accessToken');
-            setCookie('refreshToken');
+            setCookie('accessToken', '', {expires: -1});
+            setCookie('refreshToken', '', {expires: -1});
         }).catch(err => {
             console.log(err)
             if (err.status === 401) {
@@ -100,21 +99,25 @@ export const registerUser = (data) => {
 }
 
 export const refreshAccessToken = () => {
-    
-    const refreshToken = readCookie('refreshToken');
-    request((`${API_URL}/auth/token`), {
-        method: 'POST',
-        body: JSON.stringify({
-            'token': refreshToken
-        }),
-        headers: { 'Content-Type': 'application/json' }
-    }).then(res => {
-        setCookie('refreshToken', res.refreshToken);
-        setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
-    }).catch(err => {
-        Promise.reject(`Ошибка обновления токена${err}`);
-        
-    })
+    return function (dispatch) {
+        const refreshToken = readCookie('refreshToken');
+        request((`${API_URL}/auth/token`), {
+            method: 'POST',
+            body: JSON.stringify({
+                'token': refreshToken
+            }),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(res => {
+            dispatch({
+                type: REFRESH_TOKEN
+            })
+            setCookie('refreshToken', res.refreshToken);
+            setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+        }).catch(err => {
+            Promise.reject(`Ошибка обновления токена${err}`);
+
+        })
+    }
 }
 
 export const changeUserData = (newData) => {

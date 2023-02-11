@@ -1,5 +1,5 @@
 
-import { ADD_USER, LOG_OUT, PATH_USER, AUTH_ERROR, RESET_PASSWORD, FORGOT_PASSWORD } from "./UserAction"
+import { ADD_USER, LOG_OUT, PATH_USER, AUTH_ERROR, RESET_PASSWORD, FORGOT_PASSWORD, REFRESH_TOKEN } from "./UserAction"
 
 const initialState = {
     activeUser: false,
@@ -50,7 +50,11 @@ export const usersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isForgotPasswordSuccess: true
-            }    
+            }
+        case REFRESH_TOKEN:
+            return {
+                ...state,
+            }        
         default:
             return state;
     }
