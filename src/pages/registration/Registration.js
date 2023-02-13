@@ -2,33 +2,22 @@
 import styles from './registration.module.css';
 import { Button, EmailInput, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../../../services/user/UserAction";
+import { registerUser } from "../../services/user/UserAction";
 import { useState } from "react";
-import { CustomLink } from '../../../utils/CustomLink';
+import { CustomLink } from '../../components/CustomLink';
+import { useForm } from '../../hooks/useForm';
 
 export const Registration = () => {
     const dispatch = useDispatch();
 
-    const [nameValue, setNameValue] = useState('');
-    const [emailValue, setEmailValue] = useState('');
-    const [passwordValue, setPasswordValue] = useState('');
-
-    const onNameChange = e => {
-        setNameValue(e.target.value)
-    }
-    const onEmailChange = e => {
-        setEmailValue(e.target.value)
-    }
-    const onPasswordChange = e => {
-        setPasswordValue(e.target.value)
-    }
+    const {values, handleChange} = useForm('')
 
     const registerHandler = () => {
         dispatch(registerUser(
             {
-                'email': emailValue,
-                'password': passwordValue,
-                'name': nameValue
+                "email": values.email,
+                "password": values.password,
+                "name": values.name,
             }
             ));
     }
@@ -45,24 +34,24 @@ export const Registration = () => {
                 <div className={styles.inputsBox}>
                     <div className='mt-6'>
                         <Input
-                            onChange={onNameChange}
-                            value={nameValue}
+                            onChange={handleChange}
+                            value={values.name || ''}
                             name={'name'}
                             placeholder="Имя"
                         />
                     </div>
                     <div className="mt-6">
                         <EmailInput
-                            onChange={onEmailChange}
-                            value={emailValue}
+                            onChange={handleChange}
+                            value={values.email || ''}
                             name={'email'}
                             isIcon={false}
                         />
                     </div>
                     <div className="mb-6 mt-6">
                         <PasswordInput
-                            onChange={onPasswordChange}
-                            value={passwordValue}
+                            onChange={handleChange}
+                            value={values.password || ''}
                             name={'password'}
                             extraClass="mb-2"
                         />

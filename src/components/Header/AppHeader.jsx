@@ -3,7 +3,7 @@ import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-dev
 import { useSelector } from 'react-redux';
 import { getUser } from '../../services/user/UserSelectors';
 import styles from './app-header.module.css';
-import { CustomLink } from '../../utils/CustomLink';
+import { CustomLink } from '../CustomLink';
 
 export function Header() {
     const user = useSelector(getUser);

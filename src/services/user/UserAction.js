@@ -89,6 +89,7 @@ export const registerUser = (data) => {
             setCookie('refreshToken', res.refreshToken);
         }).catch(err => {
             Promise.reject(`Ошибка регистрации${err}`);
+            alert('Ошибка регистрации')
             if (err.status === 401) {
                 dispatch({
                     type: AUTH_ERROR

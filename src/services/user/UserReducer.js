@@ -27,8 +27,8 @@ export const usersReducer = (state = initialState, action) => {
                 ...state,
                 activeUser: true,
                 authError: false,
-                name: action.payload.name,
-                email: action.payload.email,
+                name: action.payload.name || state.name,
+                email: action.payload.email || state.email,
                 
             }
         case LOG_OUT:

@@ -1,21 +1,19 @@
-import { useState } from "react";
+
 import styles from './forgot-password.module.css';
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate } from "react-router-dom";
-import { forgotPassword } from "../../../services/user/UserAction";
+import { forgotPassword } from "../../services/user/UserAction";
 import { useDispatch, useSelector } from "react-redux";
-import { getIsForgotPass } from "../../../services/user/UserSelectors";
+import { getIsForgotPass } from "../../services/user/UserSelectors";
+import { useForm } from "../../hooks/useForm";
 export const ForgotPassword = () => {
     const dispatch = useDispatch();
     const isPasswordForgot = useSelector(getIsForgotPass)
-    const [emailValue, setEmailValue] = useState('')
-    const onEmailChange = e => {
-        setEmailValue(e.target.value)
-    }
+    const {values, handleChange} = useForm('')
     const sabmitForgotPassHandler = e => {
         e.preventDefault()
         dispatch(forgotPassword({
-            'email': emailValue
+            'email': values.email
         }))
     }
     return (
@@ -30,8 +28,8 @@ export const ForgotPassword = () => {
                     <form onSubmit={sabmitForgotPassHandler} className={styles.form}>
                         <div className='mt-6 mb-6'>
                             <EmailInput
-                                onChange={onEmailChange}
-                                value={emailValue}
+                                onChange={handleChange}
+                                value={values.email || ''}
                                 name={'email'}
                                 isIcon={false}
                             />

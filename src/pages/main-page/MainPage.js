@@ -1,6 +1,6 @@
 
-import BurgerConstructor from "../../burger-constructor/BurgerConstructor";
-import BurgerIngredients from "../../burger-ingredient/BurgerIngredients";
+import BurgerConstructor from "../../components/burger-constructor/BurgerConstructor";
+import BurgerIngredients from "../../components/burger-ingredient/BurgerIngredients";
 import styles from './main-page.module.css';
 export const MainPage = () => {
     return (

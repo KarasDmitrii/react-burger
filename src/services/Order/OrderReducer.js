@@ -1,13 +1,15 @@
 import {
     CLOSE_ORDER_MODAL,
     SEND_ORDER_SUCCESS,
-    SEND_ORDER_ERROR
+    SEND_ORDER_ERROR,
+    ORD_LOADING
 } from "./OrderActions";
 
 const initialState = {
     isOrdModalOpen: false,
     orderNum: 0,
-    sendOrderError: false
+    sendOrderError: false,
+    isOrdLoading: false
 }
 
 export const orderReducer = (state = initialState, action) => {
@@ -20,14 +22,22 @@ export const orderReducer = (state = initialState, action) => {
         case SEND_ORDER_SUCCESS:
             return {
                 ...state,
+                isOrdLoading: false,
                 isOrdModalOpen: true,
                 orderNum: action.payload.order.number
             };
         case SEND_ORDER_ERROR:
             return {
                 ...state,
+                isOrdLoading: false,
                 sendOrderError: true
             }
+        case ORD_LOADING:
+            return {
+                ...state,
+                isOrdModalOpen: true,
+                isOrdLoading: true
+            }    
         default:
             return state;
     }

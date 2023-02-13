@@ -6,17 +6,21 @@ import { useDrop } from "react-dnd";
 import { ConstructorCard } from "./ConstructorCard";
 import { addItem, DELETE_ITEM } from "../../services/Constructor/ConstructorActions";
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { composeOrder, getAllData, getBun, getOtherIng, getPrice, activeUser } from "../../services/Constructor/ConstructorSelectors";
+import { composeOrder, getAllData, getBun, getOtherIng, getPrice, activeUser, getIsOrdModalOpen, getIsOrdLoading } from "../../services/Constructor/ConstructorSelectors";
 import { CLOSE_ORDER_MODAL, sendOrder } from '../../services/Order/OrderActions';
 import { Modal } from '../modal/Modal';
 import OrderDetails from '../order-details/OrderDetails';
+import { useNavigate } from 'react-router-dom';
+import { Loader } from '../loader/Loader';
 
 function BurgerConstructor() {
+
     const bun = useSelector(getBun);
     const otherIng = useSelector(getOtherIng);
     const allData = useSelector(getAllData)
     const price = useSelector(getPrice);
-    const isOrdModalOpen = useSelector(state => state.ordModal.isOrdModalOpen)
+    const isOrdModalOpen = useSelector(getIsOrdModalOpen)
+    const isOrdLoading = useSelector(getIsOrdLoading)
     const dispatch = useDispatch();
     const isActiveUser = useSelector(activeUser);
     const [, dropTarget] = useDrop({
@@ -41,9 +45,16 @@ function BurgerConstructor() {
         })
     }
 
+    const navigate = useNavigate();
+
     const onClick = () => {
-        const order = composeOrder(otherIng, bun)
-        dispatch(sendOrder(order))
+        if (isActiveUser) {
+            const order = composeOrder(otherIng, bun)
+            dispatch(sendOrder(order))
+
+        } else {
+            navigate('/login')
+        }
     }
 
     return (
@@ -96,7 +107,7 @@ function BurgerConstructor() {
                             <CurrencyIcon type="primary" />
                         </div>
 
-                        {otherIng[0] && bun.image && isActiveUser && <Button onClick={onClick} htmlType="button" type="primary" size="medium">
+                        {otherIng[0] && bun.image && <Button onClick={onClick} htmlType="button" type="primary" size="medium">
                             <p className="text text_type_main-default" >
                                 Оформить заказ
                             </p>
@@ -105,7 +116,8 @@ function BurgerConstructor() {
                     </div>
                     {isOrdModalOpen &&
                         <Modal modalClose={closeModal}>
-                            <OrderDetails />
+                            {isOrdLoading && <Loader />}
+                            {!isOrdLoading && <OrderDetails modalClose={closeModal} />}
                         </Modal>
                     }
                 </div>

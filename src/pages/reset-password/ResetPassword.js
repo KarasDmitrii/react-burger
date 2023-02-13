@@ -3,24 +3,23 @@ import styles from './reset-password.module.css';
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { resetPassword } from "../../../services/user/UserAction";
-import { getIsForgotPass, getIsResetPass } from "../../../services/user/UserSelectors";
+import { resetPassword } from "../../services/user/UserAction";
+import { getIsForgotPass, getIsResetPass } from "../../services/user/UserSelectors";
+import { useForm } from "../../hooks/useForm";
 export const ResetPassword = () => {
     const isPasswordReset = useSelector(getIsResetPass)
     const isPasswordForgot = useSelector(getIsForgotPass)
-    const [codeValue, setCodeValue] = useState('');
-    const [passwordValue, setPasswordValue] = useState('');
     const dispatch = useDispatch();
     const location = useLocation();
     const fromPage = location.state?.from?.pathname || '/';
-    const onPasswordChange = e => {
-        setPasswordValue(e.target.value)
-    }
+
+    const {values, handleChange} = useForm('')
+
     const submitResetPassHandler = e => {
         e.preventDefault();
         dispatch(resetPassword({
-            "password": passwordValue,
-            "token": codeValue
+            "password": values.password,
+            "token": values.code,
         }))
     }
 
@@ -36,8 +35,8 @@ export const ResetPassword = () => {
                     <div className="mt-6">
                         <PasswordInput
                             placeholder={'Укажите новый пароль'}
-                            onChange={onPasswordChange}
-                            value={passwordValue}
+                            onChange={handleChange}
+                            value={values.password || ''}
                             name={'password'}
                             extraClass="mb-2"
                         />
@@ -46,8 +45,8 @@ export const ResetPassword = () => {
                         <Input
                             type={'text'}
                             placeholder={'Укажите код из письма'}
-                            onChange={e => setCodeValue(e.target.value)}
-                            value={codeValue}
+                            onChange={handleChange}
+                            value={values.code || ''}
                             name={'code'}
                             error={false}
                             errorText={'Ошибка'}

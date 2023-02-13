@@ -1,6 +1,6 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { ArrPropTypes } from '../../utils/PropTypes.jsx';
 import { useDrag } from 'react-dnd';
 
@@ -8,12 +8,10 @@ import { getBun, getIngredientCounters } from '../../services/Ingredients/Ingred
 import { Link, useLocation } from 'react-router-dom';
 
 
-
 const BurgerIngredient = (item) => {
     let location = useLocation();
     const bun = useSelector(getBun);
     const { image, price, name, _id, type } = item.item;
-
 
     const counters = useSelector(getIngredientCounters);
     var count = null
@@ -29,7 +27,6 @@ const BurgerIngredient = (item) => {
     
     return (
 
-
         <div className={`${styles.ingredient} mr-4 ml-4 mb-10 mt-6`}>
             {count && <Counter count={count} size="default" extraClass="m-1" />}
             <Link
@@ -37,7 +34,7 @@ const BurgerIngredient = (item) => {
                 state= {{ background: location }}
                 >
                 <div className='ml-4'>
-                    <img ref={dragRef} alt='изображение продукта' src={image} />
+                    <img ref={dragRef} alt={`${name}`} src={image} />
                 </div>
             </Link>
             <div className={`${styles.price} mt-1 mb-1`}>
@@ -54,11 +51,9 @@ const BurgerIngredient = (item) => {
             </div>
         </div>
 
-
     )
 };
 BurgerIngredient.propTypes = {
     item: ArrPropTypes.isRequired,
-
 }
 export default BurgerIngredient;

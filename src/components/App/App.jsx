@@ -1,21 +1,23 @@
 import { useEffect } from "react";
-import { Header } from "../Header/AppHeader";
+
 import styles from './app.module.css';
 import '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css';
 import { useDispatch } from "react-redux";
-import { LoginPage } from "../pages/login/Login";
-import { Profile } from "../pages/profile/Profile";
-import { Registration } from "../pages/registration/Registration";
-import { ForgotPassword } from "../pages/forgot-password/forgot-password";
-import { MainPage } from "../pages/main-page/MainPage";
+import { LoginPage } from "../../pages/login/Login";
+import { Profile } from "../../pages/profile/Profile";
+import { Registration } from "../../pages/registration/Registration";
+import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
+import { MainPage } from "../../pages/main-page/MainPage";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { Modal } from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 import { loadIngredients } from "../../services/Ingredients/IngredientsActions";
 import { getUserApi, refreshAccessToken } from "../../services/user/UserAction";
 import { readCookie } from "../../services/user/UserServices";
-import ProtectedRoute from "../../protectedRoutes/ProtectedRoutes";
-import { NotFoundPage } from "../pages/not-found-page/NotFoungPage";
+import ProtectedRoute from "../protectedRoutes/ProtectedRoutes";
+import { NotFoundPage } from "../../pages/not-found-page/NotFoungPage";
+import { Header } from "../header/AppHeader";
+import { ResetPassword } from "../../pages/reset-password/ResetPassword";
 
 export function App() {
 
@@ -25,15 +27,14 @@ export function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadIngredients())
-    if (token) {
+    if (token && token !== undefined) {
       dispatch(refreshAccessToken());
       dispatch(getUserApi());
     }
 
   }, [dispatch]);
   const navigate = useNavigate();
-  const closeModal = e => {
-    e.preventDefault();
+  const closeModal = () => {
     navigate(-1);
   }
 
@@ -61,7 +62,7 @@ export function App() {
             </ProtectedRoute>} />
           <Route path='/reset-password' element={
             <ProtectedRoute anonymous={true}>
-              <Profile />
+              <ResetPassword />
             </ProtectedRoute>}/>
           <Route path='/' element={<MainPage />} />
           <Route path='/ingredients/:id' element={<IngredientDetails />} />

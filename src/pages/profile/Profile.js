@@ -4,9 +4,10 @@ import styles from './Profile.module.css';
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../../services/user/UserSelectors";
-import { changeUserData, logoutUser } from "../../../services/user/UserAction";
-import { CustomLink } from "../../../utils/CustomLink";
+import { getUser } from "../../services/user/UserSelectors";
+import { changeUserData, logoutUser } from "../../services/user/UserAction";
+import { CustomLink } from "../../components/CustomLink";
+import { useForm } from "../../hooks/useForm";
 
 
 export const Profile = () => {
@@ -19,43 +20,48 @@ export const Profile = () => {
         dispatch(getUser);
     }, [])
 
+    const {values, handleChange, setValues} = useForm('')
+
     const [isChange, setIsChange] = useState(false)
-    const [nameValue, setNameValue] = useState(user.name)
-    const onNameChange = e => {
-        setNameValue(e.target.value)
-        setIsChange(true)
-    }
-    const [emailValue, setEmailValue] = useState(user.email)
-    const onEmailChange = e => {
-        setEmailValue(e.target.value)
-        setIsChange(true)
-    }
-    const [passwordValue, setPasswordValue] = useState('')
-    const onPasswordChange = e => {
-        setPasswordValue(e.target.value)
-        setIsChange(true)
-    }
+    // const [nameValue, setNameValue] = useState(user.name)
+    // const onNameChange = e => {
+    //     setNameValue(e.target.value)
+    //     setIsChange(true)
+    // }
+    // const [emailValue, setEmailValue] = useState(user.email)
+    // const onEmailChange = e => {
+    //     setEmailValue(e.target.value)
+    //     setIsChange(true)
+    // }
+    // const [passwordValue, setPasswordValue] = useState('')
+    // const onPasswordChange = e => {
+    //     setPasswordValue(e.target.value)
+    //     setIsChange(true)
+    // }
 
     const sabmitChangeHandler = e => {
         e.preventDefault();
         dispatch(changeUserData({
-            name: nameValue,
-            email: emailValue,
-            password: passwordValue,
+            name: values.name,
+            email: values.email,
+            password: values.password,
         }));
         setIsChange(false)
     }
     const cancelChange = () => {
-
-        setEmailValue(user.email)
-        setNameValue(user.name)
-        setPasswordValue(user.password)
+        setValues(user)
+        
         setIsChange(false)
     }
     const logoutHandler = () => {
         dispatch(logoutUser())
         navigate('/login')
     }
+
+    const onChange = (e) => {
+        handleChange(e)
+        setIsChange(true)
+        }
 
     return (
         <div className={styles.content}>
@@ -86,9 +92,9 @@ export const Profile = () => {
                 <form onSubmit={sabmitChangeHandler} className={styles.inputsBox}>
                     <div className=' mb-6'>
                         <Input
-                            onChange={onNameChange}
-                            value={nameValue || ''}
-                            name={'text'}
+                            onChange={onChange}
+                            value={values.name || user.name || ''}
+                            name={'name'}
                             inputMode='text'
                             placeholder="Имя"
                             extraClass="mb-2"
@@ -96,8 +102,8 @@ export const Profile = () => {
                     </div>
                     <div className="mb-6">
                         <EmailInput
-                            onChange={onEmailChange}
-                            value={emailValue || ''}
+                            onChange={onChange}
+                            value={values.email || user.email || ''}
                             name={'email'}
                             placeholder="Почта"
                             isIcon={true}
@@ -106,8 +112,8 @@ export const Profile = () => {
                     </div>
                     <div className="">
                         <PasswordInput
-                            onChange={onPasswordChange}
-                            value={passwordValue || ''}
+                            onChange={onChange}
+                            value={values.password || ''}
                             name={'password'}
                             icon="EditIcon"
                         />

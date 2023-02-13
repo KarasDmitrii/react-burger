@@ -9,15 +9,8 @@ import { loadIngredients } from '../../services/Ingredients/IngredientsActions';
 
 const IngredientDetails = () => {
 
-    const dispatch = useDispatch();
     const allData = useSelector(getAllData)
     const { id } = useParams();
-
-    useEffect(() => {
-        if (!allData) {
-            dispatch(loadIngredients())
-        }
-    }, [dispatch])
 
     if (allData[0]) {
         const item = allData.find(element => element._id === id);

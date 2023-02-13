@@ -1,5 +1,5 @@
 
-import { CustomLink } from '../../../utils/CustomLink';
+import { CustomLink } from '../../components/CustomLink';
 import styles from './not-found-page.module.css';
 export const NotFoundPage = () => {
     return (

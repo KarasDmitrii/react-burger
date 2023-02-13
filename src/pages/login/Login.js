@@ -1,30 +1,25 @@
 
 import styles from './login.module.css';
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { loginUser } from "../../../services/user/UserAction";
+import { loginUser } from "../../services/user/UserAction";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 
-import { CustomLink } from '../../../utils/CustomLink';
+import { CustomLink } from '../../components/CustomLink';
+import { useForm } from '../../hooks/useForm';
 export const LoginPage = () => {
 
+    const {values, handleChange} = useForm('')
+    
     const dispatch = useDispatch();
-    const [emailValue, setEmailValue] = useState('')
-    const onEmailChange = e => {
-        setEmailValue(e.target.value)
-    }
-
-    const [passwordValue, setPasswordValue] = useState('')
-    const onPasswordChange = e => {
-        setPasswordValue(e.target.value)
-    }
 
     const submitHandler = e => {
         e.preventDefault();
+        console.log(values.email, values.password);
         dispatch(loginUser(
             {
-                'email': emailValue,
-                'password': passwordValue
+                'email': values.email,
+                'password': values.password
             }
         ))
     }
@@ -40,16 +35,16 @@ export const LoginPage = () => {
                 <form onSubmit={submitHandler} className={styles.form}>
                     <div className='mt-6 mb-6'>
                         <EmailInput
-                            onChange={onEmailChange}
-                            value={emailValue}
+                            onChange={handleChange}
+                            value={values.email || ''}
                             name={'email'}
                             isIcon={false}
                         />
                     </div>
                     <div className="mb-6">
                         <PasswordInput
-                            onChange={onPasswordChange}
-                            value={passwordValue}
+                            onChange={handleChange}
+                            value={values.password || ''}
                             name={'password'}
                             extraClass="mb-2"
                         />
