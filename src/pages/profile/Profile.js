@@ -20,7 +20,7 @@ export const Profile = () => {
         dispatch(getUser);
     }, [])
 
-    const {values, handleChange, setValues} = useForm('')
+    const {values, handleChange, setValues} = useForm({})
 
     const [isChange, setIsChange] = useState(false)
     // const [nameValue, setNameValue] = useState(user.name)

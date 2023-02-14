@@ -10,7 +10,7 @@ import { useForm } from '../../hooks/useForm';
 export const Registration = () => {
     const dispatch = useDispatch();
 
-    const {values, handleChange} = useForm('')
+    const {values, handleChange} = useForm({})
 
     const registerHandler = () => {
         dispatch(registerUser(

@@ -9,7 +9,7 @@ import { useForm } from "../../hooks/useForm";
 export const ForgotPassword = () => {
     const dispatch = useDispatch();
     const isPasswordForgot = useSelector(getIsForgotPass)
-    const {values, handleChange} = useForm('')
+    const {values, handleChange} = useForm({})
     const sabmitForgotPassHandler = e => {
         e.preventDefault()
         dispatch(forgotPassword({

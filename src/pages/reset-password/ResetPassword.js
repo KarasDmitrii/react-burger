@@ -13,7 +13,7 @@ export const ResetPassword = () => {
     const location = useLocation();
     const fromPage = location.state?.from?.pathname || '/';
 
-    const {values, handleChange} = useForm('')
+    const {values, handleChange} = useForm({})
 
     const submitResetPassHandler = e => {
         e.preventDefault();

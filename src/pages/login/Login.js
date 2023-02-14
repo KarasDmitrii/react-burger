@@ -9,7 +9,7 @@ import { CustomLink } from '../../components/CustomLink';
 import { useForm } from '../../hooks/useForm';
 export const LoginPage = () => {
 
-    const {values, handleChange} = useForm('')
+    const {values, handleChange} = useForm({})
     
     const dispatch = useDispatch();
 
