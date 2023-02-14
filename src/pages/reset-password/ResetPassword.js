@@ -1,11 +1,12 @@
 import { useState } from "react";
 import styles from './reset-password.module.css';
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPassword } from "../../services/user/UserAction";
 import { getIsForgotPass, getIsResetPass } from "../../services/user/UserSelectors";
 import { useForm } from "../../hooks/useForm";
+import { CustomLink } from "../../components/CustomLink";
 export const ResetPassword = () => {
     const isPasswordReset = useSelector(getIsResetPass)
     const isPasswordForgot = useSelector(getIsForgotPass)
@@ -62,11 +63,11 @@ export const ResetPassword = () => {
                             Вспомнили пароль?
                         </p>
                         <a className="ml-2">
-                            <Link to='/login'>
+                            <CustomLink to='/login'>
                                 <p className="text text_type_main-default">
                                     Войти
                                 </p>
-                            </Link>
+                            </CustomLink>
                         </a>
                     </div>
                 </div>
