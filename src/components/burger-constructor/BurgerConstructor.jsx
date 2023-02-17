@@ -109,15 +109,16 @@ function BurgerConstructor() {
 
                         {otherIng[0] && bun.image && <Button onClick={onClick} htmlType="button" type="primary" size="medium">
                             <p className="text text_type_main-default" >
-                                Оформить заказ
+                                {isOrdLoading ? <Loader /> : 'Оформить заказ'}
+                                
                             </p>
                         </Button>}
 
                     </div>
                     {isOrdModalOpen &&
                         <Modal modalClose={closeModal}>
-                            {isOrdLoading && <Loader />}
-                            {!isOrdLoading && <OrderDetails modalClose={closeModal} />}
+                           
+                            {!isOrdLoading && <OrderDetails />}
                         </Modal>
                     }
                 </div>

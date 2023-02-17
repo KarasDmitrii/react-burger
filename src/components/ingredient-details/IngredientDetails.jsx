@@ -1,10 +1,9 @@
 
 import styles from '../modal/modal.module.css';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getAllData } from "../../services/IngredientDetails/IngredientsDtailsSelector";
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { loadIngredients } from '../../services/Ingredients/IngredientsActions';
+
 
 
 const IngredientDetails = () => {

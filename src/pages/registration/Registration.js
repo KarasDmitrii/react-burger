@@ -25,7 +25,7 @@ export const Registration = () => {
     return (
 
         <div className={styles.content}>
-            <div className={styles.contentBox}>
+            <form className={styles.contentBox} onSubmit={registerHandler}>
                 <div className={styles.header}>
                     <p className="text text_type_main-medium">
                         Регистрация
@@ -56,7 +56,7 @@ export const Registration = () => {
                             extraClass="mb-2"
                         />
                     </div>
-                    <Button onClick={registerHandler} htmlType="button" type="primary" size="medium">
+                    <Button htmlType="submit" type="primary" size="medium">
                         Зарегестрироваться
                     </Button>
                     <div className={`${styles.textBox} mt-20`}>
@@ -72,7 +72,7 @@ export const Registration = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     )
 }
