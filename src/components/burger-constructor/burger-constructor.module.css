@@ -1,0 +1,89 @@
+.box {
+    justify-content: center;
+    width: 600px;
+    display: flex;
+    
+}
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+   
+}
+.mains {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.button {
+    display: flex;
+    
+    justify-content: flex-end;
+    align-items: center;
+}
+.priceFin {
+    display: flex;
+    align-items: center;
+}
+.constructorBox {
+    display: flex;
+    position: relative;
+    
+}
+.gapBox {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.topEmptyConstructorElement {
+    padding: 16px 100px;
+    display: flex;
+    border-radius: var(--top-constructor-item-border-radius);
+    background: var(--background-element);
+    max-width: 536px;
+    width: 100%;
+    min-height: 80px;
+    font-family: 'Jet Brains Mono';
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    flex-grow: 1;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottomEmptyConstructorElement {
+    padding: 16px 100px;
+    display: flex;
+    border-radius: var(--bottom-constructor-item-border-radius);
+    background: var(--background-element);
+    max-width: 536px;
+    min-height: 80px;
+    font-family: 'Jet Brains Mono';
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    flex-grow: 1;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+.midEmptyConstructorElement {
+    padding: 16px 100px;
+    display: flex;
+    border-radius: var(--common-border-radius-s);
+    background: var(--background-element);
+    max-width: 536px;
+    width: 100%;
+    min-height: 80px;
+    font-family: 'Jet Brains Mono';
+    font-size: 16px;
+    line-height: 24px;
+    color: #F2F2F3;
+    flex-grow: 1;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}

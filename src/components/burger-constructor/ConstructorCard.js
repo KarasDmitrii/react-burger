@@ -1,4 +1,4 @@
-import styles from './BurgerConstructor.module.css';
+import styles from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from 'react-redux';
 import { MOVE_CARD } from '../../services/Constructor/ConstructorActions';

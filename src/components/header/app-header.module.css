@@ -1,0 +1,59 @@
+.header {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    height: 88px;
+    background: #1C1C21;
+}
+
+.headLinks {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    width: 178px;
+    height: 56px;
+    border-radius: 40px;
+    align-items: center;
+    color: #8585AD,
+
+}
+.selectedLinks {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    width: 178px;
+    height: 56px;
+    border-radius: 40px;
+    align-items: center;
+    color: white;
+
+}
+
+.boxButton {
+    display: flex;
+    flex-direction: row;
+}
+
+.boxHeader {
+    display: flex;
+    justify-content: flex-end;
+    flex: 33%;
+}
+
+.boxLogo {
+    display: flex;
+    flex: 33%;
+    justify-content: center;
+}
+
+.button {
+    display: flex;
+    flex-direction: row;
+}
+
+.boxLc {
+    display: flex;
+    flex: 33%;
+    justify-content: center;
+}
+

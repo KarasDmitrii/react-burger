@@ -1,13 +1,18 @@
 import { sendOrderApi } from "../../utils/TrueBurgerApi";
-import { COMPOSE_ORDER } from "../Constructor/ConstructorActions";
+
 
 export const OPEN_ORDER_MODAL = 'OPEN_ORD_MODAL';
 export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL';
 export const SEND_ORDER_SUCCESS = 'SEND_ORDER_SUCCESS';
 export const SEND_ORDER_ERROR = 'SEND_ORDER_ERROR';
 
+export const ORD_LOADING = 'ORD_LOADING';
+
 export function sendOrder(order) {
-    return function(dispatch) {
+    return function(dispatch) { 
+        dispatch({
+            type: ORD_LOADING
+        })
         sendOrderApi(order).then(res => {
             dispatch({
                 type: SEND_ORDER_SUCCESS,
@@ -16,6 +21,6 @@ export function sendOrder(order) {
         }).catch(
             dispatch({
                 type: SEND_ORDER_ERROR
-            }))
+            }))   
     }
 }

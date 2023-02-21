@@ -1,18 +1,16 @@
 import { useEffect, useState, useRef } from "react";
 import BurgerIngredient from "./BurgerIngredient";
-import Modal from "../Modal/Modal";
+
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from './BurgerIngredients.module.css';
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import { useDispatch, useSelector } from "react-redux";
+import styles from './burger-ingredients.module.css';
+import { useDispatch, useSelector} from "react-redux";
 import { useInView } from "react-intersection-observer";
-import { GetIngredients, getIsIngModalOpen } from "../../services/Ingredients/IngredientsSelectors";
-import { CLOSE_ING_MODAL } from "../../services/IngredientDetails/IngredientDetailsActions";
+import { GetIngredients} from "../../services/Ingredients/IngredientsSelectors";
+
 
 function BurgerIngredients() {
     const dispatch = useDispatch();
     const {buns, mains, sauces} = useSelector(GetIngredients)
-    const isIngModalOpen = useSelector(getIsIngModalOpen);
     const [current, setCurrent] = useState('one');
     const bunRef = useRef();
     const mainRef = useRef();
@@ -25,7 +23,7 @@ function BurgerIngredients() {
      
     }, [current]);
     const [ visMainsRef, inMainsView ] = useInView({
-        threshold: 0.15
+        threshold: 0.1
     }) ;
     const [ visSauceRef, inSauceView ] = useInView({
         threshold: 1
@@ -34,11 +32,7 @@ function BurgerIngredients() {
         threshold: 0.9
     }) ;
 
-    const closeIngModal = () => {
-        dispatch({
-            type: CLOSE_ING_MODAL
-        })
-    }
+
 
     return (
 
@@ -93,10 +87,6 @@ function BurgerIngredients() {
                 </div>
                 
             </div>
-            {isIngModalOpen && (
-                    <Modal modalClose={closeIngModal}>
-                        <IngredientDetails />
-                    </Modal>)}
         </div>
     )
 };
