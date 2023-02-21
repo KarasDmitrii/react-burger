@@ -2,8 +2,6 @@ import {
     CLOSE_ORDER_MODAL,
     SEND_ORDER_SUCCESS,
     SEND_ORDER_ERROR,
-    SEND_ORDER_SUCCESS,
-    SEND_ORDER_ERROR,
     ORD_LOADING
 } from "./OrderActions";
 
@@ -11,12 +9,11 @@ const initialState = {
     isOrdModalOpen: false,
     orderNum: 0,
     sendOrderError: false,
-    isOrdLoading: false
+    isOrdLoading: false,
     orderNum: 0,
     sendOrderError: false
 }
 
-export const orderReducer = (state = initialState, action) => {
 export const orderReducer = (state = initialState, action) => {
     switch (action.type) {
         case CLOSE_ORDER_MODAL:
@@ -24,7 +21,6 @@ export const orderReducer = (state = initialState, action) => {
                 ...state,
                 isOrdModalOpen: false
             };
-        case SEND_ORDER_SUCCESS:
         case SEND_ORDER_SUCCESS:
             return {
                 ...state,

@@ -3,13 +3,6 @@ export const API_URL = 'https://norma.nomoreparties.space/api';
 
 export const getApiIngredients = () => {
     return request((`${API_URL}/ingredients`))
-
-
-import { request } from "./Request";
-const API_URL = 'https://norma.nomoreparties.space/api';
-
-export const getApiIngredients = () => {
-    return request((`${API_URL}/ingredients`))
 };
 
 export const sendOrderApi = (order) => {
@@ -19,10 +12,4 @@ export const sendOrderApi = (order) => {
         body: JSON.stringify(order), 
         headers: { 'Content-Type': 'application/json' }
 })
-}
-
-
-export const sendOrderApi = (order) => {
-    return request((`${API_URL}/orders`), {method: 'POST', body: JSON.stringify(order), 
-    headers: { 'Content-Type': 'application/json' }})
 }
