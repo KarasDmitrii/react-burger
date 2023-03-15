@@ -6,7 +6,7 @@ import styles from './burger-ingredients.module.css';
 import { useDispatch, useSelector} from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { GetIngredients} from "../../services/Ingredients/IngredientsSelectors";
-import { Iingredient } from "../../utils/types";
+import { IIngredient } from "../../utils/types";
 
 
 const BurgerIngredients: React.FC = () => {
@@ -67,7 +67,7 @@ const BurgerIngredients: React.FC = () => {
                     </p>
                 </div>
                 <div ref={visBunsRef} className={styles.typeBox}  >
-                    {buns.map((item: Iingredient) => <BurgerIngredient item={item} key={item._id} />)}
+                    {buns.map((item: IIngredient) => <BurgerIngredient item={item} key={item._id} />)}
                 </div>
                 <div  className={styles.typeName} ref={sauceRef} >
                     <p className="text text_type_main-medium" >
@@ -75,7 +75,7 @@ const BurgerIngredients: React.FC = () => {
                     </p>
                 </div>
                 <div ref={visSauceRef} className={styles.typeBox} >
-                    {sauces.map((item: Iingredient) => <BurgerIngredient item={item} key={item._id} />)}
+                    {sauces.map((item: IIngredient) => <BurgerIngredient item={item} key={item._id} />)}
                 </div>
                 <div className={styles.typeName} ref={mainRef}>
                     <p  className="text text_type_main-medium" >
@@ -83,7 +83,7 @@ const BurgerIngredients: React.FC = () => {
                     </p>
                 </div>
                 <div ref={visMainsRef} className={styles.typeBox} >
-                    {mains.map((item: Iingredient) => <BurgerIngredient item={item} key={item._id} />)}
+                    {mains.map((item: IIngredient) => <BurgerIngredient item={item} key={item._id} />)}
                 </div>
                 
             </div>

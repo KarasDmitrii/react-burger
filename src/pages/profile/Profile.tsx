@@ -8,11 +8,11 @@ import { getUser } from "../../services/user/UserSelectors";
 import { changeUserData, logoutUser } from "../../services/user/UserAction";
 import { CustomLink } from "../../components/CustomLink";
 import { useForm } from "../../hooks/useForm";
-import { Ilocation } from "../../utils/types";
+import { ILocation } from "../../utils/types";
 
 export const Profile: React.FC = () => {
 
-    interface Iuser {
+    interface IUser {
         name?: string,
         email?: string,
         password?: string,
@@ -25,9 +25,9 @@ export const Profile: React.FC = () => {
     
 
     const dispatch: any = useDispatch();
-    const user: Iuser = useSelector(getUser);
+    const user: IUser = useSelector(getUser);
     const navigate = useNavigate();
-    const location: Ilocation = useLocation();
+    const location: ILocation = useLocation();
     
     useEffect(() => {
         dispatch(getUser);
@@ -46,7 +46,7 @@ export const Profile: React.FC = () => {
         setIsChange(false)
     }
 
-    let userCut = {
+    const userCut = {
         name: user.name,
         password: user.password,
         email: user.email

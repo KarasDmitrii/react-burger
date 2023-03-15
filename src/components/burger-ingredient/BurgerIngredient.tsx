@@ -4,22 +4,23 @@ import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { getBun, getIngredientCounters } from '../../services/Ingredients/IngredientsSelectors';
 import { Link, useLocation } from 'react-router-dom';
-import { Iingredient} from '../../utils/types';
+import { IIngredient } from '../../utils/types';
 
 interface IburgerIngProps {
-    item: Iingredient
+    item: IIngredient
+}
+interface Icounters {
+    [key: string]: number
 }
 
-const BurgerIngredient: React.FC<IburgerIngProps> = ({item}) => {
+const BurgerIngredient: React.FC<IburgerIngProps> = ({ item }) => {
     let location = useLocation();
     const bun = useSelector(getBun);
     const { image, price, name, _id, type } = item;
 
-    interface Icounters {
-        [key: string]: number
-    }
 
-    const counters: Icounters  = useSelector(getIngredientCounters);
+
+    const counters: Icounters = useSelector(getIngredientCounters);
     let count = null
     if (type === 'bun') {
         count = (bun._id === _id) ? 2 : null
@@ -30,15 +31,15 @@ const BurgerIngredient: React.FC<IburgerIngProps> = ({item}) => {
         type: "ingItem",
         item: { _id }
     });
-    
+
     return (
 
         <div className={`${styles.ingredient} mr-4 ml-4 mb-10 mt-6`}>
             {count && <Counter count={count} size="default" extraClass="m-1" />}
             <Link
                 to={`/ingredients/${_id}`}
-                state= {{ background: location }}
-                >
+                state={{ background: location }}
+            >
                 <div className='ml-4'>
                     <img ref={dragRef} alt={`${name}`} src={image} />
                 </div>

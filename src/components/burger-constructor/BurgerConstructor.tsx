@@ -11,15 +11,15 @@ import { CLOSE_ORDER_MODAL, sendOrder } from '../../services/Order/OrderActions'
 import OrderDetails from '../order-details/OrderDetails';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../modal/Modal';
-import { Iingredient, IingWithKey } from '../../utils/types';
+import { IIngredient, IIngWithKey } from '../../utils/types';
 
 
 
 const BurgerConstructor: React.FC = () => {
 
-    const bun: Iingredient = useSelector(getBun);
-    const otherIng: Array<IingWithKey> = useSelector(getOtherIng);
-    const allData: Array<Iingredient> = useSelector(getAllData)
+    const bun: IIngredient = useSelector(getBun);
+    const otherIng: Array<IIngWithKey> = useSelector(getOtherIng);
+    const allData: Array<IIngredient> = useSelector(getAllData)
     const price: number = useSelector(getPrice);
     const isOrdModalOpen: boolean = useSelector(getIsOrdModalOpen)
     const isOrdLoading: boolean = useSelector(getIsOrdLoading)
@@ -30,7 +30,7 @@ const BurgerConstructor: React.FC = () => {
         accept: 'ingItem',
         drop(itemId: {_id: string}) {
 
-            dispatch(addItem(allData.find((element: Iingredient) => element._id === itemId._id)))
+            dispatch(addItem(allData.find((element: IIngredient) => element._id === itemId._id)))
 
         },
     })
@@ -112,16 +112,14 @@ const BurgerConstructor: React.FC = () => {
 
                         {otherIng[0] && bun.image && <Button onClick={onClick} htmlType="button" type="primary" size="medium">
                             <p className="text text_type_main-default" >
-                                'Оформить заказ'
+                                Оформить заказ
                                 
                             </p>
                         </Button>}
-
                     </div>
                     {isOrdModalOpen &&
                         <Modal modalClose={closeModal}>
                             <OrderDetails />
-                            {/* {!isOrdLoading && <OrderDetails />} */}
                         </Modal>
                     }
                 </div>

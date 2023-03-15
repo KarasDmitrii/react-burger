@@ -12,7 +12,20 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const RESET_PASSWORD = 'RESET_PASSWORD';
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
 export const REFRESH_TOKEN = 'REFRESH_TOKEN'; 
-export const loginUser = (data: any) => {
+
+interface ILogiData {
+    'email': string | undefined,
+    'password': string | undefined
+}
+interface IUserData extends ILogiData {
+    'name': string | undefined
+}
+interface IResetPassData {
+    'password': string | undefined,
+    'token': string | undefined
+}
+
+export const loginUser = (data: ILogiData) => {
     return function (dispatch: any) {
         request((`${API_URL}/auth/login`), {
             method: 'POST',
@@ -71,7 +84,7 @@ export const logoutUser = () => {
     }
 };
 
-export const registerUser = (data: any) => {
+export const registerUser = (data: IUserData) => {
     return function (dispatch: any) {
         request((`${API_URL}/auth/register`), {
             method: 'POST',
@@ -121,7 +134,7 @@ export const refreshAccessToken = (): any => {
     }
 }
 
-export const changeUserData = (newData: any) => {
+export const changeUserData = (newData: IUserData) => {
     return function (dispatch: any) {
         const accessToken = 'Bearer ' + readCookie('accessToken')?.toString();
         request((`${API_URL}/auth/user`), {
@@ -158,7 +171,7 @@ export const getUserApi = (): any => {
     }
 };
 
-export const forgotPassword = (data: any) => {
+export const forgotPassword = (data: {'email': string | undefined}) => {
     return function (dispatch: any) {
         request((`${API_URL}/password-reset`), {
             method: 'POST',
@@ -180,7 +193,7 @@ export const forgotPassword = (data: any) => {
     }
 };
 
-export const resetPassword = (data: any) => {
+export const resetPassword = (data: IResetPassData) => {
     return function (dispatch: any) {
         request((`${API_URL}/password-reset/reset`), {
             method: 'POST',
@@ -202,18 +215,3 @@ export const resetPassword = (data: any) => {
     }
 };
 
-resetPassword.propTypes = {
-    data: PropTypes.object.isRequired
-}
-forgotPassword.propTypes = {
-    data: PropTypes.object.isRequired
-}
-changeUserData.propTypes = {
-    newData: PropTypes.object.isRequired
-}
-registerUser.propTypes = {
-    data: PropTypes.object.isRequired
-}
-loginUser.propTypes = {
-    data: PropTypes.object.isRequired
-}

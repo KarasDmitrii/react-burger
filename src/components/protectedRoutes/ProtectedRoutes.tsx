@@ -1,6 +1,6 @@
 
 import { useSelector } from "react-redux"
-import { Navigate, RouteProps, useLocation, } from "react-router-dom";
+import { Navigate, useLocation, } from "react-router-dom";
 import { getIsLoggedIn } from '../../services/protected-router/protecetRouteSelectors';
 
 interface IprotecedRoute {

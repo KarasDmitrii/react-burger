@@ -1,8 +1,8 @@
 import { Link, useMatch } from "react-router-dom"
-import { Ilocation } from "../utils/types";
+import { ILocation } from "../utils/types";
 
 type TlocationState = {
-    from: Ilocation;
+    from: ILocation;
   }
 
 export const CustomLink: React.FC<{children: React.ReactNode, to: string, className?: string, state?: TlocationState}> = ({children, to, ...className} ) => {

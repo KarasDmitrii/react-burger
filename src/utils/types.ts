@@ -1,4 +1,4 @@
-export interface Iingredient {
+export interface IIngredient {
     _id: string,
     name: string,
     type: string,
@@ -13,12 +13,12 @@ export interface Iingredient {
     __v: number
 }
 
-export interface IingWithKey {
+export interface IIngWithKey {
     key: string,
-    item: Iingredient
+    item: IIngredient
 }
 
-export interface Ilocation {
+export interface ILocation {
     hash: string,
     key: string,
     pathname: string,
