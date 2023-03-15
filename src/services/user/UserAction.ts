@@ -12,8 +12,8 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const RESET_PASSWORD = 'RESET_PASSWORD';
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
 export const REFRESH_TOKEN = 'REFRESH_TOKEN'; 
-export const loginUser = (data) => {
-    return function (dispatch) {
+export const loginUser = (data: any) => {
+    return function (dispatch: any) {
         request((`${API_URL}/auth/login`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -47,7 +47,7 @@ export const loginUser = (data) => {
 
 export const logoutUser = () => {
 
-    return function (dispatch) {
+    return function (dispatch: any) {
         request((`${API_URL}/auth/logout`), {
             method: 'POST',
             body: JSON.stringify({
@@ -71,8 +71,8 @@ export const logoutUser = () => {
     }
 };
 
-export const registerUser = (data) => {
-    return function (dispatch) {
+export const registerUser = (data: any) => {
+    return function (dispatch: any) {
         request((`${API_URL}/auth/register`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -99,8 +99,8 @@ export const registerUser = (data) => {
     }
 }
 
-export const refreshAccessToken = () => {
-    return function (dispatch) {
+export const refreshAccessToken = (): any => {
+    return function (dispatch: any) {
         const refreshToken = readCookie('refreshToken');
         request((`${API_URL}/auth/token`), {
             method: 'POST',
@@ -121,9 +121,9 @@ export const refreshAccessToken = () => {
     }
 }
 
-export const changeUserData = (newData) => {
-    return function (dispatch) {
-        const accessToken = 'Bearer ' + readCookie('accessToken').toString();
+export const changeUserData = (newData: any) => {
+    return function (dispatch: any) {
+        const accessToken = 'Bearer ' + readCookie('accessToken')?.toString();
         request((`${API_URL}/auth/user`), {
             method: 'PATCH',
             body: JSON.stringify(newData),
@@ -137,9 +137,9 @@ export const changeUserData = (newData) => {
     }
 }
 
-export const getUserApi = () => {
-    return function (dispatch) {
-        const accessToken = 'Bearer ' + readCookie('accessToken').toString();
+export const getUserApi = (): any => {
+    return function (dispatch: any) {
+        const accessToken = 'Bearer ' + readCookie('accessToken')?.toString();
         request((`${API_URL}/auth/user`), {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', 'authorization': accessToken }
@@ -158,8 +158,8 @@ export const getUserApi = () => {
     }
 };
 
-export const forgotPassword = (data) => {
-    return function (dispatch) {
+export const forgotPassword = (data: any) => {
+    return function (dispatch: any) {
         request((`${API_URL}/password-reset`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -180,8 +180,8 @@ export const forgotPassword = (data) => {
     }
 };
 
-export const resetPassword = (data) => {
-    return function (dispatch) {
+export const resetPassword = (data: any) => {
+    return function (dispatch: any) {
         request((`${API_URL}/password-reset/reset`), {
             method: 'POST',
             body: JSON.stringify(data),

@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import styles from './reset-password.module.css';
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Navigate, useLocation } from "react-router-dom";
@@ -7,16 +7,16 @@ import { resetPassword } from "../../services/user/UserAction";
 import { getIsForgotPass, getIsResetPass } from "../../services/user/UserSelectors";
 import { useForm } from "../../hooks/useForm";
 import { CustomLink } from "../../components/CustomLink";
-export const ResetPassword = () => {
+export const ResetPassword: React.FC = () => {
     const isPasswordReset = useSelector(getIsResetPass)
     const isPasswordForgot = useSelector(getIsForgotPass)
-    const dispatch = useDispatch();
+    const dispatch: any = useDispatch();
     const location = useLocation();
     const fromPage = location.state?.from?.pathname || '/';
 
     const {values, handleChange} = useForm({})
 
-    const submitResetPassHandler = e => {
+    const submitResetPassHandler = (e: React.FormEvent) => {
         e.preventDefault();
         dispatch(resetPassword({
             "password": values.password,

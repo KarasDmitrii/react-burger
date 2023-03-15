@@ -18,7 +18,7 @@ export const GetIngredients = createSelector(getBuns, getMains, getSauces, getis
 })
 
 export const getIngredientCounters = createSelector(getOtherIng, (otherIng) => {
-    const counters = {};
+    const counters = {"": 0};
     otherIng.forEach((element) => {
         if (!counters[element.item._id]) counters[element.item._id] = 0;
         counters[element.item._id]++;

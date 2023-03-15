@@ -4,8 +4,8 @@ export const GET_ING_SUCCESS = 'LOAD_ING_SUCCESS';
 export const GET_ING_ERROR = 'LOAD_ING_ERROR';
 export const GET_ING_LOADING = 'GET_ING_LOADING';
 
-export function loadIngredients() {
-    return function (dispatch) {
+export function loadIngredients(): any {
+    return function (dispatch: any) {
         dispatch({ type: GET_ING_LOADING });
         getApiIngredients().then(res => {
             dispatch({

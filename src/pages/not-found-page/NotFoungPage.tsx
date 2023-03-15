@@ -1,7 +1,7 @@
 
 import { CustomLink } from '../../components/CustomLink';
 import styles from './not-found-page.module.css';
-export const NotFoundPage = () => {
+export const NotFoundPage: React.FC = () => {
     return (
         <div className={styles.content}>
             <p className="text text_type_main-large">

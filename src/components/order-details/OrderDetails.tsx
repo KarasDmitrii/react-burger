@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
+
 import { useSelector } from "react-redux";
 import done from "../../images/graphics.svg";
+import { getOrderNum } from "../../services/Order/OrderSelectors";
 import styles from '../modal/modal.module.css';
 
-export function OrderDetails() {
-    const number = useSelector(state => state.ordModal.orderNum)
+export const OrderDetails: React.FC = () => {
+    const number = useSelector(getOrderNum)
     return (
         <div>
             <div className={`${styles.order} mt-30 mb-30 ml-25 mr-25`}>

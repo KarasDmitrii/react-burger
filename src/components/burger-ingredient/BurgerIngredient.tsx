@@ -1,24 +1,30 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import { useSelector } from 'react-redux';
-import { ArrPropTypes } from '../../utils/PropTypes.jsx';
 import { useDrag } from 'react-dnd';
-
 import { getBun, getIngredientCounters } from '../../services/Ingredients/IngredientsSelectors';
 import { Link, useLocation } from 'react-router-dom';
+import { Iingredient} from '../../utils/types';
 
+interface IburgerIngProps {
+    item: Iingredient
+}
 
-const BurgerIngredient = (item) => {
+const BurgerIngredient: React.FC<IburgerIngProps> = ({item}) => {
     let location = useLocation();
     const bun = useSelector(getBun);
-    const { image, price, name, _id, type } = item.item;
+    const { image, price, name, _id, type } = item;
 
-    const counters = useSelector(getIngredientCounters);
-    var count = null
+    interface Icounters {
+        [key: string]: number
+    }
+
+    const counters: Icounters  = useSelector(getIngredientCounters);
+    let count = null
     if (type === 'bun') {
         count = (bun._id === _id) ? 2 : null
     } else {
-        count = counters[_id];
+        count = counters[_id] || null;
     };
     const [, dragRef] = useDrag({
         type: "ingItem",
@@ -53,7 +59,5 @@ const BurgerIngredient = (item) => {
 
     )
 };
-BurgerIngredient.propTypes = {
-    item: ArrPropTypes.isRequired,
-}
+
 export default BurgerIngredient;

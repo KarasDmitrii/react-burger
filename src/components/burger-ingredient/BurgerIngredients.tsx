@@ -6,20 +6,20 @@ import styles from './burger-ingredients.module.css';
 import { useDispatch, useSelector} from "react-redux";
 import { useInView } from "react-intersection-observer";
 import { GetIngredients} from "../../services/Ingredients/IngredientsSelectors";
+import { Iingredient } from "../../utils/types";
 
 
-function BurgerIngredients() {
-    const dispatch = useDispatch();
+const BurgerIngredients: React.FC = () => {
     const {buns, mains, sauces} = useSelector(GetIngredients)
     const [current, setCurrent] = useState('one');
-    const bunRef = useRef();
-    const mainRef = useRef();
-    const sauceRef = useRef();
+    const bunRef = useRef<HTMLDivElement>(null);
+    const mainRef = useRef<HTMLDivElement>(null);
+    const sauceRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        current === 'one' && bunRef.current.scrollIntoView({behavior: "auto", block: "start"});
-        current === 'two' && mainRef.current.scrollIntoView({behavior: "auto", block: "start"});
-        current === 'three' && sauceRef.current.scrollIntoView({behavior: "auto", block: "start"});
+        current === 'one' && bunRef.current?.scrollIntoView({behavior: "auto", block: "start"});
+        current === 'two' && mainRef.current?.scrollIntoView({behavior: "auto", block: "start"});
+        current === 'three' && sauceRef.current?.scrollIntoView({behavior: "auto", block: "start"});
      
     }, [current]);
     const [ visMainsRef, inMainsView ] = useInView({
@@ -67,7 +67,7 @@ function BurgerIngredients() {
                     </p>
                 </div>
                 <div ref={visBunsRef} className={styles.typeBox}  >
-                    {buns.map((item) => <BurgerIngredient item={item} key={item._id} />)}
+                    {buns.map((item: Iingredient) => <BurgerIngredient item={item} key={item._id} />)}
                 </div>
                 <div  className={styles.typeName} ref={sauceRef} >
                     <p className="text text_type_main-medium" >
@@ -75,7 +75,7 @@ function BurgerIngredients() {
                     </p>
                 </div>
                 <div ref={visSauceRef} className={styles.typeBox} >
-                    {sauces.map((item) => <BurgerIngredient item={item} key={item._id} />)}
+                    {sauces.map((item: Iingredient) => <BurgerIngredient item={item} key={item._id} />)}
                 </div>
                 <div className={styles.typeName} ref={mainRef}>
                     <p  className="text text_type_main-medium" >
@@ -83,7 +83,7 @@ function BurgerIngredients() {
                     </p>
                 </div>
                 <div ref={visMainsRef} className={styles.typeBox} >
-                    {mains.map((item) => <BurgerIngredient item={item} key={item._id} />)}
+                    {mains.map((item: Iingredient) => <BurgerIngredient item={item} key={item._id} />)}
                 </div>
                 
             </div>
