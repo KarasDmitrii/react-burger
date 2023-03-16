@@ -45,7 +45,7 @@ export const loginUser = (data: ILogiData) => {
                     password: data.password
                 }
             })
-            setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+            setCookie('accessToken', res.accessToken?.split('Bearer ')[1]);
             setCookie('refreshToken', res.refreshToken);
         }).catch(err => {
             console.log(err)
@@ -98,7 +98,7 @@ export const registerUser = (data: IUserData) => {
                     password: data.password
                 }
             })
-            setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+            setCookie('accessToken', res.accessToken?.split('Bearer ')[1]);
             setCookie('refreshToken', res.refreshToken);
         }).catch(err => {
             Promise.reject(`Ошибка регистрации${err}`);
@@ -126,7 +126,7 @@ export const refreshAccessToken = (): any => {
                 type: REFRESH_TOKEN
             })
             setCookie('refreshToken', res.refreshToken);
-            setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+            setCookie('accessToken', res.accessToken?.split('Bearer ')[1] );
         }).catch(err => {
             Promise.reject(`Ошибка обновления токена${err}`);
 

@@ -16,7 +16,7 @@ import { getUserApi, refreshAccessToken } from "../../services/user/UserAction";
 import { readCookie } from "../../services/user/UserServices";
 import ProtectedRoute from "../protectedRoutes/ProtectedRoutes";
 import { NotFoundPage } from "../../pages/not-found-page/NotFoungPage";
-import { Header } from "../Header/AppHeader";
+import { Header } from "../header/AppHeader";
 import { ResetPassword } from "../../pages/reset-password/ResetPassword";
 import { Modal } from "../modal/Modal";
 

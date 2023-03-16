@@ -26,3 +26,13 @@ export interface ILocation {
     state: {} | null
 
 }
+
+export interface IPromise {
+    "success": boolean,
+    "data"?: Array<IIngredient>,
+    "message"?: string,
+    "accessToken"?: string,
+    "refreshToken"?: string,
+    "user"?: {"email": string, "name": string}, 
+    "status": number
+}
