@@ -3,12 +3,11 @@ import styles from './registration.module.css';
 import { Button, EmailInput, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../services/user/UserAction";
-import { useState } from "react";
 import { CustomLink } from '../../components/CustomLink';
 import { useForm } from '../../hooks/useForm';
 
-export const Registration = () => {
-    const dispatch = useDispatch();
+export const Registration: React.FC = () => {
+    const dispatch: any = useDispatch();
 
     const {values, handleChange} = useForm({})
 

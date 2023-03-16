@@ -6,11 +6,11 @@ import { forgotPassword } from "../../services/user/UserAction";
 import { useDispatch, useSelector } from "react-redux";
 import { getIsForgotPass } from "../../services/user/UserSelectors";
 import { useForm } from "../../hooks/useForm";
-export const ForgotPassword = () => {
-    const dispatch = useDispatch();
+export const ForgotPassword: React.FC = () => {
+    const dispatch: any = useDispatch();
     const isPasswordForgot = useSelector(getIsForgotPass)
     const {values, handleChange} = useForm({})
-    const sabmitForgotPassHandler = e => {
+    const sabmitForgotPassHandler = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(forgotPassword({
             'email': values.email

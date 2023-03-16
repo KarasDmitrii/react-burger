@@ -1,38 +1,45 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
 import { useSelector } from 'react-redux';
-import { ArrPropTypes } from '../../utils/PropTypes.jsx';
 import { useDrag } from 'react-dnd';
-
 import { getBun, getIngredientCounters } from '../../services/Ingredients/IngredientsSelectors';
 import { Link, useLocation } from 'react-router-dom';
+import { IIngredient } from '../../utils/types';
 
+interface IburgerIngProps {
+    item: IIngredient
+}
+interface Icounters {
+    [key: string]: number
+}
 
-const BurgerIngredient = (item) => {
+const BurgerIngredient: React.FC<IburgerIngProps> = ({ item }) => {
     let location = useLocation();
     const bun = useSelector(getBun);
-    const { image, price, name, _id, type } = item.item;
+    const { image, price, name, _id, type } = item;
 
-    const counters = useSelector(getIngredientCounters);
-    var count = null
+
+
+    const counters: Icounters = useSelector(getIngredientCounters);
+    let count = null
     if (type === 'bun') {
         count = (bun._id === _id) ? 2 : null
     } else {
-        count = counters[_id];
+        count = counters[_id] || null;
     };
     const [, dragRef] = useDrag({
         type: "ingItem",
         item: { _id }
     });
-    
+
     return (
 
         <div className={`${styles.ingredient} mr-4 ml-4 mb-10 mt-6`}>
             {count && <Counter count={count} size="default" extraClass="m-1" />}
             <Link
                 to={`/ingredients/${_id}`}
-                state= {{ background: location }}
-                >
+                state={{ background: location }}
+            >
                 <div className='ml-4'>
                     <img ref={dragRef} alt={`${name}`} src={image} />
                 </div>
@@ -53,7 +60,5 @@ const BurgerIngredient = (item) => {
 
     )
 };
-BurgerIngredient.propTypes = {
-    item: ArrPropTypes.isRequired,
-}
+
 export default BurgerIngredient;

@@ -12,13 +12,13 @@ export function Header() {
             <div className={styles.boxHeader}>
                 <div className={`${styles.boxButton} m-4`}>
                     <CustomLink to='/' className={`${styles.headLinks} mr-2`}>
-                        <BurgerIcon fill type="secondary" />
+                        <BurgerIcon type="secondary" />
                         <p className='text text_type_main-default ml-2' >
                             Конструктор
                         </p>
                     </CustomLink>
                     <CustomLink to='/profile/orders' className={`${styles.headLinks} mr-2`}>
-                        <ListIcon fill type="secondary" />
+                        <ListIcon type="secondary" />
                         <p className='text text_type_main-default ml-2' >
                             Лента заказов
                         </p>

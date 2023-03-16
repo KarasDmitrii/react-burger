@@ -20,12 +20,12 @@ import { Header } from "../header/AppHeader";
 import { ResetPassword } from "../../pages/reset-password/ResetPassword";
 import { Modal } from "../modal/Modal";
 
-export function App() {
+export const App: React.FC = () => {
 
   const location = useLocation();
   const token = readCookie('refreshToken');
   const background = location.state && location.state.background;
-  const dispatch = useDispatch();
+  const dispatch: any = useDispatch();
   useEffect(() => {
     dispatch(loadIngredients())
     if (token && token !== undefined) {

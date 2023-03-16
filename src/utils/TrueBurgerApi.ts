@@ -5,7 +5,7 @@ export const getApiIngredients = () => {
     return request((`${API_URL}/ingredients`))
 };
 
-export const sendOrderApi = (order) => {
+export const sendOrderApi = (order: {"ingredients": Array<string>}) => {
 
     return request((`${API_URL}/orders`), {
         method: 'POST', 

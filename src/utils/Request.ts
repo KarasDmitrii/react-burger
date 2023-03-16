@@ -1,6 +1,15 @@
 import { refreshAccessToken } from "../services/user/UserAction";
 import PropTypes from 'prop-types';
-export async function request(url, options) {
+import { IPromise } from "./types";
+
+interface IOptions {
+    method?: string,
+    body?: string,
+    headers?: { 'Content-Type': string, authorization?: string}
+    
+}
+
+export async function request(url: string, options?: IOptions): Promise<IPromise> {
     return await fetch(url, options).then(res => {
         if (res.ok) {
             return res.json();
@@ -12,15 +21,16 @@ export async function request(url, options) {
                             return res.json();
                         }
                     })
-                }).catch(err => {return err})
+                }).catch((err: Error) => { return err })
             } else {
                 return res
             }
         }
     }
     ).catch(err => {
-        
-        Promise.reject(`Ошибка ${err.status}`)})
+
+        Promise.reject(`Ошибка ${err.status}`)
+    })
 }
 request.propTypes = {
     url: PropTypes.string.isRequired,

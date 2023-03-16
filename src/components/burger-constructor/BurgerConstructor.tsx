@@ -8,32 +8,34 @@ import { addItem, DELETE_ITEM } from "../../services/Constructor/ConstructorActi
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { composeOrder, getAllData, getBun, getOtherIng, getPrice, activeUser, getIsOrdModalOpen, getIsOrdLoading } from "../../services/Constructor/ConstructorSelectors";
 import { CLOSE_ORDER_MODAL, sendOrder } from '../../services/Order/OrderActions';
-
 import OrderDetails from '../order-details/OrderDetails';
 import { useNavigate } from 'react-router-dom';
-import { Loader } from '../loader/Loader';
 import { Modal } from '../modal/Modal';
+import { IIngredient, IIngWithKey } from '../../utils/types';
 
-function BurgerConstructor() {
 
-    const bun = useSelector(getBun);
-    const otherIng = useSelector(getOtherIng);
-    const allData = useSelector(getAllData)
-    const price = useSelector(getPrice);
-    const isOrdModalOpen = useSelector(getIsOrdModalOpen)
-    const isOrdLoading = useSelector(getIsOrdLoading)
-    const dispatch = useDispatch();
-    const isActiveUser = useSelector(activeUser);
+
+const BurgerConstructor: React.FC = () => {
+
+    const bun: IIngredient = useSelector(getBun);
+    const otherIng: Array<IIngWithKey> = useSelector(getOtherIng);
+    const allData: Array<IIngredient> = useSelector(getAllData)
+    const price: number = useSelector(getPrice);
+    const isOrdModalOpen: boolean = useSelector(getIsOrdModalOpen)
+    const isOrdLoading: boolean = useSelector(getIsOrdLoading)
+    const dispatch: any = useDispatch();
+    const isActiveUser: boolean = useSelector(activeUser);
+    
     const [, dropTarget] = useDrop({
         accept: 'ingItem',
-        drop(itemId) {
+        drop(itemId: {_id: string}) {
 
-            dispatch(addItem(allData.find(element => element._id === itemId._id)))
+            dispatch(addItem(allData.find((element: IIngredient) => element._id === itemId._id)))
 
         },
     })
 
-    const handleDelete = (key) => {
+    const handleDelete = (key: string) => {
         dispatch({
             type: DELETE_ITEM,
             payload: key
@@ -69,7 +71,7 @@ function BurgerConstructor() {
                                 type="top"
                                 isLocked={true}
                                 text={`${bun.name} (вверх)`}
-                                price={bun.price}
+                                price={Number(bun.price)}
                                 thumbnail={bun.image}
                             />
                         ) : (
@@ -93,7 +95,7 @@ function BurgerConstructor() {
                                 type="bottom"
                                 isLocked={true}
                                 text={`${bun.name} (низ)`}
-                                price={bun.price}
+                                price={Number(bun.price)}
                                 thumbnail={bun.image}
                             />
                         ) : (
@@ -110,16 +112,14 @@ function BurgerConstructor() {
 
                         {otherIng[0] && bun.image && <Button onClick={onClick} htmlType="button" type="primary" size="medium">
                             <p className="text text_type_main-default" >
-                                {isOrdLoading ? <Loader /> : 'Оформить заказ'}
+                                Оформить заказ
                                 
                             </p>
                         </Button>}
-
                     </div>
                     {isOrdModalOpen &&
                         <Modal modalClose={closeModal}>
-                           
-                            {!isOrdLoading && <OrderDetails />}
+                            <OrderDetails />
                         </Modal>
                     }
                 </div>

@@ -8,38 +8,35 @@ import { getUser } from "../../services/user/UserSelectors";
 import { changeUserData, logoutUser } from "../../services/user/UserAction";
 import { CustomLink } from "../../components/CustomLink";
 import { useForm } from "../../hooks/useForm";
+import { ILocation } from "../../utils/types";
 
+export const Profile: React.FC = () => {
 
-export const Profile = () => {
-    const dispatch = useDispatch();
-    const user = useSelector(getUser);
+    interface IUser {
+        name?: string,
+        email?: string,
+        password?: string,
+        activeUser: boolean,
+        authError: boolean,
+        isResetPasswordSuccess: boolean,
+        isForgotPasswordSuccess: boolean,
+    }
+    
+    
+
+    const dispatch: any = useDispatch();
+    const user: IUser = useSelector(getUser);
     const navigate = useNavigate();
-    const location = useLocation();
-
+    const location: ILocation = useLocation();
+    
     useEffect(() => {
         dispatch(getUser);
     }, [])
 
     const {values, handleChange, setValues} = useForm({})
-
     const [isChange, setIsChange] = useState(false)
-    // const [nameValue, setNameValue] = useState(user.name)
-    // const onNameChange = e => {
-    //     setNameValue(e.target.value)
-    //     setIsChange(true)
-    // }
-    // const [emailValue, setEmailValue] = useState(user.email)
-    // const onEmailChange = e => {
-    //     setEmailValue(e.target.value)
-    //     setIsChange(true)
-    // }
-    // const [passwordValue, setPasswordValue] = useState('')
-    // const onPasswordChange = e => {
-    //     setPasswordValue(e.target.value)
-    //     setIsChange(true)
-    // }
 
-    const sabmitChangeHandler = e => {
+    const sabmitChangeHandler = (e: React.FormEvent) => {
         e.preventDefault();
         dispatch(changeUserData({
             name: values.name,
@@ -48,8 +45,15 @@ export const Profile = () => {
         }));
         setIsChange(false)
     }
+
+    const userCut = {
+        name: user.name,
+        password: user.password,
+        email: user.email
+    }
+
     const cancelChange = () => {
-        setValues(user)
+        setValues(userCut)
         
         setIsChange(false)
     }
@@ -58,7 +62,7 @@ export const Profile = () => {
         navigate('/login')
     }
 
-    const onChange = (e) => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleChange(e)
         setIsChange(true)
         }

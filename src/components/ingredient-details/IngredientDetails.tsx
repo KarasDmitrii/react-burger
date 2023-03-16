@@ -3,16 +3,31 @@ import styles from '../modal/modal.module.css';
 import { useSelector } from "react-redux";
 import { getAllData } from "../../services/IngredientDetails/IngredientsDtailsSelector";
 import { useParams } from 'react-router-dom';
+import { IIngredient } from '../../utils/types';
 
 
 
-const IngredientDetails = () => {
+const IngredientDetails: React.FC = () => {
 
-    const allData = useSelector(getAllData)
-    const { id } = useParams();
-
+    const allData: Array<IIngredient> = useSelector(getAllData)
+    const { id } = useParams<{id: string}>();
+   
+    let defaultiItem: IIngredient = {
+        name: '',
+        calories: '',
+        proteins: '',
+        fat: '',
+        carbohydrates: '',
+        image_large: '',
+        image: '',
+        image_mobile: '',
+        _id: '',
+        __v: 0,
+        type: '',
+        price: '',
+    }
     if (allData[0]) {
-        const item = allData.find(element => element._id === id);
+        const item = allData.find(element => element._id === id) || defaultiItem;
         const { name, calories, proteins, fat, carbohydrates, image_large } = item;
         return (
             <div className={styles.content}>
@@ -63,6 +78,8 @@ const IngredientDetails = () => {
                 </div>
             </div>
         )
+    } else {
+        return(<h1>Ошибка загрузки данных</h1>)
     }
 };
 

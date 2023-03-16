@@ -12,8 +12,21 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const RESET_PASSWORD = 'RESET_PASSWORD';
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
 export const REFRESH_TOKEN = 'REFRESH_TOKEN'; 
-export const loginUser = (data) => {
-    return function (dispatch) {
+
+interface ILogiData {
+    'email': string | undefined,
+    'password': string | undefined
+}
+interface IUserData extends ILogiData {
+    'name': string | undefined
+}
+interface IResetPassData {
+    'password': string | undefined,
+    'token': string | undefined
+}
+
+export const loginUser = (data: ILogiData) => {
+    return function (dispatch: any) {
         request((`${API_URL}/auth/login`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -32,7 +45,7 @@ export const loginUser = (data) => {
                     password: data.password
                 }
             })
-            setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+            setCookie('accessToken', res.accessToken?.split('Bearer ')[1]);
             setCookie('refreshToken', res.refreshToken);
         }).catch(err => {
             console.log(err)
@@ -47,7 +60,7 @@ export const loginUser = (data) => {
 
 export const logoutUser = () => {
 
-    return function (dispatch) {
+    return function (dispatch: any) {
         request((`${API_URL}/auth/logout`), {
             method: 'POST',
             body: JSON.stringify({
@@ -71,8 +84,8 @@ export const logoutUser = () => {
     }
 };
 
-export const registerUser = (data) => {
-    return function (dispatch) {
+export const registerUser = (data: IUserData) => {
+    return function (dispatch: any) {
         request((`${API_URL}/auth/register`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -85,7 +98,7 @@ export const registerUser = (data) => {
                     password: data.password
                 }
             })
-            setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+            setCookie('accessToken', res.accessToken?.split('Bearer ')[1]);
             setCookie('refreshToken', res.refreshToken);
         }).catch(err => {
             Promise.reject(`Ошибка регистрации${err}`);
@@ -99,8 +112,8 @@ export const registerUser = (data) => {
     }
 }
 
-export const refreshAccessToken = () => {
-    return function (dispatch) {
+export const refreshAccessToken = (): any => {
+    return function (dispatch: any) {
         const refreshToken = readCookie('refreshToken');
         request((`${API_URL}/auth/token`), {
             method: 'POST',
@@ -113,7 +126,7 @@ export const refreshAccessToken = () => {
                 type: REFRESH_TOKEN
             })
             setCookie('refreshToken', res.refreshToken);
-            setCookie('accessToken', res.accessToken.split('Bearer ')[1]);
+            setCookie('accessToken', res.accessToken?.split('Bearer ')[1] );
         }).catch(err => {
             Promise.reject(`Ошибка обновления токена${err}`);
 
@@ -121,9 +134,9 @@ export const refreshAccessToken = () => {
     }
 }
 
-export const changeUserData = (newData) => {
-    return function (dispatch) {
-        const accessToken = 'Bearer ' + readCookie('accessToken').toString();
+export const changeUserData = (newData: IUserData) => {
+    return function (dispatch: any) {
+        const accessToken = 'Bearer ' + readCookie('accessToken')?.toString();
         request((`${API_URL}/auth/user`), {
             method: 'PATCH',
             body: JSON.stringify(newData),
@@ -137,9 +150,9 @@ export const changeUserData = (newData) => {
     }
 }
 
-export const getUserApi = () => {
-    return function (dispatch) {
-        const accessToken = 'Bearer ' + readCookie('accessToken').toString();
+export const getUserApi = (): any => {
+    return function (dispatch: any) {
+        const accessToken = 'Bearer ' + readCookie('accessToken')?.toString();
         request((`${API_URL}/auth/user`), {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', 'authorization': accessToken }
@@ -158,8 +171,8 @@ export const getUserApi = () => {
     }
 };
 
-export const forgotPassword = (data) => {
-    return function (dispatch) {
+export const forgotPassword = (data: {'email': string | undefined}) => {
+    return function (dispatch: any) {
         request((`${API_URL}/password-reset`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -180,8 +193,8 @@ export const forgotPassword = (data) => {
     }
 };
 
-export const resetPassword = (data) => {
-    return function (dispatch) {
+export const resetPassword = (data: IResetPassData) => {
+    return function (dispatch: any) {
         request((`${API_URL}/password-reset/reset`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -202,18 +215,3 @@ export const resetPassword = (data) => {
     }
 };
 
-resetPassword.propTypes = {
-    data: PropTypes.object.isRequired
-}
-forgotPassword.propTypes = {
-    data: PropTypes.object.isRequired
-}
-changeUserData.propTypes = {
-    newData: PropTypes.object.isRequired
-}
-registerUser.propTypes = {
-    data: PropTypes.object.isRequired
-}
-loginUser.propTypes = {
-    data: PropTypes.object.isRequired
-}

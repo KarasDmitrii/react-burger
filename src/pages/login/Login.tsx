@@ -7,13 +7,13 @@ import { useState } from "react";
 
 import { CustomLink } from '../../components/CustomLink';
 import { useForm } from '../../hooks/useForm';
-export const LoginPage = () => {
+export const LoginPage: React.FC = () => {
 
     const {values, handleChange} = useForm({})
     
-    const dispatch = useDispatch();
+    const dispatch: any = useDispatch();
 
-    const submitHandler = e => {
+    const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         dispatch(loginUser(
             {
