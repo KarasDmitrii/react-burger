@@ -1,5 +1,5 @@
 
-import { getApiIngredients } from '../../utils/TrueBurgerApi.js';
+import { getApiIngredients } from '../../utils/TrueBurgerApi';
 export const GET_ING_SUCCESS = 'LOAD_ING_SUCCESS';
 export const GET_ING_ERROR = 'LOAD_ING_ERROR';
 export const GET_ING_LOADING = 'GET_ING_LOADING';
