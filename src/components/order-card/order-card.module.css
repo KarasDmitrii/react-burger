@@ -1,0 +1,48 @@
+.orderBox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 24px;
+    margin-bottom: 24px;
+    border-radius: 40px;
+    background: #1C1C21;
+    height: fit-content;
+}
+
+.number {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ingBox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ingCircles {
+    display: flex;
+    flex-wrap: nowrap;
+
+}
+
+.ingCircle {
+    position: relative;
+    border-color: #5800cc;
+    border-style: solid;
+    border-radius: 40px;
+    width: 64px;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+}
+
+.price {
+    display: flex;
+    gap: 10px;
+}
+
+.restIng {
+    left: 13px;
+    position: absolute;
+    bottom: 19px;
+}

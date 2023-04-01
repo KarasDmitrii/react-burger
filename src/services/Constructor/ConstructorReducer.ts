@@ -6,14 +6,15 @@ import {
     MOVE_CARD,
     COMPOSE_ORDER
 } from './ConstructorActions';
+import { IConstructorInitialState, TConstructorActions } from './ConstructorTypes';
 
-const initialState = {
-    bun: {},
+const initialState: IConstructorInitialState = {
+    bun: null,
     otherIng: [],
     order: { "ingredients": [] }
 }
 
-export const сonstructorReducer = (state = initialState, action) => {
+export const сonstructorReducer = (state = initialState, action: TConstructorActions): IConstructorInitialState => {
     switch (action.type) {
         case ADD_ITEM: {
             return {
@@ -50,7 +51,7 @@ export const сonstructorReducer = (state = initialState, action) => {
         };
         case COMPOSE_ORDER:
             const order = state.otherIng.map(elem => elem.item._id)
-            order.push(state.bun._id)
+            if (state.bun) order.push(state.bun._id)
             return {
                 ...state,
                 order: {

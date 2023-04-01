@@ -4,8 +4,9 @@ import {
     GET_ING_LOADING,
     GET_ING_SUCCESS
 } from "./IngredientsActions";
+import { IIngredientsInitState, TIngredientsActions } from "./IngredientsTypes";
 
-const initialState = {
+const initialState: IIngredientsInitState = {
     allData: [],
     buns: [],
     mains: [],
@@ -14,15 +15,15 @@ const initialState = {
     isApiLoad: false,
 }
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions) => {
     switch (action.type) {
         case GET_ING_SUCCESS:
             return {
                 ...state,
-                allData: action.payload.data,
-                buns: action.payload.data.filter(item => item.type === "bun"),
-                mains: action.payload.data.filter(item => item.type === "main"),
-                sauces: action.payload.data.filter(item => item.type === "sauce"),
+                allData: action.payload?.data || [],
+                buns: action.payload?.data?.filter(item => item.type === "bun") || [],
+                mains: action.payload?.data?.filter(item => item.type === "main") || [],
+                sauces: action.payload?.data?.filter(item => item.type === "sauce") || [],
                 isApiLoad: true,
                 isLoading: false,
             };

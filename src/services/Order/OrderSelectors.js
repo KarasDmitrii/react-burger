@@ -1,1 +1,0 @@
-export const getOrderNum = (store) => store.ordModal.orderNum

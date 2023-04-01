@@ -4,17 +4,16 @@ import {
     SEND_ORDER_ERROR,
     ORD_LOADING
 } from "./OrderActions";
+import { IOrderInitState, TOrderActions } from "./OrderTypes";
 
-const initialState = {
+const initialState: IOrderInitState = {
     isOrdModalOpen: false,
     orderNum: 0,
     sendOrderError: false,
     isOrdLoading: false,
-    orderNum: 0,
-    sendOrderError: false
 }
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state = initialState, action: TOrderActions) => {
     switch (action.type) {
         case CLOSE_ORDER_MODAL:
             return {
@@ -27,7 +26,7 @@ export const orderReducer = (state = initialState, action) => {
                 isOrdLoading: false,
                 isOrdModalOpen: true,
                 orderNum: action.payload.order.number,
-                orderNum: action.payload.order.number
+                
             };
         case SEND_ORDER_ERROR:
             return {

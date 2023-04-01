@@ -1,10 +1,10 @@
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
-import { useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { getBun, getIngredientCounters } from '../../services/Ingredients/IngredientsSelectors';
 import { Link, useLocation } from 'react-router-dom';
 import { IIngredient } from '../../utils/types';
+import { useAppSelector } from '../../hooks/hooks';
 
 interface IburgerIngProps {
     item: IIngredient
@@ -15,15 +15,15 @@ interface Icounters {
 
 const BurgerIngredient: React.FC<IburgerIngProps> = ({ item }) => {
     let location = useLocation();
-    const bun = useSelector(getBun);
+    const bun = useAppSelector(getBun);
     const { image, price, name, _id, type } = item;
 
 
 
-    const counters: Icounters = useSelector(getIngredientCounters);
+    const counters: Icounters = useAppSelector(getIngredientCounters);
     let count = null
     if (type === 'bun') {
-        count = (bun._id === _id) ? 2 : null
+        count = (bun?._id === _id) ? 2 : null
     } else {
         count = counters[_id] || null;
     };

@@ -79,7 +79,7 @@ const IngredientDetails: React.FC = () => {
             </div>
         )
     } else {
-        return(<h1>Ошибка загрузки данных</h1>)
+        return(<h2>Ошибка загрузки данных</h2>)
     }
 };
 

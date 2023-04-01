@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 import { CustomLink } from '../../components/CustomLink';
-import { useForm } from '../../hooks/useForm';
+import { useForm } from '../../hooks/hooks';
 export const LoginPage: React.FC = () => {
 
     const {values, handleChange} = useForm({})

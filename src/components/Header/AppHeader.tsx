@@ -17,7 +17,7 @@ export function Header() {
                             Конструктор
                         </p>
                     </CustomLink>
-                    <CustomLink to='/profile/orders' className={`${styles.headLinks} mr-2`}>
+                    <CustomLink to='/feed' className={`${styles.headLinks} mr-2`}>
                         <ListIcon type="secondary" />
                         <p className='text text_type_main-default ml-2' >
                             Лента заказов

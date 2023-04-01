@@ -15,7 +15,7 @@ export async function request(url: string, options?: IOptions): Promise<IPromise
             return res.json();
         } else {
             if (res.status === 403) {
-                refreshAccessToken().then(() => {
+                (refreshAccessToken() as unknown as Promise<unknown>).then(() => {
                     fetch(url, options).then(res => {
                         if (res.ok) {
                             return res.json();

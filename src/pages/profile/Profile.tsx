@@ -1,31 +1,31 @@
 
 import { useState, useEffect } from "react";
 import styles from './Profile.module.css';
-import { useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../services/user/UserSelectors";
 import { changeUserData, logoutUser } from "../../services/user/UserAction";
 import { CustomLink } from "../../components/CustomLink";
-import { useForm } from "../../hooks/useForm";
-import { ILocation } from "../../utils/types";
+
+import { ILocation, IUser } from "../../utils/types";
 
 export const Profile: React.FC = () => {
 
-    interface IUser {
-        name?: string,
-        email?: string,
-        password?: string,
-        activeUser: boolean,
-        authError: boolean,
-        isResetPasswordSuccess: boolean,
-        isForgotPasswordSuccess: boolean,
-    }
+    // interface IUser {
+    //     name?: string,
+    //     email?: string,
+    //     password?: string,
+    //     activeUser: boolean,
+    //     authError: boolean,
+    //     isResetPasswordSuccess: boolean,
+    //     isForgotPasswordSuccess: boolean,
+    // }
     
     
 
     const dispatch: any = useDispatch();
-    const user: IUser = useSelector(getUser);
+    // const user: IUser = useSelector(getUser);
     const navigate = useNavigate();
     const location: ILocation = useLocation();
     
@@ -33,39 +33,39 @@ export const Profile: React.FC = () => {
         dispatch(getUser);
     }, [])
 
-    const {values, handleChange, setValues} = useForm({})
-    const [isChange, setIsChange] = useState(false)
+    // const {values, handleChange, setValues} = useForm({})
+    // const [isChange, setIsChange] = useState(false)
 
-    const sabmitChangeHandler = (e: React.FormEvent) => {
-        e.preventDefault();
-        dispatch(changeUserData({
-            name: values.name,
-            email: values.email,
-            password: values.password,
-        }));
-        setIsChange(false)
-    }
+    // const sabmitChangeHandler = (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     dispatch(changeUserData({
+    //         name: values.name,
+    //         email: values.email,
+    //         password: values.password,
+    //     }));
+    //     setIsChange(false)
+    // }
 
-    const userCut = {
-        name: user.name,
-        password: user.password,
-        email: user.email
-    }
+    // const userCut = {
+    //     name: user.name,
+    //     password: user.password,
+    //     email: user.email
+    // }
 
-    const cancelChange = () => {
-        setValues(userCut)
+    // const cancelChange = () => {
+    //     setValues(userCut)
         
-        setIsChange(false)
-    }
+    //     setIsChange(false)
+    // }
     const logoutHandler = () => {
         dispatch(logoutUser())
         navigate('/login')
     }
 
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        handleChange(e)
-        setIsChange(true)
-        }
+    // const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     handleChange(e)
+    //     setIsChange(true)
+    //     }
 
     return (
         <div className={styles.content}>
@@ -92,7 +92,9 @@ export const Profile: React.FC = () => {
                     </p>
                 </div>
             </div>
-            <div className={styles.contentBox}>
+            <div className={styles.contentBox}><Outlet/></div>
+            
+            {/* <div className={styles.contentBox}>
                 <form onSubmit={sabmitChangeHandler} className={styles.inputsBox}>
                     <div className=' mb-6'>
                         <Input
@@ -139,7 +141,7 @@ export const Profile: React.FC = () => {
                         </div>
                     }
                 </form>
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 
 import styles from './burger-constructor.module.css';
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import { ConstructorCard } from "./ConstructorCard";
 import { addItem, DELETE_ITEM } from "../../services/Constructor/ConstructorActions";
@@ -11,27 +11,28 @@ import { CLOSE_ORDER_MODAL, sendOrder } from '../../services/Order/OrderActions'
 import OrderDetails from '../order-details/OrderDetails';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../modal/Modal';
-import { IIngredient, IIngWithKey } from '../../utils/types';
+import { AppDispatch, IIngredient, IIngWithKey, nullIngredientWithKey } from '../../utils/types';
+import { useDispatch } from '../../hooks/hooks';
 
 
 
 const BurgerConstructor: React.FC = () => {
 
-    const bun: IIngredient = useSelector(getBun);
+    const bun: IIngredient | null = useSelector(getBun) ;
     const otherIng: Array<IIngWithKey> = useSelector(getOtherIng);
     const allData: Array<IIngredient> = useSelector(getAllData)
     const price: number = useSelector(getPrice);
     const isOrdModalOpen: boolean = useSelector(getIsOrdModalOpen)
     const isOrdLoading: boolean = useSelector(getIsOrdLoading)
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
     const isActiveUser: boolean = useSelector(activeUser);
     
     const [, dropTarget] = useDrop({
         accept: 'ingItem',
         drop(itemId: {_id: string}) {
-
-            dispatch(addItem(allData.find((element: IIngredient) => element._id === itemId._id)))
-
+            
+            dispatch(addItem(allData.find((element: IIngredient) => element._id === itemId._id) || nullIngredientWithKey))
+        
         },
     })
 
@@ -52,8 +53,10 @@ const BurgerConstructor: React.FC = () => {
 
     const onClick = () => {
         if (isActiveUser) {
+            if (bun) {
             const order = composeOrder(otherIng, bun)
             dispatch(sendOrder(order))
+        }
 
         } else {
             navigate('/login')
@@ -66,7 +69,7 @@ const BurgerConstructor: React.FC = () => {
             <div className={styles.constructorBox}>
                 <div className={styles.gapBox}>
                     <div className="ml-8 mr-4">
-                        {bun.image ? (
+                        {bun ? (
                             <ConstructorElement
                                 type="top"
                                 isLocked={true}
@@ -90,7 +93,7 @@ const BurgerConstructor: React.FC = () => {
                         )}
                     </li>
                     <div className="ml-8 mr-4 mb-10">
-                        {bun.image ? (
+                        {bun ? (
                             <ConstructorElement
                                 type="bottom"
                                 isLocked={true}
@@ -110,7 +113,7 @@ const BurgerConstructor: React.FC = () => {
                             <CurrencyIcon type="primary" />
                         </div>
 
-                        {otherIng[0] && bun.image && <Button onClick={onClick} htmlType="button" type="primary" size="medium">
+                        {otherIng[0] && bun && <Button onClick={onClick} htmlType="button" type="primary" size="medium">
                             <p className="text text_type_main-default" >
                                 Оформить заказ
                                 
@@ -118,7 +121,7 @@ const BurgerConstructor: React.FC = () => {
                         </Button>}
                     </div>
                     {isOrdModalOpen &&
-                        <Modal modalClose={closeModal}>
+                        <Modal modalClose={closeModal} >
                             <OrderDetails />
                         </Modal>
                     }
