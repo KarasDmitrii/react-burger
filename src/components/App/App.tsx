@@ -13,16 +13,13 @@ import { getUserApi, refreshAccessToken } from "../../services/user/UserAction";
 import { readCookie } from "../../services/user/UserServices";
 import ProtectedRoute from "../protectedRoutes/ProtectedRoutes";
 import { NotFoundPage } from "../../pages/not-found-page/NotFoungPage";
-import { Header } from "../header/AppHeader";
+import { Header } from "../app-header/AppHeader";
 import { ResetPassword } from "../../pages/reset-password/ResetPassword";
 import { Modal } from "../modal/Modal";
 import { ProfileMain } from "../../pages/profile-main/ProfileMain";
 import { ProfileOrders } from "../../pages/profile-orders/ProfileOrders";
 import { useDispatch } from "../../hooks/hooks";
-import { wsOrdersConnect } from "../../services/order-list/OrderListActions";
-import { wsFeedConnect } from "../../services/feed/FeedActions";
 import { FeedPage } from "../../pages/feed-page/FeedPage";
-import { OrderInfoModal } from "../order-info-modal/OrderInfoModal";
 import { OrderFeedModal } from "../order-feed-modal/OrderFeedModal";
 import { OrderProfileModal } from "../order-profile-modal/OrderProfileModal";
 
