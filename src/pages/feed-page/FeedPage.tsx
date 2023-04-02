@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { wsFeedConnect, wsFeedDisconnect } from '../../services/feed/FeedActions';
 import styles from './feed-page.module.css';
 import { useAppSelector, useDispatch } from '../../hooks/hooks';
@@ -34,7 +34,7 @@ export const FeedPage: React.FC = () => {
                     Лента заказов
                 </p>
                 <li className={`${styles.list} custom-scroll`} >
-                    {orders && orders.map((item) => { return (<div key={crypto.randomUUID()} className={styles.card}><OrderCard data={item} /></div>) })}
+                    {orders && orders.map((item) => { return (<div key={item.createdAt} className={styles.card}><OrderCard url='/orders/' data={item} /></div>) })}
                 </li>
             </div>
             <div className={styles.listBlock}>
@@ -44,8 +44,8 @@ export const FeedPage: React.FC = () => {
                             Готовы:
                         </p>
                         <div className={styles.numList}>
-                            {ordersNums && ordersNums.successOrders.slice(0, 10).map((item) =>
-                                <p key={crypto.randomUUID()} className="text text_type_digits-default mr-5 mb-2" style={{ color: '#00CCCC' }}>{item}</p>
+                            {ordersNums && ordersNums.successOrders.slice(0, 10).map((item, index) =>
+                                <p key={index} className="text text_type_digits-default mr-5 mb-2" style={{ color: '#00CCCC' }}>{item}</p>
                             )}
                         </div>
                     </div>
@@ -54,7 +54,7 @@ export const FeedPage: React.FC = () => {
                             В работе:
                         </p>
                         <div className={styles.numList}>
-                            {ordersNums && ordersNums.inWorkOrders.slice(0, 10).map((item) => <p key={crypto.randomUUID()} className="text text_type_digits-default mr-5 mb-2">{item}</p>)}
+                            {ordersNums && ordersNums.inWorkOrders.slice(0, 10).map((item, index) => <p key={index} className="text text_type_digits-default mr-5 mb-2">{item}</p>)}
                         </div>
                     </div>
                 </div>

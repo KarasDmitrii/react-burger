@@ -8,15 +8,24 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { Link, useLocation } from 'react-router-dom';
 
 
-export const OrderCard: React.FC<{ data: TWsRespOrder, isWithStatus?: boolean }> = ({ data, isWithStatus = false }) => {
+export const OrderCard: React.FC<{ data: TWsRespOrder, isWithStatus?: boolean, url?: string }> = ({ data, isWithStatus = false, url = '' }) => {
     const storeIngredients = useAppSelector(getAllData);
     let location = useLocation();
 
     const order = useMemo(() => {
         if (!storeIngredients.length || !data) return null
+        let isBun = false
         const ingredients = data.ingredients?.reduce((acc: Array<IIngredient>, item) => {
+
             let ing = storeIngredients.find((elem) => elem._id === item);
-            if (ing) acc.push(ing);
+
+            if (ing) {
+                if (ing?.type !== 'bun' || !isBun) {
+                    acc.push(ing)
+                    isBun = true
+                }
+            };
+
             return acc
         }, [])
 
@@ -45,7 +54,7 @@ export const OrderCard: React.FC<{ data: TWsRespOrder, isWithStatus?: boolean }>
                     color: 'white',
                     textDecoration: 'none'
                 }}
-                to={`/feed/${data.number}`}
+                to={`${url}${data.number}`}
                 state={{ background: location }}
             >
                 <div className={`${styles.number} mb-6`}>

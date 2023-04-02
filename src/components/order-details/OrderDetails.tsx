@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 import done from "../../images/graphics.svg";
 import { getOrderNum } from "../../services/Order/OrderSelectors";
 import styles from '../modal/modal.module.css';
+import { useAppSelector } from "../../hooks/hooks";
 
 export const OrderDetails: React.FC = () => {
-    const number = useSelector(getOrderNum)
+    const number = useAppSelector(getOrderNum)
     return (
         <div>
             <div className={`${styles.order} mt-30 mb-30 ml-25 mr-25`}>

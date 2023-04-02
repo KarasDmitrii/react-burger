@@ -1,15 +1,15 @@
 
 import styles from '../modal/modal.module.css';
-import { useSelector } from "react-redux";
 import { getAllData } from "../../services/IngredientDetails/IngredientsDtailsSelector";
 import { useParams } from 'react-router-dom';
 import { IIngredient } from '../../utils/types';
+import { useAppSelector } from '../../hooks/hooks';
 
 
 
 const IngredientDetails: React.FC = () => {
 
-    const allData: Array<IIngredient> = useSelector(getAllData)
+    const allData: Array<IIngredient> = useAppSelector(getAllData)
     const { id } = useParams<{id: string}>();
    
     let defaultiItem: IIngredient = {

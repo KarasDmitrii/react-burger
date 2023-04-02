@@ -1,7 +1,6 @@
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import { TAppDispatch } from "../..";
 import { useDispatch, useForm } from "../../hooks/hooks";
 import { changeUserData } from "../../services/user/UserAction";
 import { getUser } from "../../services/user/UserSelectors";
@@ -12,20 +11,10 @@ export const ProfileMain: React.FC = () => {
 
     const user = useSelector(getUser);
 
-    // const dispatch: TAppDispatch = useDispatch();
     const dispatch = useDispatch();
 
     const {values, handleChange, setValues} = useForm({ name: user.name, email: user.email});
     const [isChange, setIsChange] = useState(false);
-
-    // useEffect(() => {
-    //     console.log(user.name)
-    //     values.name = user.name
-    //     values.email = user.email
-        
-       
-
-    // }, [])
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         handleChange(e)

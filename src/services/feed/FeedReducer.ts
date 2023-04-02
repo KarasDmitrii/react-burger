@@ -6,9 +6,6 @@ import {
 } from './FeedActions';
 import { IFeedState, TFeedActions } from './FeedTypes';
 
-
-
-
 const initialState: IFeedState = {
     wsFeedConnected: false,
     feedError: undefined,

@@ -11,7 +11,7 @@ import { CLOSE_ORDER_MODAL, sendOrder } from '../../services/Order/OrderActions'
 import OrderDetails from '../order-details/OrderDetails';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../modal/Modal';
-import { AppDispatch, IIngredient, IIngWithKey, nullIngredientWithKey } from '../../utils/types';
+import { IIngredient, IIngWithKey, nullIngredientWithKey } from '../../utils/types';
 import { useDispatch } from '../../hooks/hooks';
 
 

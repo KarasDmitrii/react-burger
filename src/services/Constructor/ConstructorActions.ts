@@ -1,4 +1,4 @@
-import { IIngredient, IIngWithKey } from "../../utils/types";
+import { IIngredient } from "../../utils/types";
 
 export const ADD_ITEM: 'ADD_ITEM' = 'ADD_ITEM';
 export const ADD_BUN: 'ADD_BUN' = 'ADD_BUN';

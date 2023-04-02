@@ -5,9 +5,6 @@ import { AppDispatch } from "../../utils/types";
 import { TWsFeedActionTypes } from "../feed/FeedTypes";
 import { TWsOrdersActionTypes } from "../order-list/OrderListTypes";
 
-
-
-
 export const socketMiddleware: (wsActions: TWsOrdersActionTypes | TWsFeedActionTypes) => Middleware = (wsActions: TWsOrdersActionTypes | TWsFeedActionTypes): Middleware<AppDispatch, TRootState> => {
 
   return store => {
@@ -30,7 +27,7 @@ export const socketMiddleware: (wsActions: TWsOrdersActionTypes | TWsFeedActionT
 
       const user = getState().user
 
-      if (type === wsConnect && user) {
+      if (type === wsConnect ) {
         socket = new WebSocket(payload);
         url = payload
         isConnected = true;
@@ -60,15 +57,17 @@ export const socketMiddleware: (wsActions: TWsOrdersActionTypes | TWsFeedActionT
               payload: event
             })
           }
-          // if (isConnected) {
-          //   dispatch({ type: wsConecting });
-          //   reconnectTimer = window.setTimeout(() => {
-          //     dispatch({
-          //       type: wsConnect,
-          //       payload: url
-          //     });
-          //   }, 3000);
-          // }
+          if (isConnected) {
+            dispatch({ type: wsConecting });
+            reconnectTimer = window.setTimeout(() => {
+              dispatch({
+                type: wsConnect,
+                payload: url
+              });
+            }, 3000);
+          }
+
+          isConnected = false;
           dispatch({ type: onClose });
         };
 
@@ -77,9 +76,9 @@ export const socketMiddleware: (wsActions: TWsOrdersActionTypes | TWsFeedActionT
         }
 
         if (type === wsDisconect) {
-          // clearTimeout(reconnectTimer);
-          // isConnected = false,
-          // reconnectTimer = 0;
+          clearTimeout(reconnectTimer);
+          isConnected = false;
+          reconnectTimer = 0;
           socket.close()
           socket = null;
           dispatch({
@@ -88,7 +87,7 @@ export const socketMiddleware: (wsActions: TWsOrdersActionTypes | TWsFeedActionT
         }
       }
 
-      next(action);
+      return next(action);
     };
   };
 };

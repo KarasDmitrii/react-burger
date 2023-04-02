@@ -4,8 +4,9 @@
     
 };
 .contentBox {
-    display: flex;
+    display: flex; 
     position:relative;
     flex-grow: 2;
-    margin-left: 15%;
+    margin-right: auto;
+    height: 80vh
 };

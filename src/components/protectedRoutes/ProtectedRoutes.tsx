@@ -1,7 +1,6 @@
-
-import { useSelector } from "react-redux"
 import { Navigate, useLocation, } from "react-router-dom";
 import { getIsLoggedIn } from '../../services/protected-router/protecetRouteSelectors';
+import { useAppSelector } from "../../hooks/hooks";
 
 interface IprotecedRoute {
   children: React.ReactNode,
@@ -9,7 +8,7 @@ interface IprotecedRoute {
 }
 
 const ProtectedRoute: React.FC<IprotecedRoute> = ({ children, anonymous = false }) => {
-  const isLoggedIn = useSelector(getIsLoggedIn);
+  const isLoggedIn = useAppSelector(getIsLoggedIn);
 
   const location = useLocation();
   const from = location.state?.from?.pathname || '/';

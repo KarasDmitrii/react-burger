@@ -2,16 +2,13 @@
 import styles from './login.module.css';
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { loginUser } from "../../services/user/UserAction";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-
 import { CustomLink } from '../../components/CustomLink';
-import { useForm } from '../../hooks/hooks';
+import { useDispatch, useForm } from '../../hooks/hooks';
 export const LoginPage: React.FC = () => {
 
     const {values, handleChange} = useForm({})
     
-    const dispatch: any = useDispatch();
+    const dispatch = useDispatch();
 
     const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

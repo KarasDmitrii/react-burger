@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { OrderCard } from "../../components/order-card/OrderCard"
 import { useAppSelector, useDispatch } from "../../hooks/hooks"
-import { wsFeedConnect, wsFeedDisconnect } from "../../services/feed/FeedActions";
 import { wsOrderDisconnect, wsOrdersConnect } from "../../services/order-list/OrderListActions";
 import { getOrders } from "../../services/order-list/OrderListSelectors";
 import { readCookie } from "../../services/user/UserServices";
@@ -23,7 +22,7 @@ export const ProfileOrders: React.FC = () => {
     return (
        
         <li className={`${styles.list} custom-scroll`} >
-        {orders && orders.map((item) => {return(<div key={crypto.randomUUID()} className={styles.card}><OrderCard data={item} isWithStatus={true}/></div>)} )}
+        {orders && orders.map((item) => {return(<div key={item._id} className={styles.card}><OrderCard url="/orders/" data={item} isWithStatus={true}/></div>)} )}
         
         </li>
     )

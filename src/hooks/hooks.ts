@@ -4,9 +4,8 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
-import { Dispatch } from 'redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import { TAppDispatch , TRootState } from '..';
+import { TRootState } from '..';
 
 
 import { TApplicationActions } from '../utils/types';

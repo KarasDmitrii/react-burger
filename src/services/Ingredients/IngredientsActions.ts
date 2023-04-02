@@ -2,7 +2,6 @@
 
 import { AppThunk } from '../../hooks/hooks';
 import { getApiIngredients } from '../../utils/TrueBurgerApi';
-import { AppDispatch } from '../../utils/types';
 
 export const GET_ING_SUCCESS: 'LOAD_ING_SUCCESS' = 'LOAD_ING_SUCCESS';
 export const GET_ING_ERROR: 'LOAD_ING_ERROR' = 'LOAD_ING_ERROR';

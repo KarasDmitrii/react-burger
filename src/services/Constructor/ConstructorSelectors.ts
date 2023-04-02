@@ -1,9 +1,6 @@
 import { createSelector } from 'reselect'
 import { TRootState } from '../..';
 import { IIngredient, IIngWithKey} from '../../utils/types';
-
-
-
 export const getBun = (store: TRootState) => store.constructorData.bun;
 export const getOtherIng = (store: TRootState) => store.constructorData.otherIng;
 export const getAllData = (store: TRootState) => store.data.allData;

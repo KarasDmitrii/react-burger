@@ -1,7 +1,5 @@
-
 import styles from './registration.module.css';
 import { Button, EmailInput, PasswordInput, Input } from "@ya.praktikum/react-developer-burger-ui-components";
-
 import { registerUser } from "../../services/user/UserAction";
 import { CustomLink } from '../../components/CustomLink';
 import { useDispatch, useForm } from '../../hooks/hooks';

@@ -2,16 +2,14 @@
 import styles from './reset-password.module.css';
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Navigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { resetPassword } from "../../services/user/UserAction";
 import { getIsForgotPass, getIsResetPass } from "../../services/user/UserSelectors";
-
 import { CustomLink } from "../../components/CustomLink";
-import { useDispatch, useForm } from '../../hooks/hooks';
-import { AppDispatch } from '../../utils/types';
+import { useAppSelector, useDispatch, useForm } from '../../hooks/hooks';
+
 export const ResetPassword: React.FC = () => {
-    const isPasswordReset = useSelector(getIsResetPass)
-    const isPasswordForgot = useSelector(getIsForgotPass)
+    const isPasswordReset = useAppSelector(getIsResetPass)
+    const isPasswordForgot = useAppSelector(getIsForgotPass)
     const dispatch = useDispatch();
     const location = useLocation();
     const fromPage = location.state?.from?.pathname || '/';
