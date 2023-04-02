@@ -14,15 +14,17 @@ export const OrderCard: React.FC<{ data: TWsRespOrder, isWithStatus?: boolean, u
 
     const order = useMemo(() => {
         if (!storeIngredients.length || !data) return null
-        let isBun = false
+        let addedObj: {[key:string]: boolean} = {};
         const ingredients = data.ingredients?.reduce((acc: Array<IIngredient>, item) => {
 
             let ing = storeIngredients.find((elem) => elem._id === item);
 
             if (ing) {
-                if (ing?.type !== 'bun' || !isBun) {
+                if (!addedObj[item]) {
+
                     acc.push(ing)
-                    isBun = true
+                    addedObj[item] = true;
+
                 }
             };
 
@@ -48,7 +50,7 @@ export const OrderCard: React.FC<{ data: TWsRespOrder, isWithStatus?: boolean, u
         }
     }, [data, storeIngredients])
     return (
-        <div className={styles.orderBox} key={crypto.randomUUID()}>
+        <div className={styles.orderBox} key={data._id}>
             <Link
                 style={{
                     color: 'white',
@@ -74,7 +76,7 @@ export const OrderCard: React.FC<{ data: TWsRespOrder, isWithStatus?: boolean, u
                         let zIndex = 6 - index;
                         let place = 20 * index
                         return (
-                            <div style={{ zIndex: zIndex, right: place }} className={styles.ingCircle} key={crypto.randomUUID()}>
+                            <div style={{ zIndex: zIndex, right: place }} className={styles.ingCircle} key={index}>
                                 <img alt={data.name} style={{ height: '64px', width: '128px', opacity: order.numRestIng && 6 === index + 1 ? "0.5" : "1" }} src={item.image} />
                                 {6 === index + 1 ? (
                                     <span

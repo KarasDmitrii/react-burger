@@ -1,7 +1,6 @@
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch, useForm } from "../../hooks/hooks";
+import { useAppSelector, useDispatch, useForm } from "../../hooks/hooks";
 import { changeUserData } from "../../services/user/UserAction";
 import { getUser } from "../../services/user/UserSelectors";
 
@@ -9,7 +8,7 @@ import styles from './profile-main.module.css';
 
 export const ProfileMain: React.FC = () => {
 
-    const user = useSelector(getUser);
+    const user = useAppSelector(getUser);
 
     const dispatch = useDispatch();
 

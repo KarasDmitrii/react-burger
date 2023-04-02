@@ -1,12 +1,12 @@
 
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 import { getUser } from '../../services/user/UserSelectors';
 import styles from './app-header.module.css';
 import { CustomLink } from '../CustomLink';
+import { useAppSelector } from '../../hooks/hooks';
 
 export function Header() {
-    const user = useSelector(getUser);
+    const user = useAppSelector(getUser);
     return (
         <header className={styles.header}>
             <div className={styles.boxHeader}>

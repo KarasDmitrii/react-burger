@@ -1,7 +1,6 @@
 
 import styles from './burger-constructor.module.css';
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import { ConstructorCard } from "./ConstructorCard";
 import { addItem, DELETE_ITEM } from "../../services/Constructor/ConstructorActions";
@@ -12,20 +11,19 @@ import OrderDetails from '../order-details/OrderDetails';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../modal/Modal';
 import { IIngredient, IIngWithKey, nullIngredientWithKey } from '../../utils/types';
-import { useDispatch } from '../../hooks/hooks';
+import { useAppSelector, useDispatch } from '../../hooks/hooks';
 
 
 
 const BurgerConstructor: React.FC = () => {
 
-    const bun: IIngredient | null = useSelector(getBun) ;
-    const otherIng: Array<IIngWithKey> = useSelector(getOtherIng);
-    const allData: Array<IIngredient> = useSelector(getAllData)
-    const price: number = useSelector(getPrice);
-    const isOrdModalOpen: boolean = useSelector(getIsOrdModalOpen)
-    const isOrdLoading: boolean = useSelector(getIsOrdLoading)
+    const bun: IIngredient | null = useAppSelector(getBun) ;
+    const otherIng: Array<IIngWithKey> = useAppSelector(getOtherIng);
+    const allData: Array<IIngredient> = useAppSelector(getAllData)
+    const price: number = useAppSelector(getPrice);
+    const isOrdModalOpen: boolean = useAppSelector(getIsOrdModalOpen)
     const dispatch = useDispatch();
-    const isActiveUser: boolean = useSelector(activeUser);
+    const isActiveUser: boolean = useAppSelector(activeUser);
     
     const [, dropTarget] = useDrop({
         accept: 'ingItem',

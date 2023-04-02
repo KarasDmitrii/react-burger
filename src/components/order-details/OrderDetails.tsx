@@ -1,5 +1,4 @@
 
-import { useSelector } from "react-redux";
 import done from "../../images/graphics.svg";
 import { getOrderNum } from "../../services/Order/OrderSelectors";
 import styles from '../modal/modal.module.css';

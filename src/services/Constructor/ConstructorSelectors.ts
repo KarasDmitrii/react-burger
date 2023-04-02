@@ -8,7 +8,7 @@ export const getIsOrdModalOpen = (store: TRootState) => store.ordModal.isOrdModa
 export const getIsOrdLoading = (store: TRootState) => store.ordModal.isOrdLoading;
 export const activeUser = (store: TRootState) => store.user.activeUser;
 export const getPrice = createSelector(getOtherIng, getBun, (otherIng, bun) => {
-    var price = otherIng.reduce((prev: number, curr: IIngWithKey) => prev + Number(curr.item.price), 0) + (Number(bun?.price) * 2)
+    var price = otherIng.reduce((prev, curr) => prev + Number(curr.item.price), 0) + (Number(bun?.price) * 2)
     return price ? price : 0;
 });
 export const composeOrder = (otherIng: Array<IIngWithKey>, bun: IIngredient) => {
