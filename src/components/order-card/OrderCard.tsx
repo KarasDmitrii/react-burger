@@ -15,10 +15,11 @@ export const OrderCard: React.FC<{ data: TWsRespOrder, isWithStatus?: boolean, u
     const order = useMemo(() => {
         if (!storeIngredients.length || !data) return null
         let addedObj: {[key:string]: boolean} = {};
+        
         const ingredients = data.ingredients?.reduce((acc: Array<IIngredient>, item) => {
 
             let ing = storeIngredients.find((elem) => elem._id === item);
-
+           
             if (ing) {
                 if (!addedObj[item]) {
 

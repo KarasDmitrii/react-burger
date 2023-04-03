@@ -18,9 +18,10 @@ export const OrderInfoModal: React.FC<{ data: TWsRespOrder | undefined }> = ({ d
             };
             return acc
         }, [])
-    function countIngs(arr: Array<string>, id: string) {
-        return arr.reduce((count, item) => {
+    function countIngs(id: string) {
+        return data?.ingredients.reduce((count, item) => {
             if (item === id) {
+                
                 count++;
             }
             return count;
@@ -53,7 +54,7 @@ export const OrderInfoModal: React.FC<{ data: TWsRespOrder | undefined }> = ({ d
                         <div className={styles.listIng} key={index}>
                             <div className={styles.ingCircle}><img alt={data?.name} style={{ height: '64px', width: '128px' }} src={item.image} /></div>
                             <div className={`${styles.ingName} ml-4`}><p className="text text_type_main-default">{item?.name}</p></div>
-                            <div className={styles.price}><p className="text text_type_digits-default mr-6">{`${countIngs(data?.ingredients || [], item._id)} x ${item?.price}`} <CurrencyIcon type="primary" /></p></div>
+                            <div className={styles.price}><p className="text text_type_digits-default mr-6">{item.type === 'bun' ? `2 x ${item?.price}` : `${countIngs(item._id)} x ${item?.price}` }<CurrencyIcon type="primary" /></p></div>
                         </div>
                     )
                 })}
