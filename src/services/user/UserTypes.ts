@@ -1,5 +1,5 @@
 import { REPL_MODE_STRICT } from "repl";
-import { ADD_USER, AUTH_ERROR, FORGOT_PASSWORD, LOG_OUT, PATH_USER, REFRESH_TOKEN, RESET_PASSWORD } from "./UserAction";
+import { ADD_USER, AUTH_ERROR, FORGOT_PASSWORD, LOG_OUT, PATH_USER, REFRESH_TOKEN, RESET_PASSWORD, AUTH_CHECKED } from "./UserAction";
 
 type TRegisterPromis = {
     email: string | undefined,
@@ -32,6 +32,10 @@ export interface IForgotAction {
     readonly type: typeof FORGOT_PASSWORD
 }
 
+export interface ICheckedUser {
+    readonly type: typeof AUTH_CHECKED
+}
+
 export interface IRefreshTokenAction {
     readonly type: typeof REFRESH_TOKEN
 }
@@ -43,7 +47,8 @@ export interface IUserInitState {
     isForgotPasswordSuccess: boolean,
     name: undefined| string,
     email: undefined | string,
-    password: undefined | string
+    password: undefined | string,
+    isAutnChecked: boolean
 }
 
 export type TUserActions =
@@ -53,4 +58,5 @@ export type TUserActions =
     ILogoutUserAction |
     IRefreshTokenAction |
     IPathUserAction |
+    ICheckedUser |
     IResetPasswordAction;

@@ -4,37 +4,67 @@ import { TAppDispatch } from "../..";
 import { AppThunk } from "../../hooks/hooks";
 import { request } from "../../utils/Request";
 import { API_URL } from '../../utils/TrueBurgerApi';
-import { AppDispatch} from "../../utils/types";
+import { AppDispatch } from "../../utils/types";
+import { getUser } from "./UserSelectors";
 
 import { deleteCookie, readCookie, setCookie } from "./UserServices";
 
 export const LOG_IN: 'LOG_IN' = 'LOG_IN';
-export const LOG_OUT:'LOG_OUT' = 'LOG_OUT';
-export const ADD_USER:'ADD_USER' = 'ADD_USER';
+export const LOG_OUT: 'LOG_OUT' = 'LOG_OUT';
+export const ADD_USER: 'ADD_USER' = 'ADD_USER';
 export const PATH_USER: 'PATH_USER' = 'PATH_USER';
 export const GET_USER: 'GET_USER' = 'GET_USER';
 export const AUTH_ERROR: 'AUTH_ERROR' = 'AUTH_ERROR';
 export const RESET_PASSWORD: 'RESET_PASSWORD' = 'RESET_PASSWORD';
 export const FORGOT_PASSWORD: 'FORGOT_PASSWORD' = 'FORGOT_PASSWORD';
-export const REFRESH_TOKEN: 'REFRESH_TOKEN' = 'REFRESH_TOKEN'; 
+export const REFRESH_TOKEN: 'REFRESH_TOKEN' = 'REFRESH_TOKEN';
+export const AUTH_CHECKED: 'AUTH_CHECKED' = 'AUTH_CHECKED';
 
 interface ILogiData {
-    email: string | undefined ,
-    password: string | undefined 
+    email: string | undefined,
+    password: string | undefined
 }
 interface IUserData {
-    name: string | undefined ,
-    password: string | undefined ,
-    email: string | undefined 
+    name: string | undefined,
+    password: string | undefined,
+    email: string | undefined
 }
 interface IResetPassData {
-    password: string | undefined ,
-    token: string | undefined 
+    password: string | undefined,
+    token: string | undefined
 }
 
+export const checkUserAuth = (): AppThunk => {
+    return function (dispatch: AppDispatch) {
+        if (readCookie("accessToken")) {
 
+            const accessToken = 'Bearer ' + readCookie('accessToken')?.toString();
+            request((`${API_URL}/auth/user`), {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json', 'authorization': accessToken }
+            }).then(res => {
+                dispatch({
+                    type: ADD_USER,
+                    payload: {
+                        user: res.user,
+                    }
+                })
+            }).catch(err => {
+                if (err.status === 401) {
+                    refreshAccessToken()
+                }
+            }).finally(() => {
+                dispatch({ type: AUTH_CHECKED })
+            })
+
+        } else {
+            dispatch({ type: AUTH_CHECKED })
+        }
+    }
+}
 
 export const loginUser = (data: ILogiData): AppThunk => {
+
     return function (dispatch: AppDispatch) {
         request((`${API_URL}/auth/login`), {
             method: 'POST',
@@ -54,8 +84,11 @@ export const loginUser = (data: ILogiData): AppThunk => {
                     password: data.password
                 }
             })
-            setCookie('accessToken', res.accessToken?.split('Bearer ')[1] || "");
-            setCookie('refreshToken', res.refreshToken || "");
+
+            
+            if (res.accessToken) setCookie('accessToken', res.accessToken?.split('Bearer ')[1]);
+            if (res.refreshToken) setCookie('refreshToken', res.refreshToken);
+
         }).catch(err => {
             console.log(err)
             if (err.status === 401) {
@@ -104,11 +137,11 @@ export const registerUser = (data: IUserData): AppThunk => {
                 type: ADD_USER,
                 payload: {
                     user: res.user,
-                    password: data.password 
+                    password: data.password
                 }
             })
-            setCookie('accessToken', res.accessToken?.split('Bearer ')[1] || "");
-            setCookie('refreshToken', res.refreshToken || "");
+            if (res.accessToken) setCookie('accessToken', res.accessToken?.split('Bearer ')[1] );
+            if (res.refreshToken) setCookie('refreshToken', res.refreshToken);
         }).catch(err => {
             Promise.reject(`Ошибка регистрации${err}`);
             alert('Ошибка регистрации')
@@ -134,8 +167,8 @@ export const refreshAccessToken = (): AppThunk => {
             dispatch({
                 type: REFRESH_TOKEN
             })
-            setCookie('refreshToken', res.refreshToken || "");
-            setCookie('accessToken', res.accessToken?.split('Bearer ')[1] || "");
+            if (res.accessToken) setCookie('accessToken', res.accessToken?.split('Bearer ')[1]);
+            if (res.refreshToken) setCookie('refreshToken', res.refreshToken);
         }).catch(err => {
             Promise.reject(`Ошибка обновления токена${err}`);
 
@@ -160,7 +193,7 @@ export const changeUserData = (newData: IUserData): AppThunk => {
 }
 
 export const getUserApi = (): AppThunk => {
-    return function (dispatch: AppDispatch) {
+    return async function (dispatch: AppDispatch) {
         const accessToken = 'Bearer ' + readCookie('accessToken')?.toString();
         request((`${API_URL}/auth/user`), {
             method: 'GET',
@@ -180,7 +213,7 @@ export const getUserApi = (): AppThunk => {
     }
 };
 
-export const forgotPassword = (data: {email: string | undefined }): AppThunk => {
+export const forgotPassword = (data: { email: string | undefined }): AppThunk => {
     return function (dispatch: AppDispatch) {
         request((`${API_URL}/password-reset`), {
             method: 'POST',

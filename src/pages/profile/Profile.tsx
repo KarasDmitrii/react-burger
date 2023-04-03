@@ -8,13 +8,22 @@ import { CustomLink } from "../../components/CustomLink";
 
 import { ILocation} from "../../utils/types";
 import { useAppSelector, useDispatch } from "../../hooks/hooks";
+import { readCookie } from "../../services/user/UserServices";
 
 export const Profile: React.FC = () => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location: ILocation = useLocation();
+    const token = readCookie('refreshToken');
+    // useEffect(() => {
+        
     
+    //     if (token && token !== undefined) {
+    //       dispatch(refreshAccessToken());
+    //       dispatch(getUserApi());
+    //     }
+    //   }, [dispatch, token]);
   
 
     const logoutHandler = () => {

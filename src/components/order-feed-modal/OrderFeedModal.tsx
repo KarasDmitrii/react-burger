@@ -14,7 +14,9 @@ export const OrderFeedModal: React.FC = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         if (!isWsFeedConnect) dispatch(wsFeedConnect(`${WSS_URL}/all`))
-    }, [])
+        
+    }, [ isWsFeedConnect])
+    
     return (
         <div className={styles.content}>
             <OrderInfoModal data={order} />

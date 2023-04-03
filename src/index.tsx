@@ -43,6 +43,7 @@ const defaultState: TInitState = {
     name: undefined ,
     email: undefined,
     password: undefined,
+    isAutnChecked: false
   },
   ingModal: {
     isIngModalOpen: false,

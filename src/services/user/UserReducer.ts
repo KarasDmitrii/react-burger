@@ -1,5 +1,5 @@
 
-import { ADD_USER, LOG_OUT, PATH_USER, AUTH_ERROR, RESET_PASSWORD, FORGOT_PASSWORD, REFRESH_TOKEN } from "./UserAction"
+import { ADD_USER, LOG_OUT, PATH_USER, AUTH_ERROR, RESET_PASSWORD, FORGOT_PASSWORD, REFRESH_TOKEN, AUTH_CHECKED } from "./UserAction"
 import { TUserActions, IUserInitState } from "./UserTypes";
 
 const initialState: IUserInitState = {
@@ -9,7 +9,8 @@ const initialState: IUserInitState = {
     isForgotPasswordSuccess: false,
     name: undefined,
     email: undefined,
-    password: undefined
+    password: undefined,
+    isAutnChecked: false
 };
 
 export const usersReducer = (state = initialState, action: TUserActions): IUserInitState => {
@@ -61,6 +62,11 @@ export const usersReducer = (state = initialState, action: TUserActions): IUserI
         case REFRESH_TOKEN:
             return {
                 ...state,
+            }
+        case AUTH_CHECKED:
+            return {
+                ...state,
+                isAutnChecked: true
             }
         default:
             return state;

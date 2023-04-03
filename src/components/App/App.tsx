@@ -9,7 +9,7 @@ import { MainPage } from "../../pages/main-page/MainPage";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 import { loadIngredients } from "../../services/Ingredients/IngredientsActions";
-import { getUserApi, refreshAccessToken } from "../../services/user/UserAction";
+import { checkUserAuth, getUserApi, refreshAccessToken } from "../../services/user/UserAction";
 import { readCookie } from "../../services/user/UserServices";
 import ProtectedRoute from "../protectedRoutes/ProtectedRoutes";
 import { NotFoundPage } from "../../pages/not-found-page/NotFoungPage";
@@ -28,17 +28,16 @@ import { OrderProfileModal } from "../order-profile-modal/OrderProfileModal";
 export const App: React.FC = () => {
 
   const location = useLocation();
-  const token = readCookie('refreshToken');
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadIngredients())
-
-    if (token && token !== undefined) {
-      dispatch(refreshAccessToken());
-      dispatch(getUserApi());
+    
+    if (readCookie('refreshToken')) {
+      // dispatch(refreshAccessToken());
+      dispatch(checkUserAuth())
     }
-  }, [dispatch]);
+  }, []);
   const navigate = useNavigate();
   const closeModal = () => {
     navigate(-1);
@@ -60,7 +59,16 @@ export const App: React.FC = () => {
               <ProtectedRoute anonymous={false}>
                 <ProfileOrders />
               </ProtectedRoute>
+
             } />
+
+            {/* <Route path='orders/:id' element={
+              <ProtectedRoute anonymous={false}>
+                <OrderFeedModal />
+              </ProtectedRoute>
+            } /> */}
+
+
           </Route>
           <Route path='/login' element={
             <ProtectedRoute anonymous={true}>
@@ -82,7 +90,10 @@ export const App: React.FC = () => {
           <Route path='/' element={<MainPage />} />
           <Route path='/ingredients/:id' element={<IngredientDetails />} />
           <Route path='/feed/:id' element={<OrderFeedModal />} />
-          <Route path='/orders/:id' element={<OrderFeedModal />} />
+          <Route path='/orders/:id' element={
+            // <ProtectedRoute anonymous={false}>
+              <OrderProfileModal />}/>
+            
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
         {background && (

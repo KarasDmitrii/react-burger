@@ -34,7 +34,7 @@ export const FeedPage: React.FC = () => {
                     Лента заказов
                 </p>
                 <li className={`${styles.list} custom-scroll`} >
-                    {orders && orders.map((item) => { return (<div key={item.createdAt} className={styles.card}><OrderCard url='/orders/' data={item} /></div>) })}
+                    {orders && orders.map((item) => { return (<div key={item.createdAt} className={styles.card}><OrderCard url='/feed/' data={item} /></div>) })}
                 </li>
             </div>
             <div className={styles.listBlock}>
