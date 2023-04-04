@@ -1,15 +1,15 @@
 
 import styles from '../modal/modal.module.css';
-import { useSelector } from "react-redux";
 import { getAllData } from "../../services/IngredientDetails/IngredientsDtailsSelector";
 import { useParams } from 'react-router-dom';
 import { IIngredient } from '../../utils/types';
+import { useAppSelector } from '../../hooks/hooks';
 
 
 
 const IngredientDetails: React.FC = () => {
 
-    const allData: Array<IIngredient> = useSelector(getAllData)
+    const allData: Array<IIngredient> = useAppSelector(getAllData)
     const { id } = useParams<{id: string}>();
    
     let defaultiItem: IIngredient = {
@@ -79,7 +79,7 @@ const IngredientDetails: React.FC = () => {
             </div>
         )
     } else {
-        return(<h1>Ошибка загрузки данных</h1>)
+        return(<h2>Ошибка загрузки данных</h2>)
     }
 };
 

@@ -66,3 +66,9 @@
     margin: auto;
     
 }
+
+.closeIcon {
+    display: flex;
+    position: absolute;
+    align-self: flex-end;
+}

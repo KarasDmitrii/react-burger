@@ -1,0 +1,54 @@
+.header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.contentBlock {
+    display: grid;
+    width: 600px;
+    height: 580px;
+    padding: 40px;
+}
+
+.ingCircle {
+    position: relative;
+    border-color: #5800cc;
+    border-style: solid;
+    border-radius: 40px;
+    width: 64px;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+}
+
+.listIng {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.ingName {
+    display: flex;
+    width: 330px;
+}
+
+.list {
+    display: flex;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-direction: column;
+    height: 366;
+    width: 100%;
+}
+
+.price {
+    display: flex;
+    
+    margin-left: auto;
+}
+
+.footer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}

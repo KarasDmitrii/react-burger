@@ -1,0 +1,12 @@
+.buttonBox {
+    display: flex;
+    justify-content: flex-end;
+    
+};
+.contentBox {
+    display: flex; 
+    position:relative;
+    flex-grow: 2;
+    margin-right: auto;
+    height: 80vh
+};

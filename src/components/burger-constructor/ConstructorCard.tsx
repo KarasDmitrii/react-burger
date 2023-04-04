@@ -1,10 +1,10 @@
 import styles from './burger-constructor.module.css';
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from 'react-redux';
 import { MOVE_CARD } from '../../services/Constructor/ConstructorActions';
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { useRef } from 'react'
 import { IIngWithKey } from '../../utils/types';
+import { useDispatch } from '../../hooks/hooks';
 
 export const ConstructorCard: React.FC<{elem: IIngWithKey, index: number, handleDelete: Function}> = ({ elem, index, handleDelete }) => {
     const dispatch = useDispatch();

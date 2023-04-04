@@ -1,32 +1,71 @@
-import PropTypes from 'prop-types';
+
+
+import { TAppDispatch } from "../..";
+import { AppThunk } from "../../hooks/hooks";
 import { request } from "../../utils/Request";
 import { API_URL } from '../../utils/TrueBurgerApi';
-import { readCookie, setCookie } from "./UserServices";
+import { AppDispatch } from "../../utils/types";
+import { getUser } from "./UserSelectors";
 
-export const LOG_IN = 'LOG_IN';
-export const LOG_OUT = 'LOG_OUT';
-export const ADD_USER = 'ADD_USER';
-export const PATH_USER = 'PATH_USER';
-export const GET_USER = 'GET_USER';
-export const AUTH_ERROR = 'AUTH_ERROR';
-export const RESET_PASSWORD = 'RESET_PASSWORD';
-export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
-export const REFRESH_TOKEN = 'REFRESH_TOKEN'; 
+import { deleteCookie, readCookie, setCookie } from "./UserServices";
+
+export const LOG_IN: 'LOG_IN' = 'LOG_IN';
+export const LOG_OUT: 'LOG_OUT' = 'LOG_OUT';
+export const ADD_USER: 'ADD_USER' = 'ADD_USER';
+export const PATH_USER: 'PATH_USER' = 'PATH_USER';
+export const GET_USER: 'GET_USER' = 'GET_USER';
+export const AUTH_ERROR: 'AUTH_ERROR' = 'AUTH_ERROR';
+export const RESET_PASSWORD: 'RESET_PASSWORD' = 'RESET_PASSWORD';
+export const FORGOT_PASSWORD: 'FORGOT_PASSWORD' = 'FORGOT_PASSWORD';
+export const REFRESH_TOKEN: 'REFRESH_TOKEN' = 'REFRESH_TOKEN';
+export const AUTH_CHECKED: 'AUTH_CHECKED' = 'AUTH_CHECKED';
 
 interface ILogiData {
-    'email': string | undefined,
-    'password': string | undefined
+    email: string | undefined,
+    password: string | undefined
 }
-interface IUserData extends ILogiData {
-    'name': string | undefined
+interface IUserData {
+    name: string | undefined,
+    password: string | undefined,
+    email: string | undefined
 }
 interface IResetPassData {
-    'password': string | undefined,
-    'token': string | undefined
+    password: string | undefined,
+    token: string | undefined
 }
 
-export const loginUser = (data: ILogiData) => {
-    return function (dispatch: any) {
+export const checkUserAuth = (): AppThunk => {
+    return function (dispatch: AppDispatch) {
+        if (readCookie("accessToken")) {
+
+            const accessToken = 'Bearer ' + readCookie('accessToken')?.toString();
+            request((`${API_URL}/auth/user`), {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json', 'authorization': accessToken }
+            }).then(res => {
+                dispatch({
+                    type: ADD_USER,
+                    payload: {
+                        user: res.user,
+                    }
+                })
+            }).catch(err => {
+                if (err.status === 401) {
+                    refreshAccessToken()
+                }
+            }).finally(() => {
+                dispatch({ type: AUTH_CHECKED })
+            })
+
+        } else {
+            dispatch({ type: AUTH_CHECKED })
+        }
+    }
+}
+
+export const loginUser = (data: ILogiData): AppThunk => {
+
+    return function (dispatch: AppDispatch) {
         request((`${API_URL}/auth/login`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -45,8 +84,11 @@ export const loginUser = (data: ILogiData) => {
                     password: data.password
                 }
             })
-            setCookie('accessToken', res.accessToken?.split('Bearer ')[1]);
-            setCookie('refreshToken', res.refreshToken);
+
+            
+            if (res.accessToken) setCookie('accessToken', res.accessToken?.split('Bearer ')[1]);
+            if (res.refreshToken) setCookie('refreshToken', res.refreshToken);
+
         }).catch(err => {
             console.log(err)
             if (err.status === 401) {
@@ -58,9 +100,9 @@ export const loginUser = (data: ILogiData) => {
     }
 };
 
-export const logoutUser = () => {
+export const logoutUser = (): AppThunk => {
 
-    return function (dispatch: any) {
+    return function (dispatch: AppDispatch) {
         request((`${API_URL}/auth/logout`), {
             method: 'POST',
             body: JSON.stringify({
@@ -71,8 +113,8 @@ export const logoutUser = () => {
             dispatch({
                 type: LOG_OUT,
             })
-            setCookie('accessToken', '', {expires: -1});
-            setCookie('refreshToken', '', {expires: -1});
+            deleteCookie('accessToken');
+            deleteCookie('refreshToken');
         }).catch(err => {
             console.log(err)
             if (err.status === 401) {
@@ -84,8 +126,8 @@ export const logoutUser = () => {
     }
 };
 
-export const registerUser = (data: IUserData) => {
-    return function (dispatch: any) {
+export const registerUser = (data: IUserData): AppThunk => {
+    return function (dispatch: AppDispatch) {
         request((`${API_URL}/auth/register`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -98,8 +140,8 @@ export const registerUser = (data: IUserData) => {
                     password: data.password
                 }
             })
-            setCookie('accessToken', res.accessToken?.split('Bearer ')[1]);
-            setCookie('refreshToken', res.refreshToken);
+            if (res.accessToken) setCookie('accessToken', res.accessToken?.split('Bearer ')[1] );
+            if (res.refreshToken) setCookie('refreshToken', res.refreshToken);
         }).catch(err => {
             Promise.reject(`Ошибка регистрации${err}`);
             alert('Ошибка регистрации')
@@ -112,8 +154,8 @@ export const registerUser = (data: IUserData) => {
     }
 }
 
-export const refreshAccessToken = (): any => {
-    return function (dispatch: any) {
+export const refreshAccessToken = (): AppThunk => {
+    return function (dispatch: AppDispatch) {
         const refreshToken = readCookie('refreshToken');
         request((`${API_URL}/auth/token`), {
             method: 'POST',
@@ -125,8 +167,8 @@ export const refreshAccessToken = (): any => {
             dispatch({
                 type: REFRESH_TOKEN
             })
-            setCookie('refreshToken', res.refreshToken);
-            setCookie('accessToken', res.accessToken?.split('Bearer ')[1] );
+            if (res.accessToken) setCookie('accessToken', res.accessToken?.split('Bearer ')[1]);
+            if (res.refreshToken) setCookie('refreshToken', res.refreshToken);
         }).catch(err => {
             Promise.reject(`Ошибка обновления токена${err}`);
 
@@ -134,8 +176,8 @@ export const refreshAccessToken = (): any => {
     }
 }
 
-export const changeUserData = (newData: IUserData) => {
-    return function (dispatch: any) {
+export const changeUserData = (newData: IUserData): AppThunk => {
+    return function (dispatch: AppDispatch) {
         const accessToken = 'Bearer ' + readCookie('accessToken')?.toString();
         request((`${API_URL}/auth/user`), {
             method: 'PATCH',
@@ -150,8 +192,8 @@ export const changeUserData = (newData: IUserData) => {
     }
 }
 
-export const getUserApi = (): any => {
-    return function (dispatch: any) {
+export const getUserApi = (): AppThunk => {
+    return async function (dispatch: AppDispatch) {
         const accessToken = 'Bearer ' + readCookie('accessToken')?.toString();
         request((`${API_URL}/auth/user`), {
             method: 'GET',
@@ -171,8 +213,8 @@ export const getUserApi = (): any => {
     }
 };
 
-export const forgotPassword = (data: {'email': string | undefined}) => {
-    return function (dispatch: any) {
+export const forgotPassword = (data: { email: string | undefined }): AppThunk => {
+    return function (dispatch: AppDispatch) {
         request((`${API_URL}/password-reset`), {
             method: 'POST',
             body: JSON.stringify(data),
@@ -193,8 +235,8 @@ export const forgotPassword = (data: {'email': string | undefined}) => {
     }
 };
 
-export const resetPassword = (data: IResetPassData) => {
-    return function (dispatch: any) {
+export const resetPassword = (data: IResetPassData): AppThunk => {
+    return function (dispatch: TAppDispatch) {
         request((`${API_URL}/password-reset/reset`), {
             method: 'POST',
             body: JSON.stringify(data),

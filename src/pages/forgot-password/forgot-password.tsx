@@ -3,12 +3,12 @@ import styles from './forgot-password.module.css';
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate } from "react-router-dom";
 import { forgotPassword } from "../../services/user/UserAction";
-import { useDispatch, useSelector } from "react-redux";
 import { getIsForgotPass } from "../../services/user/UserSelectors";
-import { useForm } from "../../hooks/useForm";
+import { useAppSelector, useDispatch, useForm } from '../../hooks/hooks';
+
 export const ForgotPassword: React.FC = () => {
-    const dispatch: any = useDispatch();
-    const isPasswordForgot = useSelector(getIsForgotPass)
+    const dispatch = useDispatch();
+    const isPasswordForgot = useAppSelector(getIsForgotPass)
     const {values, handleChange} = useForm({})
     const sabmitForgotPassHandler = (e: React.FormEvent) => {
         e.preventDefault()
