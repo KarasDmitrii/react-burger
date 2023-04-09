@@ -5,8 +5,6 @@ import { AppThunk } from "../../hooks/hooks";
 import { request } from "../../utils/Request";
 import { API_URL } from '../../utils/TrueBurgerApi';
 import { AppDispatch } from "../../utils/types";
-import { getUser } from "./UserSelectors";
-
 import { deleteCookie, readCookie, setCookie } from "./UserServices";
 
 export const LOG_IN: 'LOG_IN' = 'LOG_IN';
@@ -156,7 +154,7 @@ export const registerUser = (data: IUserData): AppThunk => {
 
 export const refreshAccessToken = (): AppThunk => {
     return function (dispatch: AppDispatch) {
-        const refreshToken = readCookie('refreshToken');
+        const refreshToken = readCookie('refreshToken') || 'null';
         request((`${API_URL}/auth/token`), {
             method: 'POST',
             body: JSON.stringify({

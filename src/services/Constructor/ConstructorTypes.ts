@@ -8,7 +8,7 @@ export interface IAddItemAction {
 
 export interface IAddBunAction {
     readonly type: typeof ADD_BUN,
-    payload: IIngredient
+    payload: IIngWithKey
 }
     
 export interface IDeleteItemAction {

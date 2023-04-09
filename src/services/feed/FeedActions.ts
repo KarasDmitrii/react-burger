@@ -17,7 +17,7 @@ export const feedActions = {
   wsConecting: WS_FEED_CONNECTION_SUCCESS,
   onOpen: WS_FEED_CONNECTION_START,
   onClose: WS_FEED_CONNECTION_CLOSED,
-  onError: WS_FEED_CONNECTION_ERROR,
+  onError: WS_FEED_CONNECTION_ERROR, 
   onMessage: WS_FEED_GET_MESSAGE
 }
 

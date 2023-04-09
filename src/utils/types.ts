@@ -104,10 +104,10 @@ export interface IWsResp {
 // >; 
 // export const useAppDispatch = () => useDispatch<AppDispatch>()
 
-export const nullIngredientWithKey: IIngredient = {
+export const nullIngredient: IIngredient = {
     _id: '',
     name: '',
-    type: '',
+    type: 'main',
     fat: '',
     carbohydrates: '',
     proteins: '',

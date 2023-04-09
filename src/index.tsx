@@ -4,7 +4,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { initStore } from './services/Store';
 import { Provider } from 'react-redux';
-import { DndProvider } from 'react-dnd'
+import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { App } from './components/App/App';
@@ -15,7 +15,7 @@ if (!rootElement) throw new Error('Failed to find the root element');
 const root = ReactDOM.createRoot(rootElement);
 
 
-const defaultState: TInitState = {
+export const defaultState: TInitState = {
   data: {
     allData: [],
     buns: [],

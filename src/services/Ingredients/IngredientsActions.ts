@@ -10,7 +10,7 @@ export const GET_ING_LOADING: 'GET_ING_LOADING' = 'GET_ING_LOADING';
 export const loadIngredients = (): AppThunk => {
     return function (dispatch) {
         dispatch({ type: GET_ING_LOADING });
-        getApiIngredients().then(res => {
+        getApiIngredients().then(res => { 
            
             dispatch({
                 type: GET_ING_SUCCESS,

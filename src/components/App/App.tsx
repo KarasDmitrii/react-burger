@@ -32,9 +32,9 @@ export const App: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadIngredients())
-    
+
     if (readCookie('refreshToken')) {
-      // dispatch(refreshAccessToken());
+
       dispatch(checkUserAuth())
     }
   }, []);
@@ -61,14 +61,6 @@ export const App: React.FC = () => {
               </ProtectedRoute>
 
             } />
-
-            {/* <Route path='orders/:id' element={
-              <ProtectedRoute anonymous={false}>
-                <OrderFeedModal />
-              </ProtectedRoute>
-            } /> */}
-
-
           </Route>
           <Route path='/login' element={
             <ProtectedRoute anonymous={true}>
@@ -92,8 +84,8 @@ export const App: React.FC = () => {
           <Route path='/feed/:id' element={<OrderFeedModal />} />
           <Route path='/orders/:id' element={
             // <ProtectedRoute anonymous={false}>
-              <OrderProfileModal />}/>
-            
+            <OrderProfileModal />} />
+
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
         {background && (

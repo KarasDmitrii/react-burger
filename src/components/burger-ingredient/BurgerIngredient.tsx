@@ -34,14 +34,14 @@ const BurgerIngredient: React.FC<IburgerIngProps> = ({ item }) => {
 
     return (
 
-        <div className={`${styles.ingredient} mr-4 ml-4 mb-10 mt-6`}>
+        <div ref={dragRef} className={`${styles.ingredient} mr-4 ml-4 mb-10 mt-6`}>
             {count && <Counter count={count} size="default" extraClass="m-1" />}
-            <Link
+            <Link 
                 to={`/ingredients/${_id}`}
                 state={{ background: location }}
             >
                 <div className='ml-4'>
-                    <img ref={dragRef} alt={`${name}`} src={image} />
+                    <img  alt={`${name}`} src={image} />
                 </div>
             </Link>
             <div className={`${styles.price} mt-1 mb-1`}>

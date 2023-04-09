@@ -2,7 +2,7 @@ import update from 'immutability-helper';
 import {
     ADD_ITEM,
     ADD_BUN,
-    DELETE_ITEM,
+    DELETE_ITEM, 
     MOVE_CARD,
     COMPOSE_ORDER
 } from './ConstructorActions';
@@ -33,7 +33,7 @@ export const сonstructorReducer = (state = initialState, action: TConstructorAc
         case ADD_BUN: {
             return {
                 ...state,
-                bun: action.payload
+                bun: action.payload.item
             }
         };
         case MOVE_CARD: {
@@ -50,7 +50,7 @@ export const сonstructorReducer = (state = initialState, action: TConstructorAc
             }
         };
         case COMPOSE_ORDER:
-            const order = state.otherIng.map(elem => elem.item._id)
+            const order = state.otherIng?.map(elem => elem.item._id)
             if (state.bun) order.push(state.bun._id)
             return {
                 ...state,

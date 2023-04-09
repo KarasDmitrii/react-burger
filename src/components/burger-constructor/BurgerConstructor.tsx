@@ -10,7 +10,7 @@ import { CLOSE_ORDER_MODAL, sendOrder } from '../../services/Order/OrderActions'
 import OrderDetails from '../order-details/OrderDetails';
 import { useNavigate } from 'react-router-dom';
 import { Modal } from '../modal/Modal';
-import { IIngredient, IIngWithKey, nullIngredientWithKey } from '../../utils/types';
+import { IIngredient, IIngWithKey, nullIngredient } from '../../utils/types';
 import { useAppSelector, useDispatch } from '../../hooks/hooks';
 
 
@@ -29,7 +29,7 @@ const BurgerConstructor: React.FC = () => {
         accept: 'ingItem',
         drop(itemId: {_id: string}) {
             
-            dispatch(addItem(allData.find((element: IIngredient) => element._id === itemId._id) || nullIngredientWithKey))
+            dispatch(addItem({item: allData.find((element) => element._id === itemId._id) || nullIngredient, key: crypto.randomUUID()}))
         
         },
     })
@@ -62,10 +62,10 @@ const BurgerConstructor: React.FC = () => {
     }
 
     return (
-        <div ref={dropTarget} className={`${styles.box} ml-5 mt-25 mb-10`}>
+        <div  className={`${styles.box} ml-5 mt-25 mb-10`}>
 
             <div className={styles.constructorBox}>
-                <div className={styles.gapBox}>
+                <div className={styles.gapBox} ref={dropTarget}>
                     <div className="ml-8 mr-4">
                         {bun ? (
                             <ConstructorElement
