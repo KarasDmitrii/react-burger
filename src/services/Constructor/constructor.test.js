@@ -1,6 +1,6 @@
 import { nullIngredient } from "../../utils/types";
 import { ADD_BUN, ADD_ITEM, DELETE_ITEM, COMPOSE_ORDER, MOVE_CARD, addItem } from "./ConstructorActions";
-import { сonstructorReducer } from "./ConstructorReducer";
+import { constructorInitialState, сonstructorReducer } from "./ConstructorReducer";
 const itemWithKey = { item: nullIngredient, key: '1' }
 
 describe('Action creators', () => {
@@ -51,11 +51,7 @@ describe('Action creators', () => {
 
 describe('constructor reducer', () => {
     it('should return the initial state', () => {
-        expect(сonstructorReducer(undefined, {})).toEqual({
-            bun: null,
-            otherIng: [],
-            order: { "ingredients": [] },
-        });
+        expect(сonstructorReducer(undefined, {})).toEqual(constructorInitialState);
     });
 
     it('should handle ADD_ITEM action', () => {

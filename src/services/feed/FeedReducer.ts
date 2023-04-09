@@ -6,13 +6,13 @@ import {
 } from './FeedActions';
 import { IFeedState, TFeedActions } from './FeedTypes';
 
-const initialState: IFeedState = {
+export const feedInitialState: IFeedState = {
     wsFeedConnected: false,
     feedError: undefined,
     feedMessages: undefined
 };
 
-export const feedReducer = (state = initialState, action: TFeedActions ): IFeedState => {
+export const feedReducer = (state = feedInitialState, action: TFeedActions ): IFeedState => {
     switch (action.type) {
     
         case WS_FEED_CONNECTION_SUCCESS:

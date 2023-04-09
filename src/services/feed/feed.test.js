@@ -1,5 +1,4 @@
-import { feedReducer } from './FeedReducer';
-import { IFeedState, TFeedActions } from './FeedTypes';
+import { feedInitialState, feedReducer } from './FeedReducer';
 import { 
   WS_FEED_CONNECTION_SUCCESS, 
   WS_FEED_CONNECTION_ERROR, 
@@ -10,28 +9,24 @@ import {
 } from './FeedActions';
 
 describe('feedReducer', () => {
-  let initialState;
+  
 
   beforeEach(() => {
-    initialState = {
-      wsFeedConnected: false,
-      feedError: undefined,
-      feedMessages: undefined
-    };
+    
   });
 
   it('should return the initial state', () => {
     const state = feedReducer(undefined, {} );
-    expect(state).toEqual(initialState);
+    expect(state).toEqual(feedInitialState);
   });
 
   it('should handle WS_FEED_CONNECTION_SUCCESS', () => {
     const action = {
       type: WS_FEED_CONNECTION_SUCCESS
     };
-    const state = feedReducer(initialState, action );
+    const state = feedReducer(feedInitialState, action );
     expect(state).toEqual({
-      ...initialState,
+      ...feedInitialState,
       wsFeedConnected: true
     });
   });
@@ -41,9 +36,9 @@ describe('feedReducer', () => {
       type: WS_FEED_CONNECTION_ERROR,
       payload: 'Test Error'
     };
-    const state = feedReducer(initialState, action );
+    const state = feedReducer(feedInitialState, action );
     expect(state).toEqual({
-      ...initialState,
+      ...feedInitialState,
       feedError: 'Test Error',
       wsFeedConnected: false
     });
@@ -53,9 +48,9 @@ describe('feedReducer', () => {
     const action = {
       type: WS_FEED_CONNECTION_CLOSED
     };
-    const state = feedReducer(initialState, action );
+    const state = feedReducer(feedInitialState, action );
     expect(state).toEqual({
-      ...initialState,
+      ...feedInitialState,
       wsFeedConnected: false
     });
   });
@@ -65,9 +60,9 @@ describe('feedReducer', () => {
       type: WS_FEED_GET_MESSAGE,
       payload: ['Test Message']
     };
-    const state = feedReducer(initialState, action );
+    const state = feedReducer(feedInitialState, action );
     expect(state).toEqual({
-      ...initialState,
+      ...feedInitialState,
       feedMessages: ['Test Message']
     });
   });

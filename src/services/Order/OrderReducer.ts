@@ -6,14 +6,14 @@ import {
 } from "./OrderActions";
 import { IOrderInitState, TOrderActions } from "./OrderTypes";
 
-const initialState: IOrderInitState = {
+export const orderInitialState: IOrderInitState = {
     isOrdModalOpen: false,
     orderNum: 0,
     sendOrderError: false,
     isOrdLoading: false,
 }
 
-export const orderReducer = (state = initialState, action: TOrderActions) => {
+export const orderReducer = (state = orderInitialState, action: TOrderActions) => {
     switch (action.type) {
         case CLOSE_ORDER_MODAL:
             return {

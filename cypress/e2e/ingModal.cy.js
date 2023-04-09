@@ -1,8 +1,9 @@
+import {API_URL} from '../../src/utils/TrueBurgerApi'
 describe('Test ingModal', () => {
     beforeEach(function () {
         cy.viewport(1700, 1110);
-        cy.visit("http://localhost:3000");
-        cy.intercept("GET", "https://norma.nomoreparties.space/api/ingredients", { fixture: "ingredients.json" });
+        cy.visit("/");
+        cy.intercept("GET", `${API_URL}/ingredients`, { fixture: "ingredients.json" });
   
     })
 

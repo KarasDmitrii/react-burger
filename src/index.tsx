@@ -6,7 +6,7 @@ import { initStore } from './services/Store';
 import { Provider } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import { App } from './components/App/App';
 import { TInitState } from './utils/types';
 

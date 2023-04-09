@@ -75,13 +75,14 @@ export const loginUser = (data: ILogiData): AppThunk => {
                 })
                 alert('Неверный email или пароль')
             }
+            if(res.success) {
             dispatch({
                 type: ADD_USER,
                 payload: {
                     user: res.user,
                     password: data.password
                 }
-            })
+            })}
 
             
             if (res.accessToken) setCookie('accessToken', res.accessToken?.split('Bearer ')[1]);

@@ -47,6 +47,7 @@ export const usersReducer = (state = initialState, action: TUserActions): IUserI
         case AUTH_ERROR:
             return {
                 ...state,
+                activeUser: false,
                 authError: true
             }
         case RESET_PASSWORD:

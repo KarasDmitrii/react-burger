@@ -6,7 +6,7 @@ import {
 } from "./IngredientsActions";
 import { IIngredientsInitState, TIngredientsActions } from "./IngredientsTypes";
 
-const initialState: IIngredientsInitState = {
+export const ingInitialState: IIngredientsInitState = {
     allData: [],
     buns: [],
     mains: [],
@@ -15,7 +15,7 @@ const initialState: IIngredientsInitState = {
     isApiLoad: false,
 }
 
-export const ingredientsReducer = (state = initialState, action: TIngredientsActions) => {
+export const ingredientsReducer = (state = ingInitialState, action: TIngredientsActions) => {
     switch (action.type) {
         case GET_ING_SUCCESS:
             return {

@@ -1,18 +1,11 @@
 
 
 import { GET_ING_ERROR, GET_ING_LOADING, GET_ING_SUCCESS, loadIngredients } from './IngredientsActions';
-import { ingredientsReducer } from './IngredientsReducer'
+import { ingInitialState, ingredientsReducer } from './IngredientsReducer'
 
 describe('ingredientsReducer', () => {
 
-    const initialState = {
-        allData: [],
-        buns: [],
-        mains: [],
-        sauces: [],
-        isLoading: false,
-        isApiLoad: false,
-    };
+  
 
     it('should update state correctly on successful API response', () => {
         const mockPayload = {
@@ -33,7 +26,7 @@ describe('ingredientsReducer', () => {
         }
 
         const expectedState = {
-            ...initialState,
+            ...ingInitialState,
             allData: mockPayload.data,
             buns: [{
                 type: 'bun',
@@ -55,40 +48,40 @@ describe('ingredientsReducer', () => {
             type: GET_ING_SUCCESS,
             payload: mockPayload
         };
-        const updatedState = ingredientsReducer(initialState, action);
+        const updatedState = ingredientsReducer(ingInitialState, action);
 
         expect(updatedState).toEqual(expectedState);
     });
 
     it('should update state correctly on failed API response', () => {
         const expectedState = {
-            ...initialState,
+            ...ingInitialState,
             isLoading: false
         };
 
         const action = { type: GET_ING_ERROR };
-        const updatedState = ingredientsReducer(initialState, action);
+        const updatedState = ingredientsReducer(ingInitialState, action);
 
         expect(updatedState).toEqual(expectedState);
     });
 
     it('should update state correctly when API is loading', () => {
         const expectedState = {
-            ...initialState,
+            ...ingInitialState,
             isLoading: true
         };
 
         const action = { type: GET_ING_LOADING};
-        const updatedState = ingredientsReducer(initialState, action);
+        const updatedState = ingredientsReducer(ingInitialState, action);
 
         expect(updatedState).toEqual(expectedState);
     });
 
     it('should return the same state for unknown action types', () => {
-        const expectedState = initialState;
+        const expectedState = ingInitialState;
 
         const action = { type: 'UNKNOWN_ACTION_TYPE' };
-        const updatedState = ingredientsReducer(initialState, action);
+        const updatedState = ingredientsReducer(ingInitialState, action);
 
         expect(updatedState).toEqual(expectedState);
     });
