@@ -1,4 +1,4 @@
-## deploy on https://karasdmitrii.github.io/react-burger/
+## deploy on https://karasdmitrii.github.io
 
 ## Available Scripts
 
