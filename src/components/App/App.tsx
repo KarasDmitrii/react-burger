@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import styles from './app.module.css';
+import styles from './App.module.css';
 import '../../../node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/ui/common.css';
 import { LoginPage } from "../../pages/login/Login";
 import { Profile } from "../../pages/profile/Profile";
