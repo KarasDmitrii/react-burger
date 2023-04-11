@@ -10,8 +10,8 @@ import { feedActions } from './feed/FeedActions';
 
 
 
-const wsOrdersMiddleware = socketMiddleware(orderListActions);
-const wsFeedMiddleware = socketMiddleware(feedActions);
+export const wsOrdersMiddleware = socketMiddleware(orderListActions);
+export const wsFeedMiddleware = socketMiddleware(feedActions);
 
 
 export const initStore = (defaultState: TInitState) => {

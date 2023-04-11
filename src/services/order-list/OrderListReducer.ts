@@ -10,7 +10,7 @@ import { TOrderListActions , IOrderListState } from './OrderListTypes';
 
 
 
-const initialState: IOrderListState = {
+export const orderListInitialState: IOrderListState = {
     wsOrdersConnected: false,
     ordersError: undefined,
     ordersMessages: {
@@ -20,7 +20,7 @@ const initialState: IOrderListState = {
     }
 };
 
-export const orderListReducer = (state = initialState, action: TOrderListActions ): IOrderListState => {
+export const orderListReducer = (state = orderListInitialState, action: TOrderListActions ): IOrderListState => {
     switch (action.type) {
     
         case WS_ORDERS_CONNECTION_SUCCESS:
