@@ -1,5 +1,4 @@
-## deploy https://karasdmitrii.github.io/react-burger/
-
+## deploy on https://karasdmitrii.github.io/react-burger/
 ## Available Scripts
 
 In the project directory, you can run:
